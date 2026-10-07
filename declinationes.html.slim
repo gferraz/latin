@@ -33,47 +33,46 @@ html
       }
   body
     h1 Declinationes
-    - columns = DECLINATIONES.size * GENERA.size
-    - NUMERI.each do |numerus|
+    - columnae = tabula.columnae
+    - tabula.numeri.each do |numerus|
         table
           thead
-              tr
-                th colspan="#{columns + 1}" = numerus.capitalize
+              tr: th colspan="#{columnae + 1}" = numerus.capitalize
               tr
                 th
-                - DECLINATIONES.each do |declinatio|
+                - tabula.declinationes.each do |declinatio|
                   th colspan=3 = declinatio
               tr
                 th Casus
-                - DECLINATIONES.each do |declinatio|
-                  - GENERA.each do |genus|
+                - tabula.declinationes.each do |declinatio|
+                  - tabula.genera.each do |genus|
                     th= genus
           tbody
-            - CASUS.each do |casus|
+            - tabula.casus.each do |casus|
               tr class="#{casus}"
                 th= casus.capitalize
-                - DECLINATIONES.each do |declinatio|
-                  - desinientiae = (DESINENTIAE.dig(casus, numerus, declinatio) || {}).transform_values { |v| v.join(" / -") }
-                  - if desinientiae.empty?
+                - tabula.declinationes.each do |declinatio|
+                  - desinentiae = tabula.desinentiae(casus, numerus, declinatio).transform_values { |v| v.join(" / -") }
+                  - if desinentiae.empty?
                     td colspan=3
                     - next
-                  - if desinientiae[:mf]
-                    - if desinientiae[:mf] == desinientiae[:n]
-                      td colspan=3 = "-" + desinientiae[:mf]
+                  - if desinentiae[:mf]
+                    - if desinentiae[:mf] == desinentiae[:n]
+                      td colspan=3 = "-" + desinentiae[:mf]
                       - next
                     - else
-                      td colspan=2 = "-" + desinientiae[:mf]
-                  - elsif desinientiae[:f]
+                      td colspan=2 = "-" + desinentiae[:mf]
+                  - elsif desinentiae[:f]
                     td
-                    td= "-" + desinientiae[:f]
+                    td= "-" + desinentiae[:f]
                   - else
                     td colspan=2
-                  - if desinientiae[:n]
-                    td= "-#{desinientiae[:n]}"
+                  - if desinentiae[:n]
+                    td= "-#{desinentiae[:n]}"
                   - else
                     td
-  - unless EXCEPTIONES.empty?
+  - unless tabula.exceptiones.empty?
     .notae
       ol
-        - EXCEPTIONES.each do |nota|
+        - tabula.exceptiones.each do |nota|
           li= nota
