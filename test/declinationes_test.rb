@@ -76,11 +76,20 @@ class DeclinationesTest < Minitest::Test
     html = render
 
     assert_equal 2, html.scan('<table').size
-    assert_equal 18, html.scan('<tr').size
+    assert_equal 16, html.scan('<tr').size
+    assert_includes html, '<caption>Singularis</caption>'
+    assert_includes html, '<caption>Pluralis</caption>'
+    assert_includes html, '>I</th>'
+    assert_includes html, '>V</th>'
     assert_includes html, '<div class="notae"><ol>'
-    assert_includes html, '<td colspan="3">-ī</td>'
-    assert_includes html, '<td colspan="2">-e / -ī</td>'
+    assert_includes html, 'tbody td {'
+    assert_includes html, '<td class="sep" colspan="3">-ī</td>'
+    assert_includes html, '<td class="sep" colspan="2">-e / -ī</td>'
     assert_includes html, '<td>-ēī / -eī</td>'
+    assert_includes html, '<th class="sep">m.</th>'
+    assert_includes html, '<th>m.</th>'
+    refute_includes html, '<th class="sep">f.</th>' # separator only between groups
+    refute_includes html, '<th class="sep">n.</th>'
   end
 
   def test_every_row_span_sums_to_the_header_width

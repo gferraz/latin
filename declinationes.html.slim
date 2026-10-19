@@ -2,75 +2,171 @@ doctype html
 html
   head
     meta charset="utf-8"
-    title Lingua Latina
+    title Dēclīnātiōnēs Latīnae
+    link rel="preconnect" href="https://fonts.googleapis.com"
+    link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""
+    link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap"
     css:
+      :root {
+        --ink: #2a2118;
+        --parchment: #faf6ee;
+        --rule: #d3c8b2;
+        --accent: #8a2b1e;
+        --zebra: #f3ede1;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        max-width: 62rem;
+        margin: 0 auto;
+        padding: 3rem 2rem 4rem;
+        background: var(--parchment);
+        color: var(--ink);
+        font-family: "EB Garamond", "Cardo", Georgia, "Times New Roman", serif;
+        font-size: 1.05rem;
+        line-height: 1.45;
+      }
+      h1 {
+        margin: 0;
+        text-align: center;
+        font-family: "Cardo", "EB Garamond", Georgia, serif;
+        font-weight: 400;
+        font-variant: small-caps;
+        letter-spacing: 0.1em;
+        font-size: 2.1rem;
+      }
+      h1::after {
+        content: "";
+        display: block;
+        width: 8rem;
+        margin: 0.6rem auto 0;
+        border-bottom: 1px solid var(--rule);
+      }
       table {
+        width: 100%;
         border-collapse: collapse;
-        margin: 25px 0;
-        font-size: 0.9em;
-        min-width: 400px;
+        margin: 2.5rem 0;
+        font-size: 0.95rem;
       }
+      caption {
+        font-variant: small-caps;
+        letter-spacing: 0.18em;
+        font-size: 1.3rem;
+        padding-bottom: 0.6rem;
+      }
+      th,
       td {
-        padding: 4px;
-        border: 1px solid;
+        padding: 0.4em 0.55em;
+        text-align: center;
+        vertical-align: baseline;
       }
-      th {
-        padding: 4px;
-        border: 1px solid;
-        min-width: 2em;
+      thead th {
+        border-bottom: 2px solid var(--ink);
+        font-weight: 600;
       }
+      thead tr:first-child th {
+        border-bottom: 1px solid var(--rule);
+      }
+      thead tr:nth-child(2) th:not(:first-child) {
+        font-style: italic;
+        font-weight: 400;
+      }
+      tbody th {
+        text-align: left;
+        font-variant: small-caps;
+        letter-spacing: 0.05em;
+        white-space: nowrap;
+      }
+      tbody th,
+      tbody td {
+        border-bottom: 1px solid var(--rule);
+      }
+      tbody tr:nth-child(even) {
+        background: var(--zebra);
+      }
+      tbody tr:hover {
+        background: #e9dfcb;
+      }
+      .sep {
+        border-left: 1px solid var(--rule);
+      }
+      tbody td {
+        border-left: 1px solid var(--rule);
+      }
+      tr.genitivus {
+        background: #f6ebe2;
+      }
+      tr.genitivus th,
       tr.genitivus td {
-        color: blue;
+        color: var(--accent);
+        font-weight: 600;
       }
       .notae {
-        margin-top: 20px;
+        margin-top: 2.5rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--rule);
+        font-size: 0.92rem;
       }
       .notae ol {
-        padding-left: 20px;
+        margin: 0;
+        padding-left: 1.4rem;
       }
       .notae li {
-        margin: 4px 0;
+        margin: 0.35em 0;
+      }
+      @media print {
+        body {
+          max-width: none;
+          padding: 0;
+          background: #fff;
+        }
+        tbody tr:nth-child(even),
+        tr.genitivus {
+          background: transparent;
+        }
       }
   body
     - format_endings = ->(tabula, desinentiae) { desinentiae.map { |desinentia| tabula.unique?(desinentia) ? "<strong>-#{desinentia}</strong>" : "-#{desinentia}" }.join(" / ") }
-    h1 Declinationes
-    - columnae = tabula.columnae
+    - roman = ->(n) { %w[I II III IV V][n - 1] }
+    h1 Dēclīnātiōnēs
     - tabula.numeri.each do |numerus|
         table
+          caption= numerus.capitalize
           thead
-              tr: th colspan="#{columnae + 1}" = numerus.capitalize
-              tr
-                th
-                - tabula.declinationes.each do |declinatio|
-                  th colspan=3 = declinatio
-              tr
-                th Casus
-                - tabula.declinationes.each do |declinatio|
-                  - tabula.genera.each do |genus|
-                    th= genus
+            tr
+              th
+              - tabula.declinationes.each_with_index do |declinatio, index|
+                th colspan=3 class=("sep" if index.positive?) = roman.call(declinatio)
+            tr
+              th Cāsus
+              - tabula.declinationes.each_with_index do |declinatio, index|
+                - tabula.genera.each_with_index do |genus, index_generis|
+                  th class=("sep" if index_generis.zero? && index.positive?) = "#{genus}."
           tbody
             - tabula.casus.each do |casus|
               tr class="#{casus}"
                 th= casus.capitalize
-                - tabula.declinationes.each do |declinatio|
+                - tabula.declinationes.each_with_index do |declinatio, index|
+                  - separatio = ("sep" if index.positive?)
                   - desinentiae = tabula.desinentiae(casus, numerus, declinatio)
                   - if desinentiae.empty?
-                    td colspan=3
+                    td colspan=3 class=separatio
                     - next
                   - if desinentiae[:mf]
                     - if desinentiae[:mf] == desinentiae[:n]
-                      td colspan=3
+                      td colspan=3 class=separatio
                         == format_endings.call(tabula, desinentiae[:mf])
                       - next
                     - else
-                      td colspan=2
+                      td colspan=2 class=separatio
                         == format_endings.call(tabula, desinentiae[:mf])
                   - elsif desinentiae[:f]
-                    td
+                    td class=separatio
                     td
                       == format_endings.call(tabula, desinentiae[:f])
                   - else
-                    td colspan=2
+                    td colspan=2 class=separatio
                   - if desinentiae[:n]
                     td
                       == format_endings.call(tabula, desinentiae[:n])
