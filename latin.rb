@@ -142,10 +142,12 @@ class Declinationes
     @desinentiae.fetch(casus, {}).fetch(numerus, {}).fetch(declinatio, {})
   end
 
+  # Uma entrada por célula: gêneros que compartilham a mesma desinência
+  # (ex.: -ōrum no gen. pl. da 2ª, m./f./n.) contam uma única vez.
   def omnes_desinentiae
     @omnes_desinentiae ||= @desinentiae.each_value.flat_map do |per_numerus|
       per_numerus.each_value.flat_map do |per_declinationem|
-        per_declinationem.each_value.flat_map { |per_genus| per_genus.values.flatten }
+        per_declinationem.each_value.flat_map { |per_genus| per_genus.values.flatten.uniq }
       end
     end.freeze
   end

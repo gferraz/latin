@@ -96,12 +96,16 @@ class DeclinationesTest < Minitest::Test
     assert @tabula.unique?('am')    # acc. sg. 1st
     assert @tabula.unique?('uī')    # dat. sg. 4th (m./f.)
     assert @tabula.unique?('ārum')  # gen. pl. 1st
+    assert @tabula.unique?('ōrum')  # gen. pl. 2nd (m./f./n. share the cell)
+    assert @tabula.unique?('uum')   # gen. pl. 4th (m./f./n. share the cell)
+    assert @tabula.unique?('is')    # gen. sg. 3rd (m./f./n. share the cell)
     assert @tabula.unique?('ērum')  # gen. pl. 5th
 
     refute @tabula.unique?('ae')    # nom./gen./dat. sg. and nom. pl. 1st
     refute @tabula.unique?('ī')     # gen./dat. sg. 2nd, dat. 3rd...
     refute @tabula.unique?('ibus')  # dat./abl. pl. 3rd and 4th
     refute @tabula.unique?('īs')    # dat./abl. pl. 1st and 2nd
+    refute @tabula.unique?('um')    # acc./gen. pl. 2nd and 3rd, nom. sg. 2nd...
     refute @tabula.unique?('missing')
   end
 
@@ -123,6 +127,9 @@ class DeclinationesTest < Minitest::Test
 
     assert_includes html, '<strong>-am</strong>'
     assert_includes html, '<strong>-ārum</strong>'
+    assert_includes html, '<strong>-ōrum</strong>'
+    assert_includes html, '<strong>-uum</strong>'
+    assert_includes html, '<strong>-is</strong>'
     assert_includes html, '<strong>-uī</strong>'
     assert_includes html, '<strong>-ōs</strong>'
 
@@ -130,6 +137,7 @@ class DeclinationesTest < Minitest::Test
     refute_includes html, '<strong>-ibus</strong>'
     refute_includes html, '<strong>-ī</strong>'
     refute_includes html, '<strong>-us</strong>'
+    refute_includes html, '<strong>-um</strong>'
   end
 
   private
