@@ -92,6 +92,46 @@ class DeclinationesTest < Minitest::Test
     end
   end
 
+  def test_unique_endings_occur_only_once
+    assert @tabula.unique?('am')    # acc. sg. 1st
+    assert @tabula.unique?('uī')    # dat. sg. 4th (m./f.)
+    assert @tabula.unique?('ārum')  # gen. pl. 1st
+    assert @tabula.unique?('ērum')  # gen. pl. 5th
+
+    refute @tabula.unique?('ae')    # nom./gen./dat. sg. and nom. pl. 1st
+    refute @tabula.unique?('ī')     # gen./dat. sg. 2nd, dat. 3rd...
+    refute @tabula.unique?('ibus')  # dat./abl. pl. 3rd and 4th
+    refute @tabula.unique?('īs')    # dat./abl. pl. 1st and 2nd
+    refute @tabula.unique?('missing')
+  end
+
+  def test_uniqueness_uses_instance_data
+    repeated = Declinationes.new({
+      nominativus: { singularis: { 1 => { mf: %w[x] } } },
+      vocativus:   { singularis: { 1 => { mf: %w[x] } } }
+    })
+    once = Declinationes.new({
+      nominativus: { singularis: { 1 => { mf: %w[y] } } }
+    })
+
+    refute repeated.unique?('x')
+    assert once.unique?('y')
+  end
+
+  def test_render_bolds_only_unique_endings
+    html = render
+
+    assert_includes html, '<strong>-am</strong>'
+    assert_includes html, '<strong>-ārum</strong>'
+    assert_includes html, '<strong>-uī</strong>'
+    assert_includes html, '<strong>-ōs</strong>'
+
+    refute_includes html, '<strong>-ae</strong>'
+    refute_includes html, '<strong>-ibus</strong>'
+    refute_includes html, '<strong>-ī</strong>'
+    refute_includes html, '<strong>-us</strong>'
+  end
+
   private
 
   def render

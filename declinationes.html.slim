@@ -32,6 +32,7 @@ html
         margin: 4px 0;
       }
   body
+    - format_endings = ->(tabula, desinentiae) { desinentiae.map { |desinentia| tabula.unique?(desinentia) ? "<strong>-#{desinentia}</strong>" : "-#{desinentia}" }.join(" / ") }
     h1 Declinationes
     - columnae = tabula.columnae
     - tabula.numeri.each do |numerus|
@@ -52,23 +53,27 @@ html
               tr class="#{casus}"
                 th= casus.capitalize
                 - tabula.declinationes.each do |declinatio|
-                  - desinentiae = tabula.desinentiae(casus, numerus, declinatio).transform_values { |v| v.join(" / -") }
+                  - desinentiae = tabula.desinentiae(casus, numerus, declinatio)
                   - if desinentiae.empty?
                     td colspan=3
                     - next
                   - if desinentiae[:mf]
                     - if desinentiae[:mf] == desinentiae[:n]
-                      td colspan=3 = "-" + desinentiae[:mf]
+                      td colspan=3
+                        == format_endings.call(tabula, desinentiae[:mf])
                       - next
                     - else
-                      td colspan=2 = "-" + desinentiae[:mf]
+                      td colspan=2
+                        == format_endings.call(tabula, desinentiae[:mf])
                   - elsif desinentiae[:f]
                     td
-                    td= "-" + desinentiae[:f]
+                    td
+                      == format_endings.call(tabula, desinentiae[:f])
                   - else
                     td colspan=2
                   - if desinentiae[:n]
-                    td= "-#{desinentiae[:n]}"
+                    td
+                      == format_endings.call(tabula, desinentiae[:n])
                   - else
                     td
   - unless tabula.exceptiones.empty?

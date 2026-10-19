@@ -142,7 +142,23 @@ class Declinationes
     @desinentiae.fetch(casus, {}).fetch(numerus, {}).fetch(declinatio, {})
   end
 
+  def omnes_desinentiae
+    @omnes_desinentiae ||= @desinentiae.each_value.flat_map do |per_numerus|
+      per_numerus.each_value.flat_map do |per_declinationem|
+        per_declinationem.each_value.flat_map { |per_genus| per_genus.values.flatten }
+      end
+    end.freeze
+  end
+
+  def unique?(desinentia)
+    ending_counts.fetch(desinentia, 0) == 1
+  end
+
   private
+
+  def ending_counts
+    @ending_counts ||= omnes_desinentiae.tally
+  end
 
   def validate!(value, allowed, label)
     return if allowed.include?(value)
