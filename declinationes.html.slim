@@ -141,6 +141,10 @@ html lang="la"
       tbody tr:hover {
         background: #e9dfcb;
       }
+      .desinentia-match {
+        background: #f2dfa8;
+        box-shadow: inset 0 0 0 1px var(--gold);
+      }
       .sep {
         border-left: 2px solid var(--separator);
       }
@@ -175,6 +179,10 @@ html lang="la"
         }
         .vine { display: none; }
         .frontispiece { padding: 0.5rem 0; }
+        .desinentia-match {
+          background: transparent;
+          box-shadow: none;
+        }
         body {
           padding: 0;
           background: #fff;
@@ -193,6 +201,7 @@ html lang="la"
       }
   body
     - format_endings = ->(tabula, desinentiae) { desinentiae.map { |desinentia| tabula.unique?(desinentia) ? "<strong>-#{desinentia}</strong>" : "-#{desinentia}" }.join(" / ") }
+    - data_desinentiae = ->(desinentiae) { desinentiae.join(" ") }
     - roman = ->(n) { %w[I II III IV V][n - 1] }
     header.frontispiece
       - %w[vine-left vine-right].each do |side|
@@ -231,20 +240,20 @@ html lang="la"
                     - next
                   - if desinentiae[:mf]
                     - if desinentiae[:mf] == desinentiae[:n]
-                      td colspan=3 class=separatio
+                      td colspan=3 class=separatio data-desinentiae=data_desinentiae.call(desinentiae[:mf])
                         == format_endings.call(tabula, desinentiae[:mf])
                       - next
                     - else
-                      td colspan=2 class=separatio
+                      td colspan=2 class=separatio data-desinentiae=data_desinentiae.call(desinentiae[:mf])
                         == format_endings.call(tabula, desinentiae[:mf])
                   - elsif desinentiae[:f]
                     td class=separatio
-                    td
+                    td data-desinentiae=data_desinentiae.call(desinentiae[:f])
                       == format_endings.call(tabula, desinentiae[:f])
                   - else
                     td colspan=2 class=separatio
                   - if desinentiae[:n]
-                    td
+                    td data-desinentiae=data_desinentiae.call(desinentiae[:n])
                       == format_endings.call(tabula, desinentiae[:n])
                   - else
                     td
@@ -253,3 +262,47 @@ html lang="la"
         ol
           - tabula.exceptiones.each do |nota|
             li= nota
+    javascript:
+      // Highlight every cell that shares an ending with the hovered one.
+      (function () {
+        var CELL_SELECTOR = 'td[data-desinentiae]';
+        var MATCH_CLASS = 'desinentia-match';
+
+        function desinentiae(cell) {
+          return new Set((cell.dataset.desinentiae || '').split(/\s+/).filter(Boolean));
+        }
+
+        function sharesEnding(a, b) {
+          for (var ending of a) {
+            if (b.has(ending)) return true;
+          }
+          return false;
+        }
+
+        function clear() {
+          document.querySelectorAll('.' + MATCH_CLASS).forEach(function (cell) {
+            cell.classList.remove(MATCH_CLASS);
+          });
+        }
+
+        function highlight(target) {
+          clear();
+          var reference = desinentiae(target);
+          if (!reference.size) return;
+          document.querySelectorAll(CELL_SELECTOR).forEach(function (cell) {
+            if (sharesEnding(reference, desinentiae(cell))) {
+              cell.classList.add(MATCH_CLASS);
+            }
+          });
+        }
+
+        document.querySelectorAll(CELL_SELECTOR).forEach(function (cell) {
+          cell.addEventListener('mouseenter', function () {
+            highlight(cell);
+          });
+        });
+
+        document.querySelectorAll('table').forEach(function (table) {
+          table.addEventListener('mouseleave', clear);
+        });
+      })();

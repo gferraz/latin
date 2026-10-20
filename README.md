@@ -118,6 +118,11 @@ column. The same mid-tone draws the horizontal rule under the gender headings.
 Cardo is the only webfont, used for body text and headings alike. EB Garamond was
 tried first but was dropped: its `u` is easily mistaken for `v` at table size.
 
+Hovering an ending cell highlights every cell that shares an ending with it. Each
+ending cell carries a `data-desinentiae` attribute listing its endings, and a
+small script toggles the `desinentia-match` class on the matches. Cells that offer
+alternatives (such as `-ibus / -ubus`) match on any of their endings.
+
 Because the fonts come from Google Fonts, an offline viewer falls back to the
 local serif stack. A `@media print` block removes the background tints so the
 tables print cleanly.

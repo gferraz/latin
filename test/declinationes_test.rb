@@ -85,15 +85,28 @@ class DeclinationesTest < Minitest::Test
     assert_includes html, '<div class="notae">'
     assert_includes html, '<ol>'
     assert_includes html, 'tbody td {'
-    assert_match %r{<td class="sep" colspan="3">\s*-ī\s*</td>}, html
-    assert_match %r{<td class="sep" colspan="2">\s*-e / -ī\s*</td>}, html
-    assert_match %r{<td>\s*-ēī / -eī\s*</td>}, html
+    assert_match %r{<td class="sep" colspan="3"[^>]*>\s*-ī\s*</td>}, html
+    assert_match %r{<td class="sep" colspan="2"[^>]*>\s*-e / -ī\s*</td>}, html
+    assert_match %r{<td[^>]*>\s*-ēī / -eī\s*</td>}, html
     assert_match %r{<th class="sep" scope="col">\s*m\.\s*</th>}, html
     assert_equal 10, html.scan(%r{<th class="sep" scope="col">\s*m\.\s*</th>}).size # every group, five per table
     refute_match %r{<th class="sep" scope="col">\s*f\.\s*</th>}, html # separator only between groups
     assert_match %r{<th scope="row">\s*Nominativus\s*</th>}, html
     assert_match %r{<th class="sep" colspan="3" scope="colgroup">\s*I\s*</th>}, html # line before the first group too
     assert_includes html, '<html lang="la">'
+  end
+
+  def test_ending_cells_expose_their_endings_for_highlighting
+    html = render
+
+    # every cell that shows an ending carries the machine-readable list
+    assert_includes html, 'data-desinentiae="ibus ubus"'
+    assert_includes html, 'data-desinentiae="e ī"'
+    assert_includes html, 'data-desinentiae="ōrum"'
+    # the script that highlights matching cells is present
+    assert_includes html, 'desinentia-match'
+    assert_includes html, 'data-desinentiae'
+    assert_match %r{<script>.*?addEventListener}m, html
   end
 
   def test_every_row_span_sums_to_the_header_width

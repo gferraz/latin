@@ -141,6 +141,10 @@
       tbody tr:hover {
         background: #e9dfcb;
       }
+      .desinentia-match {
+        background: #f2dfa8;
+        box-shadow: inset 0 0 0 1px var(--gold);
+      }
       .sep {
         border-left: 2px solid var(--separator);
       }
@@ -175,6 +179,10 @@
         }
         .vine { display: none; }
         .frontispiece { padding: 0.5rem 0; }
+        .desinentia-match {
+          background: transparent;
+          box-shadow: none;
+        }
         body {
           padding: 0;
           background: #fff;
@@ -278,25 +286,25 @@
           <th scope="row">
             Nominativus
           </th>
-          <td class="sep" colspan="2">
+          <td class="sep" colspan="2" data-desinentiae="a">
             -a
           </td>
           <td></td>
-          <td class="sep" colspan="2">
+          <td class="sep" colspan="2" data-desinentiae="us">
             -us
           </td>
-          <td>
+          <td data-desinentiae="um">
             -um
           </td>
           <td class="sep" colspan="3"></td>
-          <td class="sep" colspan="2">
+          <td class="sep" colspan="2" data-desinentiae="us">
             -us
           </td>
-          <td>
+          <td data-desinentiae="ū">
             -ū
           </td>
           <td class="sep"></td>
-          <td>
+          <td data-desinentiae="ēs">
             -ēs
           </td>
           <td></td>
@@ -305,25 +313,25 @@
           <th scope="row">
             Vocativus
           </th>
-          <td class="sep" colspan="2">
+          <td class="sep" colspan="2" data-desinentiae="a">
             -a
           </td>
           <td></td>
-          <td class="sep" colspan="2">
+          <td class="sep" colspan="2" data-desinentiae="e ī">
             -e / -ī
           </td>
-          <td>
+          <td data-desinentiae="um">
             -um
           </td>
           <td class="sep" colspan="3"></td>
-          <td class="sep" colspan="2">
+          <td class="sep" colspan="2" data-desinentiae="us">
             -us
           </td>
-          <td>
+          <td data-desinentiae="ū">
             -ū
           </td>
           <td class="sep"></td>
-          <td>
+          <td data-desinentiae="ēs">
             -ēs
           </td>
           <td></td>
@@ -332,25 +340,25 @@
           <th scope="row">
             Accusativus
           </th>
-          <td class="sep" colspan="2">
+          <td class="sep" colspan="2" data-desinentiae="am">
             <strong>-am</strong>
           </td>
           <td></td>
-          <td class="sep" colspan="3">
+          <td class="sep" colspan="3" data-desinentiae="um">
             -um
           </td>
-          <td class="sep" colspan="2">
+          <td class="sep" colspan="2" data-desinentiae="em">
             -em
           </td>
           <td></td>
-          <td class="sep" colspan="2">
+          <td class="sep" colspan="2" data-desinentiae="um">
             -um
           </td>
-          <td>
+          <td data-desinentiae="ū">
             -ū
           </td>
           <td class="sep"></td>
-          <td>
+          <td data-desinentiae="em">
             -em
           </td>
           <td></td>
@@ -359,21 +367,21 @@
           <th scope="row">
             Genitivus
           </th>
-          <td class="sep" colspan="2">
+          <td class="sep" colspan="2" data-desinentiae="ae">
             -ae
           </td>
           <td></td>
-          <td class="sep" colspan="3">
+          <td class="sep" colspan="3" data-desinentiae="ī">
             -ī
           </td>
-          <td class="sep" colspan="3">
+          <td class="sep" colspan="3" data-desinentiae="is">
             <strong>-is</strong>
           </td>
-          <td class="sep" colspan="3">
+          <td class="sep" colspan="3" data-desinentiae="ūs">
             -ūs
           </td>
           <td class="sep"></td>
-          <td>
+          <td data-desinentiae="ēī eī">
             -ēī / -eī
           </td>
           <td></td>
@@ -382,24 +390,24 @@
           <th scope="row">
             Dativus
           </th>
-          <td class="sep" colspan="2">
+          <td class="sep" colspan="2" data-desinentiae="ae">
             -ae
           </td>
           <td></td>
-          <td class="sep" colspan="3">
+          <td class="sep" colspan="3" data-desinentiae="ō">
             -ō
           </td>
-          <td class="sep" colspan="3">
+          <td class="sep" colspan="3" data-desinentiae="ī">
             -ī
           </td>
-          <td class="sep" colspan="2">
+          <td class="sep" colspan="2" data-desinentiae="uī">
             <strong>-uī</strong>
           </td>
-          <td>
+          <td data-desinentiae="ū">
             -ū
           </td>
           <td class="sep"></td>
-          <td>
+          <td data-desinentiae="ēī eī">
             -ēī / -eī
           </td>
           <td></td>
@@ -408,21 +416,21 @@
           <th scope="row">
             Ablativus
           </th>
-          <td class="sep" colspan="2">
+          <td class="sep" colspan="2" data-desinentiae="ā">
             <strong>-ā</strong>
           </td>
           <td></td>
-          <td class="sep" colspan="3">
+          <td class="sep" colspan="3" data-desinentiae="ō">
             -ō
           </td>
-          <td class="sep" colspan="3">
+          <td class="sep" colspan="3" data-desinentiae="e ī">
             -e / -ī
           </td>
-          <td class="sep" colspan="3">
+          <td class="sep" colspan="3" data-desinentiae="ū">
             -ū
           </td>
           <td class="sep"></td>
-          <td>
+          <td data-desinentiae="ē">
             <strong>-ē</strong>
           </td>
           <td></td>
@@ -506,30 +514,30 @@
           <th scope="row">
             Nominativus
           </th>
-          <td class="sep" colspan="2">
+          <td class="sep" colspan="2" data-desinentiae="ae">
             -ae
           </td>
           <td></td>
-          <td class="sep" colspan="2">
+          <td class="sep" colspan="2" data-desinentiae="ī">
             -ī
           </td>
-          <td>
+          <td data-desinentiae="a">
             -a
           </td>
-          <td class="sep" colspan="2">
+          <td class="sep" colspan="2" data-desinentiae="ēs">
             -ēs
           </td>
-          <td>
+          <td data-desinentiae="a">
             -a
           </td>
-          <td class="sep" colspan="2">
+          <td class="sep" colspan="2" data-desinentiae="ūs">
             -ūs
           </td>
-          <td>
+          <td data-desinentiae="ua">
             -ua
           </td>
           <td class="sep"></td>
-          <td>
+          <td data-desinentiae="ēs">
             -ēs
           </td>
           <td></td>
@@ -538,30 +546,30 @@
           <th scope="row">
             Vocativus
           </th>
-          <td class="sep" colspan="2">
+          <td class="sep" colspan="2" data-desinentiae="ae">
             -ae
           </td>
           <td></td>
-          <td class="sep" colspan="2">
+          <td class="sep" colspan="2" data-desinentiae="ī">
             -ī
           </td>
-          <td>
+          <td data-desinentiae="a">
             -a
           </td>
-          <td class="sep" colspan="2">
+          <td class="sep" colspan="2" data-desinentiae="ēs">
             -ēs
           </td>
-          <td>
+          <td data-desinentiae="a">
             -a
           </td>
-          <td class="sep" colspan="2">
+          <td class="sep" colspan="2" data-desinentiae="ūs">
             -ūs
           </td>
-          <td>
+          <td data-desinentiae="ua">
             -ua
           </td>
           <td class="sep"></td>
-          <td>
+          <td data-desinentiae="ēs">
             -ēs
           </td>
           <td></td>
@@ -570,30 +578,30 @@
           <th scope="row">
             Accusativus
           </th>
-          <td class="sep" colspan="2">
+          <td class="sep" colspan="2" data-desinentiae="ās">
             <strong>-ās</strong>
           </td>
           <td></td>
-          <td class="sep" colspan="2">
+          <td class="sep" colspan="2" data-desinentiae="ōs">
             <strong>-ōs</strong>
           </td>
-          <td>
+          <td data-desinentiae="a">
             -a
           </td>
-          <td class="sep" colspan="2">
+          <td class="sep" colspan="2" data-desinentiae="ēs īs">
             -ēs / -īs
           </td>
-          <td>
+          <td data-desinentiae="a">
             -a
           </td>
-          <td class="sep" colspan="2">
+          <td class="sep" colspan="2" data-desinentiae="ūs">
             -ūs
           </td>
-          <td>
+          <td data-desinentiae="ua">
             -ua
           </td>
           <td class="sep"></td>
-          <td>
+          <td data-desinentiae="ēs">
             -ēs
           </td>
           <td></td>
@@ -602,21 +610,21 @@
           <th scope="row">
             Genitivus
           </th>
-          <td class="sep" colspan="2">
+          <td class="sep" colspan="2" data-desinentiae="ārum">
             <strong>-ārum</strong>
           </td>
           <td></td>
-          <td class="sep" colspan="3">
+          <td class="sep" colspan="3" data-desinentiae="ōrum">
             <strong>-ōrum</strong>
           </td>
-          <td class="sep" colspan="3">
+          <td class="sep" colspan="3" data-desinentiae="um">
             -um
           </td>
-          <td class="sep" colspan="3">
+          <td class="sep" colspan="3" data-desinentiae="uum">
             <strong>-uum</strong>
           </td>
           <td class="sep"></td>
-          <td>
+          <td data-desinentiae="ērum">
             <strong>-ērum</strong>
           </td>
           <td></td>
@@ -625,21 +633,21 @@
           <th scope="row">
             Dativus
           </th>
-          <td class="sep" colspan="2">
+          <td class="sep" colspan="2" data-desinentiae="īs">
             -īs
           </td>
           <td></td>
-          <td class="sep" colspan="3">
+          <td class="sep" colspan="3" data-desinentiae="īs">
             -īs
           </td>
-          <td class="sep" colspan="3">
+          <td class="sep" colspan="3" data-desinentiae="ibus">
             -ibus
           </td>
-          <td class="sep" colspan="3">
+          <td class="sep" colspan="3" data-desinentiae="ibus ubus">
             -ibus / -ubus
           </td>
           <td class="sep"></td>
-          <td>
+          <td data-desinentiae="ēbus">
             -ēbus
           </td>
           <td></td>
@@ -648,21 +656,21 @@
           <th scope="row">
             Ablativus
           </th>
-          <td class="sep" colspan="2">
+          <td class="sep" colspan="2" data-desinentiae="īs">
             -īs
           </td>
           <td></td>
-          <td class="sep" colspan="3">
+          <td class="sep" colspan="3" data-desinentiae="īs">
             -īs
           </td>
-          <td class="sep" colspan="3">
+          <td class="sep" colspan="3" data-desinentiae="ibus">
             -ibus
           </td>
-          <td class="sep" colspan="3">
+          <td class="sep" colspan="3" data-desinentiae="ibus ubus">
             -ibus / -ubus
           </td>
           <td class="sep"></td>
-          <td>
+          <td data-desinentiae="ēbus">
             -ēbus
           </td>
           <td></td>
@@ -682,5 +690,50 @@
         </li>
       </ol>
     </div>
+    <script>
+      // Highlight every cell that shares an ending with the hovered one.
+      (function () {
+        var CELL_SELECTOR = 'td[data-desinentiae]';
+        var MATCH_CLASS = 'desinentia-match';
+      
+        function desinentiae(cell) {
+          return new Set((cell.dataset.desinentiae || '').split(/\s+/).filter(Boolean));
+        }
+      
+        function sharesEnding(a, b) {
+          for (var ending of a) {
+            if (b.has(ending)) return true;
+          }
+          return false;
+        }
+      
+        function clear() {
+          document.querySelectorAll('.' + MATCH_CLASS).forEach(function (cell) {
+            cell.classList.remove(MATCH_CLASS);
+          });
+        }
+      
+        function highlight(target) {
+          clear();
+          var reference = desinentiae(target);
+          if (!reference.size) return;
+          document.querySelectorAll(CELL_SELECTOR).forEach(function (cell) {
+            if (sharesEnding(reference, desinentiae(cell))) {
+              cell.classList.add(MATCH_CLASS);
+            }
+          });
+        }
+      
+        document.querySelectorAll(CELL_SELECTOR).forEach(function (cell) {
+          cell.addEventListener('mouseenter', function () {
+            highlight(cell);
+          });
+        });
+      
+        document.querySelectorAll('table').forEach(function (table) {
+          table.addEventListener('mouseleave', clear);
+        });
+      })();
+    </script>
   </body>
 </html>
