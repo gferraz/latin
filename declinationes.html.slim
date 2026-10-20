@@ -1,10 +1,10 @@
 doctype html
-html
+html lang="la"
   head
     meta charset="utf-8"
     title Dēclīnātiōnēs Latīnae
     link rel="preconnect" href="https://fonts.googleapis.com"
-    link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""
+    link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"
     link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap"
     css:
       :root {
@@ -129,24 +129,24 @@ html
   body
     - format_endings = ->(tabula, desinentiae) { desinentiae.map { |desinentia| tabula.unique?(desinentia) ? "<strong>-#{desinentia}</strong>" : "-#{desinentia}" }.join(" / ") }
     - roman = ->(n) { %w[I II III IV V][n - 1] }
-    h1 Dēclīnātiōnēs
+    h1 Dēclīnātiōnēs Latīnae
     - tabula.numeri.each do |numerus|
         table
           caption= numerus.capitalize
           thead
             tr
-              th
+              th scope="col"
               - tabula.declinationes.each_with_index do |declinatio, index|
-                th colspan=3 class=("sep" if index.positive?) = roman.call(declinatio)
+                th scope="colgroup" colspan=3 class=("sep" if index.positive?) = roman.call(declinatio)
             tr
-              th Cāsus
+              th scope="col" Cāsus
               - tabula.declinationes.each_with_index do |declinatio, index|
                 - tabula.genera.each_with_index do |genus, index_generis|
-                  th class=("sep" if index_generis.zero? && index.positive?) = "#{genus}."
+                  th scope="col" class=("sep" if index_generis.zero? && index.positive?) = "#{genus}."
           tbody
             - tabula.casus.each do |casus|
               tr class="#{casus}"
-                th= casus.capitalize
+                th scope="row" = casus.capitalize
                 - tabula.declinationes.each_with_index do |declinatio, index|
                   - separatio = ("sep" if index.positive?)
                   - desinentiae = tabula.desinentiae(casus, numerus, declinatio)
@@ -172,8 +172,8 @@ html
                       == format_endings.call(tabula, desinentiae[:n])
                   - else
                     td
-  - unless tabula.exceptiones.empty?
-    .notae
-      ol
-        - tabula.exceptiones.each do |nota|
-          li= nota
+    - unless tabula.exceptiones.empty?
+      .notae
+        ol
+          - tabula.exceptiones.each do |nota|
+            li= nota

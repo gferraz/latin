@@ -79,17 +79,21 @@ class DeclinationesTest < Minitest::Test
     assert_equal 16, html.scan('<tr').size
     assert_includes html, '<caption>Singularis</caption>'
     assert_includes html, '<caption>Pluralis</caption>'
-    assert_includes html, '>I</th>'
-    assert_includes html, '>V</th>'
-    assert_includes html, '<div class="notae"><ol>'
+    assert_match %r{>\s*I\s*</th>}, html
+    assert_match %r{>\s*IV\s*</th>}, html
+    assert_match %r{>\s*V\s*</th>}, html
+    assert_includes html, '<div class="notae">'
+    assert_includes html, '<ol>'
     assert_includes html, 'tbody td {'
-    assert_includes html, '<td class="sep" colspan="3">-ī</td>'
-    assert_includes html, '<td class="sep" colspan="2">-e / -ī</td>'
-    assert_includes html, '<td>-ēī / -eī</td>'
-    assert_includes html, '<th class="sep">m.</th>'
-    assert_includes html, '<th>m.</th>'
-    refute_includes html, '<th class="sep">f.</th>' # separator only between groups
-    refute_includes html, '<th class="sep">n.</th>'
+    assert_match %r{<td class="sep" colspan="3">\s*-ī\s*</td>}, html
+    assert_match %r{<td class="sep" colspan="2">\s*-e / -ī\s*</td>}, html
+    assert_match %r{<td>\s*-ēī / -eī\s*</td>}, html
+    assert_match %r{<th class="sep" scope="col">\s*m\.\s*</th>}, html
+    assert_match %r{<th scope="col">\s*m\.\s*</th>}, html
+    refute_match %r{<th class="sep" scope="col">\s*f\.\s*</th>}, html # separator only between groups
+    assert_match %r{<th scope="row">\s*Nominativus\s*</th>}, html
+    assert_match %r{<th colspan="3" scope="colgroup">\s*I\s*</th>}, html
+    assert_includes html, '<html lang="la">'
   end
 
   def test_every_row_span_sums_to_the_header_width
@@ -152,6 +156,6 @@ class DeclinationesTest < Minitest::Test
   private
 
   def render
-    Slim::Template.new(TEMPLATE).render(nil, tabula: @tabula)
+    Slim::Template.new(TEMPLATE, pretty: true).render(nil, tabula: @tabula)
   end
 end

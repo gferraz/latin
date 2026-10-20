@@ -1,119 +1,617 @@
-<!DOCTYPE html><html><head><meta charset="utf-8" /><title>Dēclīnātiōnēs Latīnae</title><link href="https://fonts.googleapis.com" rel="preconnect" /><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" /><link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&amp;family=EB+Garamond:ital,wght@0,400;0,600;1,400&amp;display=swap" rel="stylesheet" /><style>:root {
-  --ink: #2a2118;
-  --parchment: #faf6ee;
-  --rule: #d3c8b2;
-  --accent: #8a2b1e;
-  --zebra: #f3ede1;
-}
-* {
-  box-sizing: border-box;
-}
-body {
-  max-width: 62rem;
-  margin: 0 auto;
-  padding: 3rem 2rem 4rem;
-  background: var(--parchment);
-  color: var(--ink);
-  font-family: "EB Garamond", "Cardo", Georgia, "Times New Roman", serif;
-  font-size: 1.05rem;
-  line-height: 1.45;
-}
-h1 {
-  margin: 0;
-  text-align: center;
-  font-family: "Cardo", "EB Garamond", Georgia, serif;
-  font-weight: 400;
-  font-variant: small-caps;
-  letter-spacing: 0.1em;
-  font-size: 2.1rem;
-}
-h1::after {
-  content: "";
-  display: block;
-  width: 8rem;
-  margin: 0.6rem auto 0;
-  border-bottom: 1px solid var(--rule);
-}
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 2.5rem 0;
-  font-size: 0.95rem;
-}
-caption {
-  font-variant: small-caps;
-  letter-spacing: 0.18em;
-  font-size: 1.3rem;
-  padding-bottom: 0.6rem;
-}
-th,
-td {
-  padding: 0.4em 0.55em;
-  text-align: center;
-  vertical-align: baseline;
-}
-thead th {
-  border-bottom: 2px solid var(--ink);
-  font-weight: 600;
-}
-thead tr:first-child th {
-  border-bottom: 1px solid var(--rule);
-}
-thead tr:nth-child(2) th:not(:first-child) {
-  font-style: italic;
-  font-weight: 400;
-}
-tbody th {
-  text-align: left;
-  font-variant: small-caps;
-  letter-spacing: 0.05em;
-  white-space: nowrap;
-}
-tbody th,
-tbody td {
-  border-bottom: 1px solid var(--rule);
-}
-tbody tr:nth-child(even) {
-  background: var(--zebra);
-}
-tbody tr:hover {
-  background: #e9dfcb;
-}
-.sep {
-  border-left: 1px solid var(--rule);
-}
-tbody td {
-  border-left: 1px solid var(--rule);
-}
-tr.genitivus {
-  background: #f6ebe2;
-}
-tr.genitivus th,
-tr.genitivus td {
-  color: var(--accent);
-  font-weight: 600;
-}
-.notae {
-  margin-top: 2.5rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--rule);
-  font-size: 0.92rem;
-}
-.notae ol {
-  margin: 0;
-  padding-left: 1.4rem;
-}
-.notae li {
-  margin: 0.35em 0;
-}
-@media print {
-  body {
-    max-width: none;
-    padding: 0;
-    background: #fff;
-  }
-  tbody tr:nth-child(even),
-  tr.genitivus {
-    background: transparent;
-  }
-}</style></head><body><h1>Dēclīnātiōnēs</h1><table><caption>Singularis</caption><thead><tr><th></th><th colspan="3">I</th><th class="sep" colspan="3">II</th><th class="sep" colspan="3">III</th><th class="sep" colspan="3">IV</th><th class="sep" colspan="3">V</th></tr><tr><th>Cāsus</th><th>m.</th><th>f.</th><th>n.</th><th class="sep">m.</th><th>f.</th><th>n.</th><th class="sep">m.</th><th>f.</th><th>n.</th><th class="sep">m.</th><th>f.</th><th>n.</th><th class="sep">m.</th><th>f.</th><th>n.</th></tr></thead><tbody><tr class="nominativus"><th>Nominativus</th><td colspan="2">-a</td><td></td><td class="sep" colspan="2">-us</td><td>-um</td><td class="sep" colspan="3"></td><td class="sep" colspan="2">-us</td><td>-ū</td><td class="sep"></td><td>-ēs</td><td></td></tr><tr class="vocativus"><th>Vocativus</th><td colspan="2">-a</td><td></td><td class="sep" colspan="2">-e / -ī</td><td>-um</td><td class="sep" colspan="3"></td><td class="sep" colspan="2">-us</td><td>-ū</td><td class="sep"></td><td>-ēs</td><td></td></tr><tr class="accusativus"><th>Accusativus</th><td colspan="2"><strong>-am</strong></td><td></td><td class="sep" colspan="3">-um</td><td class="sep" colspan="2">-em</td><td></td><td class="sep" colspan="2">-um</td><td>-ū</td><td class="sep"></td><td>-em</td><td></td></tr><tr class="genitivus"><th>Genitivus</th><td colspan="2">-ae</td><td></td><td class="sep" colspan="3">-ī</td><td class="sep" colspan="3"><strong>-is</strong></td><td class="sep" colspan="3">-ūs</td><td class="sep"></td><td>-ēī / -eī</td><td></td></tr><tr class="dativus"><th>Dativus</th><td colspan="2">-ae</td><td></td><td class="sep" colspan="3">-ō</td><td class="sep" colspan="3">-ī</td><td class="sep" colspan="2"><strong>-uī</strong></td><td>-ū</td><td class="sep"></td><td>-ēī / -eī</td><td></td></tr><tr class="ablativus"><th>Ablativus</th><td colspan="2"><strong>-ā</strong></td><td></td><td class="sep" colspan="3">-ō</td><td class="sep" colspan="3">-e / -ī</td><td class="sep" colspan="3">-ū</td><td class="sep"></td><td><strong>-ē</strong></td><td></td></tr></tbody></table><table><caption>Pluralis</caption><thead><tr><th></th><th colspan="3">I</th><th class="sep" colspan="3">II</th><th class="sep" colspan="3">III</th><th class="sep" colspan="3">IV</th><th class="sep" colspan="3">V</th></tr><tr><th>Cāsus</th><th>m.</th><th>f.</th><th>n.</th><th class="sep">m.</th><th>f.</th><th>n.</th><th class="sep">m.</th><th>f.</th><th>n.</th><th class="sep">m.</th><th>f.</th><th>n.</th><th class="sep">m.</th><th>f.</th><th>n.</th></tr></thead><tbody><tr class="nominativus"><th>Nominativus</th><td colspan="2">-ae</td><td></td><td class="sep" colspan="2">-ī</td><td>-a</td><td class="sep" colspan="2">-ēs</td><td>-a</td><td class="sep" colspan="2">-ūs</td><td>-ua</td><td class="sep"></td><td>-ēs</td><td></td></tr><tr class="vocativus"><th>Vocativus</th><td colspan="2">-ae</td><td></td><td class="sep" colspan="2">-ī</td><td>-a</td><td class="sep" colspan="2">-ēs</td><td>-a</td><td class="sep" colspan="2">-ūs</td><td>-ua</td><td class="sep"></td><td>-ēs</td><td></td></tr><tr class="accusativus"><th>Accusativus</th><td colspan="2"><strong>-ās</strong></td><td></td><td class="sep" colspan="2"><strong>-ōs</strong></td><td>-a</td><td class="sep" colspan="2">-ēs / -īs</td><td>-a</td><td class="sep" colspan="2">-ūs</td><td>-ua</td><td class="sep"></td><td>-ēs</td><td></td></tr><tr class="genitivus"><th>Genitivus</th><td colspan="2"><strong>-ārum</strong></td><td></td><td class="sep" colspan="3"><strong>-ōrum</strong></td><td class="sep" colspan="3">-um</td><td class="sep" colspan="3"><strong>-uum</strong></td><td class="sep"></td><td><strong>-ērum</strong></td><td></td></tr><tr class="dativus"><th>Dativus</th><td colspan="2">-īs</td><td></td><td class="sep" colspan="3">-īs</td><td class="sep" colspan="3">-ibus</td><td class="sep" colspan="3">-ibus / -ubus</td><td class="sep"></td><td>-ēbus</td><td></td></tr><tr class="ablativus"><th>Ablativus</th><td colspan="2">-īs</td><td></td><td class="sep" colspan="3">-īs</td><td class="sep" colspan="3">-ibus</td><td class="sep" colspan="3">-ibus / -ubus</td><td class="sep"></td><td>-ēbus</td><td></td></tr></tbody></table></body><div class="notae"><ol><li>5ª decl. — diēs, merīdiēs são masculinos (apenas rēs tem plural comum).</li><li>2ª decl. voc. sg. — puer, vir não recebem -e; fīlius → fīlī (não *fīlie).</li><li>3ª decl. — nom./voc./acc. sg. apresentam desinências variáveis; daí as células vazias.</li></ol></div></html>
+<!DOCTYPE html>
+<html lang="la">
+  <head>
+    <meta charset="utf-8" />
+    <title>Dēclīnātiōnēs Latīnae</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="anonymous" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&amp;family=EB+Garamond:ital,wght@0,400;0,600;1,400&amp;display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --ink: #2a2118;
+        --parchment: #faf6ee;
+        --rule: #d3c8b2;
+        --accent: #8a2b1e;
+        --zebra: #f3ede1;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        max-width: 62rem;
+        margin: 0 auto;
+        padding: 3rem 2rem 4rem;
+        background: var(--parchment);
+        color: var(--ink);
+        font-family: "EB Garamond", "Cardo", Georgia, "Times New Roman", serif;
+        font-size: 1.05rem;
+        line-height: 1.45;
+      }
+      h1 {
+        margin: 0;
+        text-align: center;
+        font-family: "Cardo", "EB Garamond", Georgia, serif;
+        font-weight: 400;
+        font-variant: small-caps;
+        letter-spacing: 0.1em;
+        font-size: 2.1rem;
+      }
+      h1::after {
+        content: "";
+        display: block;
+        width: 8rem;
+        margin: 0.6rem auto 0;
+        border-bottom: 1px solid var(--rule);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 2.5rem 0;
+        font-size: 0.95rem;
+      }
+      caption {
+        font-variant: small-caps;
+        letter-spacing: 0.18em;
+        font-size: 1.3rem;
+        padding-bottom: 0.6rem;
+      }
+      th,
+      td {
+        padding: 0.4em 0.55em;
+        text-align: center;
+        vertical-align: baseline;
+      }
+      thead th {
+        border-bottom: 2px solid var(--ink);
+        font-weight: 600;
+      }
+      thead tr:first-child th {
+        border-bottom: 1px solid var(--rule);
+      }
+      thead tr:nth-child(2) th:not(:first-child) {
+        font-style: italic;
+        font-weight: 400;
+      }
+      tbody th {
+        text-align: left;
+        font-variant: small-caps;
+        letter-spacing: 0.05em;
+        white-space: nowrap;
+      }
+      tbody th,
+      tbody td {
+        border-bottom: 1px solid var(--rule);
+      }
+      tbody tr:nth-child(even) {
+        background: var(--zebra);
+      }
+      tbody tr:hover {
+        background: #e9dfcb;
+      }
+      .sep {
+        border-left: 1px solid var(--rule);
+      }
+      tbody td {
+        border-left: 1px solid var(--rule);
+      }
+      tr.genitivus {
+        background: #f6ebe2;
+      }
+      tr.genitivus th,
+      tr.genitivus td {
+        color: var(--accent);
+        font-weight: 600;
+      }
+      .notae {
+        margin-top: 2.5rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--rule);
+        font-size: 0.92rem;
+      }
+      .notae ol {
+        margin: 0;
+        padding-left: 1.4rem;
+      }
+      .notae li {
+        margin: 0.35em 0;
+      }
+      @media print {
+        body {
+          max-width: none;
+          padding: 0;
+          background: #fff;
+        }
+        tbody tr:nth-child(even),
+        tr.genitivus {
+          background: transparent;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>
+      Dēclīnātiōnēs Latīnae
+    </h1>
+    <table>
+      <caption>Singularis</caption>
+      <thead>
+        <tr>
+          <th scope="col"></th>
+          <th colspan="3" scope="colgroup">
+            I
+          </th>
+          <th class="sep" colspan="3" scope="colgroup">
+            II
+          </th>
+          <th class="sep" colspan="3" scope="colgroup">
+            III
+          </th>
+          <th class="sep" colspan="3" scope="colgroup">
+            IV
+          </th>
+          <th class="sep" colspan="3" scope="colgroup">
+            V
+          </th>
+        </tr>
+        <tr>
+          <th scope="col">
+            Cāsus
+          </th>
+          <th scope="col">
+            m.
+          </th>
+          <th scope="col">
+            f.
+          </th>
+          <th scope="col">
+            n.
+          </th>
+          <th class="sep" scope="col">
+            m.
+          </th>
+          <th scope="col">
+            f.
+          </th>
+          <th scope="col">
+            n.
+          </th>
+          <th class="sep" scope="col">
+            m.
+          </th>
+          <th scope="col">
+            f.
+          </th>
+          <th scope="col">
+            n.
+          </th>
+          <th class="sep" scope="col">
+            m.
+          </th>
+          <th scope="col">
+            f.
+          </th>
+          <th scope="col">
+            n.
+          </th>
+          <th class="sep" scope="col">
+            m.
+          </th>
+          <th scope="col">
+            f.
+          </th>
+          <th scope="col">
+            n.
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="nominativus">
+          <th scope="row">
+            Nominativus
+          </th>
+          <td colspan="2">
+            -a
+          </td>
+          <td></td>
+          <td class="sep" colspan="2">
+            -us
+          </td>
+          <td>
+            -um
+          </td>
+          <td class="sep" colspan="3"></td>
+          <td class="sep" colspan="2">
+            -us
+          </td>
+          <td>
+            -ū
+          </td>
+          <td class="sep"></td>
+          <td>
+            -ēs
+          </td>
+          <td></td>
+        </tr>
+        <tr class="vocativus">
+          <th scope="row">
+            Vocativus
+          </th>
+          <td colspan="2">
+            -a
+          </td>
+          <td></td>
+          <td class="sep" colspan="2">
+            -e / -ī
+          </td>
+          <td>
+            -um
+          </td>
+          <td class="sep" colspan="3"></td>
+          <td class="sep" colspan="2">
+            -us
+          </td>
+          <td>
+            -ū
+          </td>
+          <td class="sep"></td>
+          <td>
+            -ēs
+          </td>
+          <td></td>
+        </tr>
+        <tr class="accusativus">
+          <th scope="row">
+            Accusativus
+          </th>
+          <td colspan="2">
+            <strong>-am</strong>
+          </td>
+          <td></td>
+          <td class="sep" colspan="3">
+            -um
+          </td>
+          <td class="sep" colspan="2">
+            -em
+          </td>
+          <td></td>
+          <td class="sep" colspan="2">
+            -um
+          </td>
+          <td>
+            -ū
+          </td>
+          <td class="sep"></td>
+          <td>
+            -em
+          </td>
+          <td></td>
+        </tr>
+        <tr class="genitivus">
+          <th scope="row">
+            Genitivus
+          </th>
+          <td colspan="2">
+            -ae
+          </td>
+          <td></td>
+          <td class="sep" colspan="3">
+            -ī
+          </td>
+          <td class="sep" colspan="3">
+            <strong>-is</strong>
+          </td>
+          <td class="sep" colspan="3">
+            -ūs
+          </td>
+          <td class="sep"></td>
+          <td>
+            -ēī / -eī
+          </td>
+          <td></td>
+        </tr>
+        <tr class="dativus">
+          <th scope="row">
+            Dativus
+          </th>
+          <td colspan="2">
+            -ae
+          </td>
+          <td></td>
+          <td class="sep" colspan="3">
+            -ō
+          </td>
+          <td class="sep" colspan="3">
+            -ī
+          </td>
+          <td class="sep" colspan="2">
+            <strong>-uī</strong>
+          </td>
+          <td>
+            -ū
+          </td>
+          <td class="sep"></td>
+          <td>
+            -ēī / -eī
+          </td>
+          <td></td>
+        </tr>
+        <tr class="ablativus">
+          <th scope="row">
+            Ablativus
+          </th>
+          <td colspan="2">
+            <strong>-ā</strong>
+          </td>
+          <td></td>
+          <td class="sep" colspan="3">
+            -ō
+          </td>
+          <td class="sep" colspan="3">
+            -e / -ī
+          </td>
+          <td class="sep" colspan="3">
+            -ū
+          </td>
+          <td class="sep"></td>
+          <td>
+            <strong>-ē</strong>
+          </td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <caption>Pluralis</caption>
+      <thead>
+        <tr>
+          <th scope="col"></th>
+          <th colspan="3" scope="colgroup">
+            I
+          </th>
+          <th class="sep" colspan="3" scope="colgroup">
+            II
+          </th>
+          <th class="sep" colspan="3" scope="colgroup">
+            III
+          </th>
+          <th class="sep" colspan="3" scope="colgroup">
+            IV
+          </th>
+          <th class="sep" colspan="3" scope="colgroup">
+            V
+          </th>
+        </tr>
+        <tr>
+          <th scope="col">
+            Cāsus
+          </th>
+          <th scope="col">
+            m.
+          </th>
+          <th scope="col">
+            f.
+          </th>
+          <th scope="col">
+            n.
+          </th>
+          <th class="sep" scope="col">
+            m.
+          </th>
+          <th scope="col">
+            f.
+          </th>
+          <th scope="col">
+            n.
+          </th>
+          <th class="sep" scope="col">
+            m.
+          </th>
+          <th scope="col">
+            f.
+          </th>
+          <th scope="col">
+            n.
+          </th>
+          <th class="sep" scope="col">
+            m.
+          </th>
+          <th scope="col">
+            f.
+          </th>
+          <th scope="col">
+            n.
+          </th>
+          <th class="sep" scope="col">
+            m.
+          </th>
+          <th scope="col">
+            f.
+          </th>
+          <th scope="col">
+            n.
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="nominativus">
+          <th scope="row">
+            Nominativus
+          </th>
+          <td colspan="2">
+            -ae
+          </td>
+          <td></td>
+          <td class="sep" colspan="2">
+            -ī
+          </td>
+          <td>
+            -a
+          </td>
+          <td class="sep" colspan="2">
+            -ēs
+          </td>
+          <td>
+            -a
+          </td>
+          <td class="sep" colspan="2">
+            -ūs
+          </td>
+          <td>
+            -ua
+          </td>
+          <td class="sep"></td>
+          <td>
+            -ēs
+          </td>
+          <td></td>
+        </tr>
+        <tr class="vocativus">
+          <th scope="row">
+            Vocativus
+          </th>
+          <td colspan="2">
+            -ae
+          </td>
+          <td></td>
+          <td class="sep" colspan="2">
+            -ī
+          </td>
+          <td>
+            -a
+          </td>
+          <td class="sep" colspan="2">
+            -ēs
+          </td>
+          <td>
+            -a
+          </td>
+          <td class="sep" colspan="2">
+            -ūs
+          </td>
+          <td>
+            -ua
+          </td>
+          <td class="sep"></td>
+          <td>
+            -ēs
+          </td>
+          <td></td>
+        </tr>
+        <tr class="accusativus">
+          <th scope="row">
+            Accusativus
+          </th>
+          <td colspan="2">
+            <strong>-ās</strong>
+          </td>
+          <td></td>
+          <td class="sep" colspan="2">
+            <strong>-ōs</strong>
+          </td>
+          <td>
+            -a
+          </td>
+          <td class="sep" colspan="2">
+            -ēs / -īs
+          </td>
+          <td>
+            -a
+          </td>
+          <td class="sep" colspan="2">
+            -ūs
+          </td>
+          <td>
+            -ua
+          </td>
+          <td class="sep"></td>
+          <td>
+            -ēs
+          </td>
+          <td></td>
+        </tr>
+        <tr class="genitivus">
+          <th scope="row">
+            Genitivus
+          </th>
+          <td colspan="2">
+            <strong>-ārum</strong>
+          </td>
+          <td></td>
+          <td class="sep" colspan="3">
+            <strong>-ōrum</strong>
+          </td>
+          <td class="sep" colspan="3">
+            -um
+          </td>
+          <td class="sep" colspan="3">
+            <strong>-uum</strong>
+          </td>
+          <td class="sep"></td>
+          <td>
+            <strong>-ērum</strong>
+          </td>
+          <td></td>
+        </tr>
+        <tr class="dativus">
+          <th scope="row">
+            Dativus
+          </th>
+          <td colspan="2">
+            -īs
+          </td>
+          <td></td>
+          <td class="sep" colspan="3">
+            -īs
+          </td>
+          <td class="sep" colspan="3">
+            -ibus
+          </td>
+          <td class="sep" colspan="3">
+            -ibus / -ubus
+          </td>
+          <td class="sep"></td>
+          <td>
+            -ēbus
+          </td>
+          <td></td>
+        </tr>
+        <tr class="ablativus">
+          <th scope="row">
+            Ablativus
+          </th>
+          <td colspan="2">
+            -īs
+          </td>
+          <td></td>
+          <td class="sep" colspan="3">
+            -īs
+          </td>
+          <td class="sep" colspan="3">
+            -ibus
+          </td>
+          <td class="sep" colspan="3">
+            -ibus / -ubus
+          </td>
+          <td class="sep"></td>
+          <td>
+            -ēbus
+          </td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="notae">
+      <ol>
+        <li>
+          5ª decl. — diēs, merīdiēs são masculinos (apenas rēs tem plural comum).
+        </li>
+        <li>
+          2ª decl. voc. sg. — puer, vir não recebem -e; fīlius → fīlī (não *fīlie).
+        </li>
+        <li>
+          3ª decl. — nom./voc./acc. sg. apresentam desinências variáveis; daí as células vazias.
+        </li>
+      </ol>
+    </div>
+  </body>
+</html>
