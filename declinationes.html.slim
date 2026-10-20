@@ -13,6 +13,8 @@ html lang="la"
         --rule: #d3c8b2;
         --accent: #8a2b1e;
         --zebra: #f3ede1;
+        --gold: #ac863d;
+        --lapis: #314d70;
       }
       * {
         box-sizing: border-box;
@@ -35,6 +37,56 @@ html lang="la"
         font-variant: small-caps;
         letter-spacing: 0.1em;
         font-size: 2.1rem;
+      }
+      .frontispiece {
+        position: relative;
+        padding: 1rem 7rem 0.5rem;
+      }
+      .initial {
+        display: inline-block;
+        margin-right: 0.08em;
+        padding: 0.02em 0.13em;
+        border: 3px double var(--gold);
+        outline: 1px solid var(--accent);
+        outline-offset: 3px;
+        background: #eee2c5;
+        color: var(--accent);
+        font-size: 1.65em;
+        line-height: 1;
+        text-shadow: 1px 1px var(--gold);
+        vertical-align: -0.08em;
+      }
+      .vine {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 7rem;
+        height: 9rem;
+        overflow: visible;
+        pointer-events: none;
+      }
+      .vine-right {
+        right: 0;
+        left: auto;
+        transform: scaleX(-1);
+      }
+      .vine .stem {
+        fill: none;
+        stroke: var(--gold);
+        stroke-width: 1.5;
+        stroke-linecap: round;
+      }
+      .vine .leaf {
+        fill: var(--lapis);
+        stroke: var(--gold);
+        stroke-width: 0.8;
+      }
+      .vine .leaf-red { fill: var(--accent); }
+      .vine .berry { fill: var(--gold); }
+      @media (max-width: 700px) {
+        .frontispiece { padding: 1rem 2.5rem 0.5rem; }
+        h1 { font-size: 1.65rem; }
+        .vine { width: 3rem; height: 5rem; }
       }
       h1::after {
         content: "";
@@ -116,6 +168,8 @@ html lang="la"
         margin: 0.35em 0;
       }
       @media print {
+        .vine { display: none; }
+        .frontispiece { padding: 0.5rem 0; }
         body {
           max-width: none;
           padding: 0;
@@ -129,7 +183,18 @@ html lang="la"
   body
     - format_endings = ->(tabula, desinentiae) { desinentiae.map { |desinentia| tabula.unique?(desinentia) ? "<strong>-#{desinentia}</strong>" : "-#{desinentia}" }.join(" / ") }
     - roman = ->(n) { %w[I II III IV V][n - 1] }
-    h1 Dēclīnātiōnēs Latīnae
+    header.frontispiece
+      - %w[vine-left vine-right].each do |side|
+        svg.vine class=side viewBox="0 0 110 145" aria-hidden="true" focusable="false"
+          path.stem d="M8 137 C23 115 7 94 19 72 S27 33 12 13 C39 8 64 23 97 10 M19 72 C44 68 47 48 39 36 M23 105 C41 99 53 108 50 120 M24 28 C45 31 62 16 77 25"
+          path.leaf d="M18 76 C-1 66 4 48 10 45 C10 58 27 57 18 76 Z M39 51 C23 44 27 28 32 26 C33 37 47 37 39 51 Z M57 22 C53 5 70 3 75 6 C64 10 69 23 57 22 Z"
+          path.leaf.leaf-red d="M22 96 C43 91 40 76 35 72 C35 85 20 80 22 96 Z M48 113 C61 101 69 113 68 121 C62 114 53 126 48 113 Z M84 16 C81 33 98 34 102 29 C91 29 95 17 84 16 Z"
+          circle.berry cx="12" cy="13" r="3"
+          circle.berry cx="50" cy="120" r="2.5"
+          circle.berry cx="97" cy="10" r="2.5"
+      h1
+        span.initial D
+        | ēclīnātiōnēs Latīnae
     - tabula.numeri.each do |numerus|
         table
           caption= numerus.capitalize
