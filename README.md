@@ -108,9 +108,12 @@ cases (e.g. `-ae`, `-ibus`) do not.
 The page is set as a classical textbook: parchment background, Cardo from Google
 Fonts (with a Georgia/Times serif fallback) for text and headings, small-caps case
 names and captions, Roman-numeral declension headings, zebra striping, thin
-vertical rules on the content cells and between the declension groups, and the
-genitive row picked out in a warm accent. Endings that are unique across the whole
-table are rendered in bold.
+vertical rules on the content cells, and the genitive row picked out in a warm
+accent. Endings that are unique across the whole table are rendered in bold.
+
+Each declension group is closed off by a heavier mid-tone separator, including a
+line before the first group so the endings are fenced off from the case-name
+column. The same mid-tone draws the horizontal rule under the gender headings.
 
 Cardo is the only webfont, used for body text and headings alike. EB Garamond was
 tried first but was dropped: its `u` is easily mistaken for `v` at table size.

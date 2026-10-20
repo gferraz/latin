@@ -11,6 +11,7 @@ html lang="la"
         --ink: #2a2118;
         --parchment: #faf6ee;
         --rule: #d3c8b2;
+        --separator: #b0a690;
         --accent: #8a2b1e;
         --zebra: #f3ede1;
         --gold: #ac863d;
@@ -114,7 +115,7 @@ html lang="la"
         vertical-align: baseline;
       }
       thead th {
-        border-bottom: 2px solid var(--ink);
+        border-bottom: 2px solid var(--separator);
         font-weight: 700;
         text-align: center;
       }
@@ -142,7 +143,7 @@ html lang="la"
         background: #e9dfcb;
       }
       .sep {
-        border-left: 1px solid var(--rule);
+        border-left: 2px solid var(--separator);
       }
       tbody td {
         border-left: 1px solid var(--rule);
@@ -204,18 +205,18 @@ html lang="la"
             tr
               th scope="col"
               - tabula.declinationes.each_with_index do |declinatio, index|
-                th scope="colgroup" colspan=3 class=("sep" if index.positive?) = roman.call(declinatio)
+                th scope="colgroup" colspan=3 class="sep" = roman.call(declinatio)
             tr
               th scope="col" Cāsus
               - tabula.declinationes.each_with_index do |declinatio, index|
                 - tabula.genera.each_with_index do |genus, index_generis|
-                  th scope="col" class=("sep" if index_generis.zero? && index.positive?) = "#{genus}."
+                  th scope="col" class=("sep" if index_generis.zero?) = "#{genus}."
           tbody
             - tabula.casus.each do |casus|
               tr class="#{casus}"
                 th scope="row" = casus.capitalize
                 - tabula.declinationes.each_with_index do |declinatio, index|
-                  - separatio = ("sep" if index.positive?)
+                  - separatio = "sep"
                   - desinentiae = tabula.desinentiae(casus, numerus, declinatio)
                   - if desinentiae.empty?
                     td colspan=3 class=separatio

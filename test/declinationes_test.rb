@@ -89,10 +89,10 @@ class DeclinationesTest < Minitest::Test
     assert_match %r{<td class="sep" colspan="2">\s*-e / -ī\s*</td>}, html
     assert_match %r{<td>\s*-ēī / -eī\s*</td>}, html
     assert_match %r{<th class="sep" scope="col">\s*m\.\s*</th>}, html
-    assert_match %r{<th scope="col">\s*m\.\s*</th>}, html
+    assert_equal 10, html.scan(%r{<th class="sep" scope="col">\s*m\.\s*</th>}).size # every group, five per table
     refute_match %r{<th class="sep" scope="col">\s*f\.\s*</th>}, html # separator only between groups
     assert_match %r{<th scope="row">\s*Nominativus\s*</th>}, html
-    assert_match %r{<th colspan="3" scope="colgroup">\s*I\s*</th>}, html
+    assert_match %r{<th class="sep" colspan="3" scope="colgroup">\s*I\s*</th>}, html # line before the first group too
     assert_includes html, '<html lang="la">'
   end
 
