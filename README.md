@@ -105,12 +105,15 @@ cases (e.g. `-ae`, `-ibus`) do not.
 
 ## Styling
 
-The page is set as a classical textbook: parchment background, EB Garamond and
-Cardo from Google Fonts (with a Georgia/Times serif fallback) for text and
-headings, small-caps case names and captions, Roman-numeral declension headings,
-zebra striping, thin vertical rules on the content cells and between the
-declension groups, and the genitive row picked out in a warm accent. Endings that
-are unique across the whole table are rendered in bold.
+The page is set as a classical textbook: parchment background, Cardo from Google
+Fonts (with a Georgia/Times serif fallback) for text and headings, small-caps case
+names and captions, Roman-numeral declension headings, zebra striping, thin
+vertical rules on the content cells and between the declension groups, and the
+genitive row picked out in a warm accent. Endings that are unique across the whole
+table are rendered in bold.
+
+Cardo is the only webfont, used for body text and headings alike. EB Garamond was
+tried first but was dropped: its `u` is easily mistaken for `v` at table size.
 
 Because the fonts come from Google Fonts, an offline viewer falls back to the
 local serif stack. A `@media print` block removes the background tints so the
