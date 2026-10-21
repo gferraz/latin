@@ -1,0 +1,85 @@
+@media print {
+  @page {
+    margin: 12mm;
+  }
+  .vine {
+    display: block;
+    width: 22mm;
+    height: 28mm;
+  }
+  .frontispiece {
+    padding: 2mm 25mm 3mm;
+    break-after: avoid;
+  }
+  h1 {
+    font-size: 23pt;
+    letter-spacing: 0.08em;
+  }
+  h1::after {
+    width: 38mm;
+    border-bottom: 3px double var(--gold);
+  }
+  .initial {
+    background: transparent;
+    text-shadow: none;
+  }
+  .desinentia-match {
+    background: transparent;
+    box-shadow: none;
+  }
+  body {
+    max-width: none;
+    margin: 0;
+    padding: 5mm 6mm;
+    border: 3px double var(--gold);
+    background: #fff;
+    font-size: 10pt;
+    line-height: 1.3;
+  }
+  table {
+    width: 100%;
+    margin: 4mm auto;
+    font-size: 9pt;
+    break-inside: avoid;
+  }
+  caption {
+    padding-bottom: 2mm;
+    color: var(--accent);
+    font-size: 13pt;
+  }
+  caption::before,
+  caption::after {
+    content: "✦";
+    margin: 0 3mm;
+    color: var(--gold);
+    font-size: 9pt;
+  }
+  th,
+  td {
+    padding: 1.2mm 1.5mm;
+  }
+  tbody td {
+    padding-left: 2mm;
+  }
+  thead {
+    display: table-header-group;
+  }
+  tr {
+    break-inside: avoid;
+  }
+  .notae {
+    margin-top: 4mm;
+    padding: 2mm 3mm 0;
+    border-top: 3px double var(--gold);
+    font-size: 9pt;
+    break-inside: avoid;
+  }
+  .notae li::marker {
+    color: var(--accent);
+  }
+  tbody tr:nth-child(even),
+  tbody tr:hover,
+  tr.genitivus {
+    background: transparent;
+  }
+}

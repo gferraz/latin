@@ -2,10 +2,9 @@ require 'minitest/autorun'
 require 'slim'
 
 require_relative '../latin'
+require_relative '../page'
 
 class DeclinationesTest < Minitest::Test
-  TEMPLATE = File.expand_path('../declinationes.html.slim', __dir__)
-
   def setup
     @tabula = Declinationes.new
   end
@@ -169,6 +168,10 @@ class DeclinationesTest < Minitest::Test
   private
 
   def render
-    Slim::Template.new(TEMPLATE, pretty: true).render(nil, tabula: @tabula)
+    page(mode: :inlined)
+  end
+
+  def page(mode:, asset_prefix: 'assets')
+    render_page(mode: mode, asset_prefix: asset_prefix, tabula: @tabula)
   end
 end

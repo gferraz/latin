@@ -3,9 +3,9 @@
 Renders a static HTML table of Latin noun declensions — all five declensions,
 six cases, three genders, singular and plural — from a single Ruby data model.
 
-Output: [`x.html`](x.html). Two tables — `Singularis` and `Pluralis` — with
-5 × 3 = 15 ending columns plus the case column, and footnotes for the
-general-rule exceptions.
+Output: [`dist/declinationes.html`](dist/declinationes.html). Two tables —
+`Singularis` and `Pluralis` — with 5 × 3 = 15 ending columns plus the case
+column, and footnotes for the general-rule exceptions.
 
 ## Requirements
 
@@ -17,11 +17,23 @@ There is no Gemfile or lockfile.
 ## Usage
 
 ```sh
-ruby render.rb > x.html      # refresh the checked-in output
-ruby render.rb > /tmp/p.html # preview elsewhere, then open in a browser
+bin/build      # or: ruby build.rb
 ```
 
-`render.rb` works from any working directory.
+That produces two files from the same template:
+
+| Output | Mode | Use |
+| --- | --- | --- |
+| `build/declinationes.html` | linked | Development. `<link>`s and a `<script src>` point at `assets/`, so edits to the CSS or JS show up on reload. |
+| `dist/declinationes.html` | inlined | Distribution. The CSS and JS are embedded, so the single file works on its own. |
+
+For a one-off preview to stdout:
+
+```sh
+ruby render.rb > /tmp/p.html   # links to assets/, same as build/
+```
+
+Both scripts work from any working directory.
 
 ## Tests
 
@@ -30,20 +42,31 @@ ruby test/declinationes_test.rb
 ```
 
 Covers metadata, ending lookups, immutability, argument validation, and the
-rendered table structure (row spans, empty cells, footnotes).
+rendered table structure (row spans, empty cells, footnotes). The suite renders
+the template directly in `:inlined` mode, so it exercises what `dist/` ships.
 
 ## Project layout
 
 | File | Purpose |
 | --- | --- |
 | `latin.rb` | `Declinationes` class: grammatical metadata, endings, exceptions, validation |
-| `declinationes.html.slim` | Slim page template and inline CSS |
-| `render.rb` | Loads the model and template, writes HTML to stdout |
-| `x.html` | Checked-in output; regenerate when intended output changes |
+| `declinationes.html.slim` | Slim page template (markup and the inline/linked switch) |
+| `assets/screen.css` | Screen styles |
+| `assets/print.css` | `@media print` block |
+| `assets/desinentiae.js` | Ending-highlight script |
+| `page.rb` | Renders the template; loads `assets/` and exposes `render_page` |
+| `build.rb` | Calls `render_page` twice: linked into `build/`, inlined into `dist/` |
+| `bin/build` | Shell wrapper so the build runs without naming `ruby` |
+| `render.rb` | Calls `render_page` once, to stdout |
+| `build/declinationes.html` | Generated; linked to `assets/` |
+| `dist/declinationes.html` | Generated; self-contained, the one to distribute |
 | `test/declinationes_test.rb` | Minitest suite |
 
-Grammatical data lives in the Ruby model, presentation logic in the Slim
-template.
+Grammatical data lives in the Ruby model, markup in the Slim template, and
+styling and behaviour in `assets/`. The template takes a `mode` (`:linked` or
+`:inlined`) and an `asset_prefix`, and `page.rb` supplies the asset text — so
+`assets/` is the only copy of the CSS and JS. The template decides where they
+go, never what they contain.
 
 ## API
 
@@ -124,8 +147,9 @@ small script toggles the `desinentia-match` class on the matches. Cells that off
 alternatives (such as `-ibus / -ubus`) match on any of their endings.
 
 Because the fonts come from Google Fonts, an offline viewer falls back to the
-local serif stack. A `@media print` block removes the background tints so the
-tables print cleanly.
+local serif stack. `assets/print.css` carries the `@media print` block, which
+sets up the landscape page, hides the background tints, and keeps the tables
+from breaking across pages.
 
 ## Conventions
 

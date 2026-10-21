@@ -4,23 +4,27 @@
 
 This is a small Ruby project that renders Latin noun declension tables as static HTML.
 
-- `latin.rb` defines `Declensions`, grammatical metadata, endings, exceptions, and lookup validation.
-- `declinationes.html.slim` contains the Slim page template and inline CSS.
-- `render.rb` loads the model and template, then writes HTML to standard output.
-- `x.html` is the checked-in HTML output; regenerate it when intended output changes.
-- `test/declensions_test.rb` contains model and rendering tests using Minitest.
+- `latin.rb` defines `Declinationes`, grammatical metadata, endings, exceptions, and lookup validation.
+- `declinationes.html.slim` contains the Slim page template and the inline/linked switch.
+- `assets/screen.css`, `assets/print.css`, and `assets/desinentiae.js` hold the styles and the ending-highlight script; they are the only copy.
+- `page.rb` loads `assets/` and exposes `render_page`, the single render entry point.
+- `build.rb` calls `render_page` twice: linked into `build/`, inlined into `dist/`.
+- `bin/build` is a shell wrapper around `build.rb`, so the build runs without naming `ruby`.
+- `render.rb` calls `render_page` once, to standard output.
+- `build/declinationes.html` is the generated linked copy; `dist/declinationes.html` is the generated self-contained copy to distribute.
+- `test/declinationes_test.rb` contains model and rendering tests using Minitest.
 
-Keep grammatical data in the Ruby model and presentation logic in the Slim template. There is no separate asset directory or application server.
+Keep grammatical data in the Ruby model, markup in the Slim template, and styling and behaviour in `assets/`. There is no application server.
 
 ## Build, Test, and Development Commands
 
 Run commands from the repository root. Use Ruby with support for endless method definitions (Ruby 3.0 or newer).
 
 - `gem install slim minitest` installs the required gems. The repository currently has no Gemfile or dependency lockfile.
-- `ruby render.rb > /tmp/latin-preview.html` generates a preview to inspect in a browser.
-- `ruby render.rb > x.html` refreshes the checked-in output.
-- `ruby test/declensions_test.rb` runs the complete current test suite.
-- `ruby -c latin.rb` and `ruby -c render.rb` check Ruby syntax.
+- `bin/build` regenerates both `build/declinationes.html` (linked) and `dist/declinationes.html` (inlined). It is a thin shell wrapper around `build.rb`, and works from any directory; `ruby build.rb` is equivalent.
+- `ruby render.rb > /tmp/latin-preview.html` generates a linked preview to inspect in a browser.
+- `ruby test/declinationes_test.rb` runs the complete current test suite.
+- `ruby -c latin.rb`, `ruby -c page.rb`, `ruby -c render.rb`, and `ruby -c build.rb` check Ruby syntax.
 
 ## Coding Style & Naming Conventions
 
