@@ -81,7 +81,7 @@ tabula.genera         # => [:m, :f, :n]
 tabula.declinationes  # => [1, 2, 3, 4, 5]
 tabula.numeri         # => [:singularis, :pluralis]
 tabula.columnae       # => 15   (declensions × genders)
-tabula.exceptiones    # => [...] footnotes for the exceptions
+tabula.notae          # => [...] footnotes, sorted by declension, gender, case
 
 tabula.omnes_desinentiae
 # => ["a", "us", "um", ...]   every ending, counted once per table cell
@@ -165,6 +165,6 @@ from breaking across pages.
 
 The table is a **general rule, not a comprehensive paradigm**: irregular nouns
 and rare variants are deliberately excluded from the cells and listed as
-footnotes instead (`Declinationes::EXCEPTIONES`) — for example *diēs* and
-*merīdiēs* are masculine fifth-declension nouns, and *puer*/*vir* take no
-vocative `-e`.
+footnotes instead (`Declinationes::NOTAE`) — for example *diēs* and
+*merīdiēs* are masculine fifth-declension nouns, and nouns in *-er*/*-ir*
+take no vocative `-e`.

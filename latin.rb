@@ -116,11 +116,14 @@ class Declinationes
 
   NUMERI_ROMANI = %w[I II III IV V].freeze
 
-  EXCEPTIONES = deep_freeze([
+  NOTAE = deep_freeze([
     { declinatio: 5, genus: :m, casus: nil,
       text: "diēs, merīdiēs são masculinos (apenas rēs tem plural comum)." },
     { declinatio: 2, genus: :m, casus: :vocativus,
-      text: "voc. sg. — puer, vir não recebem -e; fīlius → fīlī (não *fīlie)." },
+      text: "voc. sg. — os nomes em -er/-ir não recebem -e: puer → puer, vir → vir, " \
+            "ager → ager." },
+    { declinatio: 2, genus: :m, casus: :vocativus,
+      text: "voc. sg. — os nomes em -ius fazem -ī: fīlius → fīlī (não *fīlie)." },
     { declinatio: 3, genus: nil, casus: nil,
       text: "nom./voc./acc. sg. apresentam desinências variáveis; daí as células vazias." },
     { declinatio: 3, genus: nil, casus: :genitivus,
@@ -147,16 +150,10 @@ class Declinationes
     NUMERI_ROMANI.fetch(declinatio - 1)
   end
 
-  # As notas chegam ordenadas por declinação, depois gênero, depois caso.
-  # Notas sem gênero ou sem caso vêm primeiro dentro da sua declinação.
-  def exceptiones
-    @exceptiones ||= EXCEPTIONES.sort_by do |nota|
-      [nota[:declinatio], ordine(GENERA, nota[:genus]), ordine(CASUS, nota[:casus])]
-    end.freeze
-  end
-
+  # As notas saem ordenadas por declinação, depois gênero, depois caso,
+  # e prefixadas com o numeral romano da declinação.
   def notae
-    exceptiones.map do |nota|
+    @notae ||= sort_notae.map do |nota|
       "Decl. #{numerus_romanus(nota[:declinatio])} — #{nota[:text]}"
     end.freeze
   end
@@ -188,6 +185,13 @@ class Declinationes
   end
 
   private
+
+  # Notas sem gênero ou sem caso vêm primeiro dentro da sua declinação.
+  def sort_notae
+    NOTAE.sort_by do |nota|
+      [nota[:declinatio], ordine(GENERA, nota[:genus]), ordine(CASUS, nota[:casus])]
+    end
+  end
 
   # Posição de um gênero ou caso na ordem canônica; ausente vem antes de tudo.
   # :mf cobre as notas que valem para masculino e feminino ao mesmo tempo.
