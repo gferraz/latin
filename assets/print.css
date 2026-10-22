@@ -74,6 +74,10 @@
     font-size: 9pt;
     break-inside: avoid;
   }
+  .notae h2 {
+    margin-bottom: 1.5mm;
+    font-size: 11pt;
+  }
   .notae li::marker {
     color: var(--accent);
   }

@@ -15,7 +15,7 @@ html lang="la"
   body
     - format_endings = ->(tabula, desinentiae) { desinentiae.map { |desinentia| tabula.unique?(desinentia) ? "<strong>-#{desinentia}</strong>" : "-#{desinentia}" }.join(" / ") }
     - data_desinentiae = ->(desinentiae) { desinentiae.join(" ") }
-    - roman = ->(n) { %w[I II III IV V][n - 1] }
+    - roman = ->(n) { tabula.numerus_romanus(n) }
     header.frontispiece
       - %w[vine-left vine-right].each do |side|
         svg.vine class=side viewBox="0 0 110 145" aria-hidden="true" focusable="false"
@@ -70,10 +70,11 @@ html lang="la"
                       == format_endings.call(tabula, desinentiae[:n])
                   - else
                     td
-    - unless tabula.exceptiones.empty?
+    - unless tabula.notae.empty?
       .notae
+        h2 Notae
         ol
-          - tabula.exceptiones.each do |nota|
+          - tabula.notae.each do |nota|
             li= nota
     - if mode == :linked
       script src="#{asset_prefix}/desinentiae.js"

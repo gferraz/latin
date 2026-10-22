@@ -67,8 +67,40 @@ class DeclinationesTest < Minitest::Test
   end
 
   def test_exceptiones
-    assert_equal 3, Declinationes::EXCEPTIONES.size
-    assert_equal Declinationes::EXCEPTIONES, @tabula.exceptiones
+    assert_equal 6, @tabula.exceptiones.size
+    assert_equal Declinationes::EXCEPTIONES.sort_by(&:to_s), @tabula.exceptiones.sort_by(&:to_s),
+                 'notes should be the declared notes, reordered'
+  end
+
+  # The table deliberately omits the third-declension i-stem forms. Each
+  # omission must be documented in the notes, or the table silently misleads.
+  def test_exceptiones_document_i_stem_gaps
+    notas = @tabula.notae.join(' ')
+
+    assert_includes notas, '-ium', 'gen. pl. i-stem (-ium) not documented'
+    assert_includes notas, '-ia',  'neut. nom./acc. pl. i-stem (-ia) not documented'
+    assert_includes notas, '-im',  'acc. sg. i-stem (-im) not documented'
+  end
+
+  def test_exceptiones_sorted
+    ordine = @tabula.exceptiones.map { |nota| [nota[:declinatio], nota[:genus], nota[:casus]] }
+
+    assert_equal ordine.sort_by { |d, _g, _c| d }, ordine, 'notes not grouped by declension'
+    assert_equal 2, ordine.first[0], 'first note should be the second declension'
+    assert_equal 5, ordine.last[0],  'last note should be the fifth declension'
+  end
+
+  def test_exceptiones_are_frozen_records
+    @tabula.exceptiones.each do |nota|
+      assert nota.frozen?, 'note record should be frozen'
+      assert nota.key?(:text), 'note record should carry text'
+    end
+  end
+
+  def test_notae_use_roman_numerals_and_render
+    assert_equal %w[II III III III III V], @tabula.notae.map { |n| n[/Decl\. (\w+)/, 1] }
+    assert @tabula.notae.all? { |nota| nota.start_with?('Decl. ') }
+    assert_match %r{<h2>\s*Notae\s*</h2>}, render
   end
 
   def test_render_structure

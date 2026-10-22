@@ -114,10 +114,24 @@ class Declinationes
     }
   })
 
+  NUMERI_ROMANI = %w[I II III IV V].freeze
+
   EXCEPTIONES = deep_freeze([
-    "5ª decl. — diēs, merīdiēs são masculinos (apenas rēs tem plural comum).",
-    "2ª decl. voc. sg. — puer, vir não recebem -e; fīlius → fīlī (não *fīlie).",
-    "3ª decl. — nom./voc./acc. sg. apresentam desinências variáveis; daí as células vazias."
+    { declinatio: 5, genus: :m, casus: nil,
+      text: "diēs, merīdiēs são masculinos (apenas rēs tem plural comum)." },
+    { declinatio: 2, genus: :m, casus: :vocativus,
+      text: "voc. sg. — puer, vir não recebem -e; fīlius → fīlī (não *fīlie)." },
+    { declinatio: 3, genus: nil, casus: nil,
+      text: "nom./voc./acc. sg. apresentam desinências variáveis; daí as células vazias." },
+    { declinatio: 3, genus: nil, casus: :genitivus,
+      text: "gen. pl. — os temas em -i fazem -ium, além de -um: cīvium (cīvis), " \
+            "marīum (mare); a tabela mostra apenas -um." },
+    { declinatio: 3, genus: :n, casus: :nominativus,
+      text: "nom./voc./acc. pl. neutro — os temas em -i fazem -ia, além de -a: " \
+            "maria (mare), animālia (animal); a tabela mostra apenas -a." },
+    { declinatio: 3, genus: :mf, casus: :accusativus,
+      text: "acc. sg. — em poucos nomes o -im substitui o -em: sitim (sitis), " \
+            "turrim (turris); a tabela mostra apenas -em." }
   ])
 
   def initialize(desinentiae = DESINENTIAE)
@@ -128,7 +142,24 @@ class Declinationes
   def genera         = GENERA
   def declinationes  = DECLINATIONES
   def numeri         = NUMERI
-  def exceptiones    = EXCEPTIONES
+
+  def numerus_romanus(declinatio)
+    NUMERI_ROMANI.fetch(declinatio - 1)
+  end
+
+  # As notas chegam ordenadas por declinação, depois gênero, depois caso.
+  # Notas sem gênero ou sem caso vêm primeiro dentro da sua declinação.
+  def exceptiones
+    @exceptiones ||= EXCEPTIONES.sort_by do |nota|
+      [nota[:declinatio], ordine(GENERA, nota[:genus]), ordine(CASUS, nota[:casus])]
+    end.freeze
+  end
+
+  def notae
+    exceptiones.map do |nota|
+      "Decl. #{numerus_romanus(nota[:declinatio])} — #{nota[:text]}"
+    end.freeze
+  end
 
   def columnae
     DECLINATIONES.size * GENERA.size
@@ -157,6 +188,17 @@ class Declinationes
   end
 
   private
+
+  # Posição de um gênero ou caso na ordem canônica; ausente vem antes de tudo.
+  # :mf cobre as notas que valem para masculino e feminino ao mesmo tempo.
+  def ordine(allowed, value)
+    return -1 if value.nil?
+    index = allowed.index(value)
+    return index if index
+    return allowed.index(:m) if value == :mf
+
+    allowed.size
+  end
 
   def ending_counts
     @ending_counts ||= omnes_desinentiae.tally
