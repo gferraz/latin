@@ -172,3 +172,6 @@ tr.genitivus td {
 .notae li {
   margin: 0.35em 0;
 }
+.notae em {
+  font-style: italic;
+}

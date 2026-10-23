@@ -116,25 +116,40 @@ class Declinationes
 
   NUMERI_ROMANI = %w[I II III IV V].freeze
 
+  # Cada nota traz numero: a sua posição dentro do mesmo (declinatio, genus,
+  # casus). Sem isso, notas com a mesma chave dependeriam de sort_by ser
+  # estável, o que o Ruby não garante.
   NOTAE = deep_freeze([
-    { declinatio: 5, genus: :m, casus: nil,
-      text: "diēs, merīdiēs são masculinos (apenas rēs tem plural comum)." },
-    { declinatio: 2, genus: :m, casus: :vocativus,
-      text: "voc. sg. — os nomes em -er/-ir não recebem -e: puer → puer, vir → vir, " \
-            "ager → ager." },
-    { declinatio: 2, genus: :m, casus: :vocativus,
-      text: "voc. sg. — os nomes em -ius fazem -ī: fīlius → fīlī (não *fīlie)." },
-    { declinatio: 3, genus: nil, casus: nil,
+    { declinatio: 5, genus: :m, casus: nil, numero: 1,
+      text: "<em>diēs</em>, <em>merīdiēs</em> são masculinos (apenas <em>rēs</em> " \
+            "tem plural comum)." },
+    { declinatio: 2, genus: :m, casus: :vocativus, numero: 1,
+      text: "voc. sg. — os nomes em -er/-ir não recebem -e: <em>puer</em> → <em>puer</em>, " \
+            "<em>vir</em> → <em>vir</em>, <em>ager</em> → <em>ager</em>." },
+    { declinatio: 2, genus: :m, casus: :vocativus, numero: 2,
+      text: "voc. sg. — os nomes em -ius fazem -ī: <em>fīlius</em> → <em>fīlī</em> " \
+            "(não *<em>fīlie</em>)." },
+    { declinatio: 2, genus: :m, casus: :genitivus, numero: 1,
+      text: "gen. sg. — os nomes em -ius fazem -ī, não -iī: <em>fīlius</em> → <em>fīlī</em>, " \
+            "<em>genius</em> → <em>genī</em>; a tabela mostra apenas -ī." },
+    { declinatio: 2, genus: :m, casus: :genitivus, numero: 2,
+      text: "gen. pl. — os nomes em -ius/-ium fazem -ium, não -iōrum: <em>fīlius</em> → " \
+            "<em>fīlium</em>, <em>Dēlius</em> → <em>Dēlium</em>; a tabela mostra apenas -ōrum." },
+    { declinatio: 3, genus: nil, casus: nil, numero: 1,
       text: "nom./voc./acc. sg. apresentam desinências variáveis; daí as células vazias." },
-    { declinatio: 3, genus: nil, casus: :genitivus,
-      text: "gen. pl. — os temas em -i fazem -ium, além de -um: cīvium (cīvis), " \
-            "marīum (mare); a tabela mostra apenas -um." },
-    { declinatio: 3, genus: :n, casus: :nominativus,
+    { declinatio: 3, genus: nil, casus: :genitivus, numero: 1,
+      text: "gen. pl. — os temas em -i fazem -ium, além de -um: <em>cīvium</em> " \
+            "(<em>cīvis</em>), <em>marīum</em> (<em>mare</em>); a tabela mostra apenas -um." },
+    { declinatio: 3, genus: :n, casus: :nominativus, numero: 1,
       text: "nom./voc./acc. pl. neutro — os temas em -i fazem -ia, além de -a: " \
-            "maria (mare), animālia (animal); a tabela mostra apenas -a." },
-    { declinatio: 3, genus: :mf, casus: :accusativus,
-      text: "acc. sg. — em poucos nomes o -im substitui o -em: sitim (sitis), " \
-            "turrim (turris); a tabela mostra apenas -em." }
+            "<em>maria</em> (<em>mare</em>), <em>animālia</em> (<em>animal</em>); " \
+            "a tabela mostra apenas -a." },
+    { declinatio: 3, genus: :mf, casus: :accusativus, numero: 1,
+      text: "acc. sg. — em poucos nomes o -im substitui o -em: <em>sitim</em> " \
+            "(<em>sitis</em>), <em>turrim</em> (<em>turris</em>); a tabela mostra apenas -em." },
+    { declinatio: 4, genus: :f, casus: nil, numero: 1,
+      text: "<em>domus</em> tem dois temas (u- e o-) e mistura as 4ª e 2ª declinações: " \
+            "gen. sg. <em>domūs</em>, mas também <em>domī</em>, <em>domōrum</em>." }
   ])
 
   def initialize(desinentiae = DESINENTIAE)
@@ -187,9 +202,11 @@ class Declinationes
   private
 
   # Notas sem gênero ou sem caso vêm primeiro dentro da sua declinação.
+  # numero desempata notas com a mesma chave, para a ordem não depender da
+  # estabilidade de sort_by.
   def sort_notae
     NOTAE.sort_by do |nota|
-      [nota[:declinatio], ordine(GENERA, nota[:genus]), ordine(CASUS, nota[:casus])]
+      [nota[:declinatio], ordine(GENERA, nota[:genus]), ordine(CASUS, nota[:casus]), nota[:numero]]
     end
   end
 

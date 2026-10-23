@@ -75,7 +75,7 @@ html lang="la"
         h2 Notae
         ol
           - tabula.notae.each do |nota|
-            li= nota
+            li == nota
     - if mode == :linked
       script src="#{asset_prefix}/desinentiae.js"
     - else

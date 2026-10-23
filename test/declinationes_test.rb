@@ -67,7 +67,7 @@ class DeclinationesTest < Minitest::Test
   end
 
   def test_notae
-    assert_equal 7, @tabula.notae.size
+    assert_equal 10, @tabula.notae.size
     assert_equal Declinationes::NOTAE.size, @tabula.notae.size
   end
 
@@ -81,6 +81,27 @@ class DeclinationesTest < Minitest::Test
     assert_includes notas, '-im',  'acc. sg. i-stem (-im) not documented'
   end
 
+  # The second and fourth declensions have their own gaps: -ius nouns make
+  # gen. sg. -ī and gen. pl. -ium, and domus mixes the 4th and 2nd declensions.
+  def test_notae_document_second_and_fourth_declension_gaps
+    notas = @tabula.notae.join(' ')
+
+    assert_includes notas, 'genī',    'gen. sg. -ius (-ī, not -iī) not documented'
+    assert_includes notas, 'fīlium',  'gen. pl. -ius/-ium (-ium) not documented'
+    assert_includes notas, 'domōrum', 'domus mixed declension not documented'
+  end
+
+  # Latin terms in the notes are marked up so the stylesheet can italicise
+  # them; the template must therefore render the notes unescaped.
+  def test_notae_mark_latin_terms
+    notas = @tabula.notae.join(' ')
+
+    assert_includes notas, '<em>puer</em>',  'puer not italicised'
+    assert_includes notas, '<em>domus</em>', 'domus not italicised'
+    refute_match %r{<em>-\w+</em>}, notas, 'endings should not be italicised'
+    assert_match %r{<li>\s*Decl\. II — .*?<em>puer</em>.*?</li>}m, render
+  end
+
   def test_notae_sorted
     ordine = Declinationes::NOTAE.sort_by do |nota|
       [nota[:declinatio], %i[m f n].index(nota[:genus]) || -1]
@@ -90,15 +111,25 @@ class DeclinationesTest < Minitest::Test
     assert_equal 5, ordine.last[:declinatio],  'last note should be the fifth declension'
   end
 
+  # Equal (declinatio, genus, casus) keys must keep their declared order, so
+  # the rendered notes do not depend on sort_by being stable.
+  def test_notae_order_is_deterministic
+    assert_equal @tabula.notae, Declinationes.new.notae,
+                 'note order should not vary between instances'
+    assert_equal 4, @tabula.notae.count { |nota| nota.start_with?('Decl. II ') },
+                 'the four second-declension notes should stay together'
+  end
+
   def test_notae_are_frozen_records
     Declinationes::NOTAE.each do |nota|
       assert nota.frozen?, 'note record should be frozen'
       assert nota.key?(:text), 'note record should carry text'
+      assert nota.key?(:numero), 'note record should carry its sequence number'
     end
   end
 
   def test_notae_use_roman_numerals_and_render
-    assert_equal %w[II II III III III III V], @tabula.notae.map { |n| n[/Decl\. (\w+)/, 1] }
+    assert_equal %w[II II II II III III III III IV V], @tabula.notae.map { |n| n[/Decl\. (\w+)/, 1] }
     assert @tabula.notae.all? { |nota| nota.start_with?('Decl. ') }
     assert_match %r{<h2>\s*Notae\s*</h2>}, render
   end
