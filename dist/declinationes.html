@@ -191,15 +191,20 @@
         font-style: italic;
       }
       .versio {
-        margin-top: 1.5rem;
+        margin-top: 0;
+        margin-bottom: 2rem;
         text-align: center;
-        font-size: 0.95rem;
-        font-style: italic;
       }
       .versio a {
+        display: inline-block;
+        padding: 0.4rem 1rem;
         color: var(--accent);
         text-decoration: none;
-        border-bottom: 1px solid var(--rule);
+        font-variant: small-caps;
+        letter-spacing: 0.08em;
+        border: 1px solid var(--gold);
+        background: linear-gradient(180deg, #f7efe0 0%, #eee2c5 100%);
+        box-shadow: 1px 1px 0 rgba(138, 43, 30, 0.15);
       }
       @media print {
         @page {
@@ -308,6 +313,8 @@
         <span class="initial">D</span>ēclīnātiōnēs Latīnae
       </h1>
     </header>
+    <p class="versio"><a href="mobile.html">Versão para celular</a>
+    </p>
     <div class="tabela">
       <table>
         <caption>Singularis</caption>
@@ -817,8 +824,6 @@
         </li>
       </ol>
     </div>
-    <p class="versio"><a href="mobile.html">Versão para celular</a>
-    </p>
     <script>
       // Highlight every cell that shares an ending with the hovered one.
       (function () {

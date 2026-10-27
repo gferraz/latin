@@ -32,6 +32,11 @@ html lang="la"
       h1
         span.initial D
         | ēclīnātiōnēs Latīnae
+    p.versio
+      - if layout == :mobile
+        a href="declinationes.html" Versão completa
+      - else
+        a href="mobile.html" Versão para celular
     - if layout == :mobile
       - tabula.declinationes.each do |declinatio|
         section.paradigma
@@ -119,11 +124,6 @@ html lang="la"
         ol
           - tabula.notae.each do |nota|
             li == nota
-    p.versio
-      - if layout == :mobile
-        a href="declinationes.html" Versão completa
-      - else
-        a href="mobile.html" Versão para celular
     - if mode == :linked
       script src="#{asset_prefix}/desinentiae.js"
     - else
