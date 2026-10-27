@@ -1,10 +1,12 @@
 // Highlight every cell that shares an ending with the hovered one.
-(function () {
+(() => {
 	const CELL_SELECTOR = "td[data-desinentiae]";
 	const MATCH_CLASS = "desinentia-match";
 
 	function desinentiae(cell) {
-		return new Set((cell.dataset.desinentiae || "").split(/\s+/).filter(Boolean));
+		return new Set(
+			(cell.dataset.desinentiae || "").split(/\s+/).filter(Boolean),
+		);
 	}
 
 	function sharesEnding(a, b) {

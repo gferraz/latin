@@ -22,10 +22,10 @@ bin/build      # or: ruby build.rb
 
 That produces two files from the same template:
 
-| Output | Mode | Use |
-| --- | --- | --- |
-| `build/declinationes.html` | linked | Development. `<link>`s and a `<script src>` point at `assets/`, so edits to the CSS or JS show up on reload. |
-| `dist/declinationes.html` | inlined | Distribution. The CSS and JS are embedded, so the single file works on its own. |
+| Output                     | Mode    | Use                                                                                                          |
+| -------------------------- | ------- | ------------------------------------------------------------------------------------------------------------ |
+| `build/declinationes.html` | linked  | Development. `<link>`s and a `<script src>` point at `assets/`, so edits to the CSS or JS show up on reload. |
+| `dist/declinationes.html`  | inlined | Distribution. The CSS and JS are embedded, so the single file works on its own.                              |
 
 For a one-off preview to stdout:
 
@@ -47,20 +47,20 @@ the template directly in `:inlined` mode, so it exercises what `dist/` ships.
 
 ## Project layout
 
-| File | Purpose |
-| --- | --- |
-| `latin.rb` | `Declinationes` class: grammatical metadata, endings, exceptions, validation |
-| `declinationes.html.slim` | Slim page template (markup and the inline/linked switch) |
-| `assets/screen.css` | Screen styles |
-| `assets/print.css` | `@media print` block |
-| `assets/desinentiae.js` | Ending-highlight script |
-| `page.rb` | Renders the template; loads `assets/` and exposes `render_page` |
-| `build.rb` | Calls `render_page` twice: linked into `build/`, inlined into `dist/` |
-| `bin/build` | Shell wrapper so the build runs without naming `ruby` |
-| `render.rb` | Calls `render_page` once, to stdout |
-| `build/declinationes.html` | Generated; linked to `assets/` |
-| `dist/declinationes.html` | Generated; self-contained, the one to distribute |
-| `test/declinationes_test.rb` | Minitest suite |
+| File                         | Purpose                                                                      |
+| ---------------------------- | ---------------------------------------------------------------------------- |
+| `latin.rb`                   | `Declinationes` class: grammatical metadata, endings, exceptions, validation |
+| `declinationes.html.slim`    | Slim page template (markup and the inline/linked switch)                     |
+| `assets/screen.css`          | Screen styles                                                                |
+| `assets/print.css`           | `@media print` block                                                         |
+| `assets/desinentiae.js`      | Ending-highlight script                                                      |
+| `page.rb`                    | Renders the template; loads `assets/` and exposes `render_page`              |
+| `build.rb`                   | Calls `render_page` twice: linked into `build/`, inlined into `dist/`        |
+| `bin/build`                  | Shell wrapper so the build runs without naming `ruby`                        |
+| `render.rb`                  | Calls `render_page` once, to stdout                                          |
+| `build/declinationes.html`   | Generated; linked to `assets/`                                               |
+| `dist/declinationes.html`    | Generated; self-contained, the one to distribute                             |
+| `test/declinationes_test.rb` | Minitest suite                                                               |
 
 Grammatical data lives in the Ruby model, markup in the Slim template, and
 styling and behaviour in `assets/`. The template takes a `mode` (`:linked` or
@@ -165,6 +165,6 @@ from breaking across pages.
 
 The table is a **general rule, not a comprehensive paradigm**: irregular nouns
 and rare variants are deliberately excluded from the cells and listed as
-footnotes instead (`Declinationes::NOTAE`) — for example *diēs* and
-*merīdiēs* are masculine fifth-declension nouns, and nouns in *-er*/*-ir*
+footnotes instead (`Declinationes::NOTAE`) — for example _diēs_ and
+_merīdiēs_ are masculine fifth-declension nouns, and nouns in _-er_/_-ir_
 take no vocative `-e`.
