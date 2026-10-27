@@ -93,6 +93,11 @@ table {
   margin: 2.5rem 0;
   font-size: 0.95rem;
 }
+/* The desktop table keeps its 16 columns; on a narrow window it scrolls
+   sideways instead of being cut off. */
+.tabela {
+  overflow-x: auto;
+}
 caption {
   font-variant: small-caps;
   letter-spacing: 0.18em;
@@ -174,4 +179,15 @@ tr.genitivus td {
 }
 .notae em {
   font-style: italic;
+}
+.versio {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 0.95rem;
+  font-style: italic;
+}
+.versio a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule);
 }

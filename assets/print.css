@@ -42,6 +42,14 @@
     font-size: 9pt;
     break-inside: avoid;
   }
+  /* On paper there is nothing to scroll, and the link to the other layout
+     has no meaning. */
+  .tabela {
+    overflow: visible;
+  }
+  .versio {
+    display: none;
+  }
   caption {
     padding-bottom: 2mm;
     color: var(--accent);

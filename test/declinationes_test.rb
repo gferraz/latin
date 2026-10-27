@@ -228,13 +228,76 @@ class DeclinationesTest < Minitest::Test
     refute_includes html, '<strong>-um</strong>'
   end
 
+  def test_endings_are_bold_only_when_unique_on_the_mobile_page_too
+    html = page(mode: :inlined, layout: :mobile)
+
+    assert_includes html, '<strong>-am</strong>'
+    assert_includes html, '<strong>-ārum</strong>'
+    refute_includes html, '<strong>-ae</strong>'
+    refute_includes html, '<strong>-ibus</strong>'
+  end
+
+  def test_mobile_layout_gives_each_declension_its_own_paradigm
+    html = page(mode: :inlined, layout: :mobile)
+
+    assert_equal 5, html.scan('<section class="paradigma">').size
+    assert_equal 10, html.scan('<table').size
+    assert_equal 10, html.scan('<caption>').size
+    assert_includes html, 'Declinatio I'
+    assert_includes html, 'Declinatio V'
+    refute_includes html, 'scope="colgroup"', 'the sixteen-column header belongs to the desktop page'
+  end
+
+  def test_mobile_rows_span_the_four_mobile_columns
+    rows = page(mode: :inlined, layout: :mobile).scan(/<tr.*?<\/tr>/m)
+
+    refute_empty rows
+    rows.each_with_index do |row, index|
+      span = row.scan(/<(?:th|td)[^>]*>/).sum { |cell| (cell[/colspan="(\d+)"/, 1] || '1').to_i }
+      assert_equal 4, span, "row #{index}: #{row[0, 80]}"
+    end
+  end
+
+  def test_mobile_page_carries_its_own_stylesheet
+    mobile = page(mode: :inlined, layout: :mobile)
+    desktop = page(mode: :inlined)
+
+    assert_includes mobile, '.paradigma h2 {'
+    refute_includes desktop, '.paradigma h2 {'
+  end
+
+  def test_linked_mobile_page_points_at_its_stylesheet
+    mobile = page(mode: :linked, layout: :mobile)
+    desktop = page(mode: :linked)
+
+    assert_includes mobile, 'href="assets/mobile.css"'
+    refute_includes desktop, 'assets/mobile.css'
+  end
+
+  def test_pages_declare_a_viewport_and_link_to_each_other
+    desktop = page(mode: :inlined)
+    mobile = page(mode: :inlined, layout: :mobile)
+
+    [desktop, mobile].each do |html|
+      viewport = html.scan(/<meta[^>]*>/).find { |tag| tag.include?('name="viewport"') }
+      assert viewport, 'page should declare a viewport'
+      assert_includes viewport, 'content="width=device-width, initial-scale=1"'
+    end
+    assert_includes desktop, '<a href="mobile.html">Versão para celular</a>'
+    assert_includes mobile, '<a href="declinationes.html">Versão completa</a>'
+  end
+
+  def test_unknown_layout_raises
+    assert_raises(ArgumentError) { render_page(layout: :bogus) }
+  end
+
   private
 
   def render
     page(mode: :inlined)
   end
 
-  def page(mode:, asset_prefix: 'assets')
-    render_page(mode: mode, asset_prefix: asset_prefix, tabula: @tabula)
+  def page(mode:, asset_prefix: 'assets', layout: :desktop)
+    render_page(mode: mode, asset_prefix: asset_prefix, layout: layout, tabula: @tabula)
   end
 end

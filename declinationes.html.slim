@@ -2,17 +2,21 @@ doctype html
 html lang="la"
   head
     meta charset="utf-8"
+    meta name="viewport" content="width=device-width, initial-scale=1"
     title Dēclīnātiōnēs Latīnae
     link rel="preconnect" href="https://fonts.googleapis.com"
     link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"
     link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&display=swap"
     - if mode == :linked
       link rel="stylesheet" href="#{asset_prefix}/screen.css"
+      - if layout == :mobile
+        link rel="stylesheet" href="#{asset_prefix}/mobile.css"
       link rel="stylesheet" href="#{asset_prefix}/print.css" media="print"
     - else
+      - sheets = [screen_css, (mobile_css if layout == :mobile), print_css].compact
       style
-        == screen_css.chomp + "\n" + print_css.chomp
-  body
+        == sheets.map(&:chomp).join("\n")
+  body class=layout.to_s
     - format_endings = ->(tabula, desinentiae) { desinentiae.map { |desinentia| tabula.unique?(desinentia) ? "<strong>-#{desinentia}</strong>" : "-#{desinentia}" }.join(" / ") }
     - data_desinentiae = ->(desinentiae) { desinentiae.join(" ") }
     - roman = ->(n) { tabula.numerus_romanus(n) }
@@ -28,54 +32,98 @@ html lang="la"
       h1
         span.initial D
         | ēclīnātiōnēs Latīnae
-    - tabula.numeri.each do |numerus|
-        table
-          caption= numerus.capitalize
-          thead
-            tr
-              th scope="col"
-              - tabula.declinationes.each_with_index do |declinatio, index|
-                th scope="colgroup" colspan=3 class="sep" = roman.call(declinatio)
-            tr
-              th scope="col" Cāsus
-              - tabula.declinationes.each_with_index do |declinatio, index|
-                - tabula.genera.each_with_index do |genus, index_generis|
-                  th scope="col" class=("sep" if index_generis.zero?) = "#{genus}."
-          tbody
-            - tabula.casus.each do |casus|
-              tr class="#{casus}"
-                th scope="row" = casus.capitalize
-                - tabula.declinationes.each_with_index do |declinatio, index|
-                  - separatio = "sep"
+    - if layout == :mobile
+      - tabula.declinationes.each do |declinatio|
+        section.paradigma
+          h2 = "Declinatio #{roman.call(declinatio)}"
+          - tabula.numeri.each do |numerus|
+            table
+              caption= numerus.capitalize
+              thead
+                tr
+                  th scope="col" Cāsus
+                  - tabula.genera.each do |genus|
+                    th scope="col" = "#{genus}."
+              tbody
+                - tabula.casus.each do |casus|
                   - desinentiae = tabula.desinentiae(casus, numerus, declinatio)
-                  - if desinentiae.empty?
-                    td colspan=3 class=separatio
-                    - next
-                  - if desinentiae[:mf]
-                    - if desinentiae[:mf] == desinentiae[:n]
-                      td colspan=3 class=separatio data-desinentiae=data_desinentiae.call(desinentiae[:mf])
+                  tr class=casus
+                    th scope="row" = casus.capitalize
+                    - if desinentiae.empty?
+                      td colspan=3
+                    - elsif desinentiae[:mf] && desinentiae[:mf] == desinentiae[:n]
+                      td colspan=3 data-desinentiae=data_desinentiae.call(desinentiae[:mf])
                         == format_endings.call(tabula, desinentiae[:mf])
-                      - next
                     - else
-                      td colspan=2 class=separatio data-desinentiae=data_desinentiae.call(desinentiae[:mf])
-                        == format_endings.call(tabula, desinentiae[:mf])
-                  - elsif desinentiae[:f]
-                    td class=separatio
-                    td data-desinentiae=data_desinentiae.call(desinentiae[:f])
-                      == format_endings.call(tabula, desinentiae[:f])
-                  - else
-                    td colspan=2 class=separatio
-                  - if desinentiae[:n]
-                    td data-desinentiae=data_desinentiae.call(desinentiae[:n])
-                      == format_endings.call(tabula, desinentiae[:n])
-                  - else
-                    td
+                      - if desinentiae[:mf]
+                        td colspan=2 data-desinentiae=data_desinentiae.call(desinentiae[:mf])
+                          == format_endings.call(tabula, desinentiae[:mf])
+                      - elsif desinentiae[:f]
+                        td
+                        td data-desinentiae=data_desinentiae.call(desinentiae[:f])
+                          == format_endings.call(tabula, desinentiae[:f])
+                      - else
+                        td colspan=2
+                      - if desinentiae[:n]
+                        td data-desinentiae=data_desinentiae.call(desinentiae[:n])
+                          == format_endings.call(tabula, desinentiae[:n])
+                      - else
+                        td
+    - else
+      - tabula.numeri.each do |numerus|
+        .tabela
+          table
+            caption= numerus.capitalize
+            thead
+              tr
+                th scope="col"
+                - tabula.declinationes.each_with_index do |declinatio, index|
+                  th scope="colgroup" colspan=3 class="sep" = roman.call(declinatio)
+              tr
+                th scope="col" Cāsus
+                - tabula.declinationes.each_with_index do |declinatio, index|
+                  - tabula.genera.each_with_index do |genus, index_generis|
+                    th scope="col" class=("sep" if index_generis.zero?) = "#{genus}."
+            tbody
+              - tabula.casus.each do |casus|
+                tr class="#{casus}"
+                  th scope="row" = casus.capitalize
+                  - tabula.declinationes.each_with_index do |declinatio, index|
+                    - separatio = "sep"
+                    - desinentiae = tabula.desinentiae(casus, numerus, declinatio)
+                    - if desinentiae.empty?
+                      td colspan=3 class=separatio
+                      - next
+                    - if desinentiae[:mf]
+                      - if desinentiae[:mf] == desinentiae[:n]
+                        td colspan=3 class=separatio data-desinentiae=data_desinentiae.call(desinentiae[:mf])
+                          == format_endings.call(tabula, desinentiae[:mf])
+                        - next
+                      - else
+                        td colspan=2 class=separatio data-desinentiae=data_desinentiae.call(desinentiae[:mf])
+                          == format_endings.call(tabula, desinentiae[:mf])
+                    - elsif desinentiae[:f]
+                      td class=separatio
+                      td data-desinentiae=data_desinentiae.call(desinentiae[:f])
+                        == format_endings.call(tabula, desinentiae[:f])
+                    - else
+                      td colspan=2 class=separatio
+                    - if desinentiae[:n]
+                      td data-desinentiae=data_desinentiae.call(desinentiae[:n])
+                        == format_endings.call(tabula, desinentiae[:n])
+                    - else
+                      td
     - unless tabula.notae.empty?
       .notae
         h2 Notae
         ol
           - tabula.notae.each do |nota|
             li == nota
+    p.versio
+      - if layout == :mobile
+        a href="declinationes.html" Versão completa
+      - else
+        a href="mobile.html" Versão para celular
     - if mode == :linked
       script src="#{asset_prefix}/desinentiae.js"
     - else
