@@ -195,9 +195,10 @@ class Declinationes
     end.freeze
   end
 
-  def unique?(desinentia)
+  def unica?(desinentia)
     ending_counts.fetch(desinentia, 0) == 1
   end
+  alias unique? unica?
 
   private
 

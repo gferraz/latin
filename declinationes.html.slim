@@ -17,7 +17,7 @@ html lang="la"
       style
         == sheets.map(&:chomp).join("\n")
   body class=layout.to_s
-    - format_endings = ->(tabula, desinentiae) { desinentiae.map { |desinentia| tabula.unique?(desinentia) ? "<strong>-#{desinentia}</strong>" : "-#{desinentia}" }.join(" / ") }
+    - format_endings = ->(_tabula, desinentiae) { desinentiae.map { |desinentia| render_counts[desinentia] == 1 ? "<strong>-#{desinentia}</strong>" : "-#{desinentia}" }.join(" / ") }
     - data_desinentiae = ->(desinentiae) { desinentiae.join(" ") }
     - roman = ->(n) { tabula.numerus_romanus(n) }
     header.frontispiece

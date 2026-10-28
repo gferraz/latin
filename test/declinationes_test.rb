@@ -182,20 +182,21 @@ class DeclinationesTest < Minitest::Test
   end
 
   def test_unique_endings_occur_only_once
-    assert @tabula.unique?('am')    # acc. sg. 1st
-    assert @tabula.unique?('uī')    # dat. sg. 4th (m./f.)
-    assert @tabula.unique?('ārum')  # gen. pl. 1st
-    assert @tabula.unique?('ōrum')  # gen. pl. 2nd (m./f./n. share the cell)
-    assert @tabula.unique?('uum')   # gen. pl. 4th (m./f./n. share the cell)
-    assert @tabula.unique?('is')    # gen. sg. 3rd (m./f./n. share the cell)
-    assert @tabula.unique?('ērum')  # gen. pl. 5th
+    assert @tabula.unica?('am')    # acc. sg. 1st
+    assert @tabula.unica?('uī')    # dat. sg. 4th (m./f.)
+    assert @tabula.unica?('ārum')  # gen. pl. 1st
+    assert @tabula.unica?('ōrum')  # gen. pl. 2nd (m./f./n. share the cell)
+    assert @tabula.unica?('uum')   # gen. pl. 4th (m./f./n. share the cell)
+    assert @tabula.unica?('is')    # gen. sg. 3rd (m./f./n. share the cell)
+    assert @tabula.unica?('ērum')  # gen. pl. 5th
 
-    refute @tabula.unique?('ae')    # nom./gen./dat. sg. and nom. pl. 1st
-    refute @tabula.unique?('ī')     # gen./dat. sg. 2nd, dat. 3rd...
-    refute @tabula.unique?('ibus')  # dat./abl. pl. 3rd and 4th
-    refute @tabula.unique?('īs')    # dat./abl. pl. 1st and 2nd
-    refute @tabula.unique?('um')    # acc./gen. pl. 2nd and 3rd, nom. sg. 2nd...
-    refute @tabula.unique?('missing')
+    refute @tabula.unica?('ae')    # nom./gen./dat. sg. and nom. pl. 1st
+    refute @tabula.unica?('ī')     # gen./dat. sg. 2nd, dat. 3rd...
+    refute @tabula.unica?('ibus')  # dat./abl. pl. 3rd and 4th
+    refute @tabula.unica?('īs')    # dat./abl. pl. 1st and 2nd
+    refute @tabula.unica?('um')    # acc./gen. pl. 2nd and 3rd, nom. sg. 2nd...
+    refute @tabula.unica?('missing')
+    assert @tabula.unique?('am')
   end
 
   def test_uniqueness_uses_instance_data
