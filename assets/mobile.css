@@ -31,12 +31,12 @@
 	padding-bottom: 0.35rem;
 	font-size: 1rem;
 }
+.paradigma thead th:first-child {
+	text-align: left;
+}
 .paradigma thead th:not(:first-child) {
 	font-style: italic;
 }
 .paradigma thead th {
 	border-bottom: 2px solid var(--separator);
-}
-.paradigma thead th:first-child {
-	text-align: left;
 }

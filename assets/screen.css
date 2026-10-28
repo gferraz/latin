@@ -125,13 +125,6 @@ thead th {
 	font-weight: 700;
 	text-align: center;
 }
-thead tr:nth-child(2) th {
-	border-bottom: 2px solid var(--separator);
-}
-thead tr:nth-child(2) th:not(:first-child) {
-	font-style: italic;
-	font-weight: 700;
-}
 tbody th,
 tbody td {
 	border-bottom: 1px solid var(--rule);
@@ -165,6 +158,13 @@ tr.genitivus {
 tr.genitivus th,
 tr.genitivus td {
 	color: var(--accent);
+}
+thead tr:nth-child(2) th {
+	border-bottom: 2px solid var(--separator);
+}
+thead tr:nth-child(2) th:not(:first-child) {
+	font-style: italic;
+	font-weight: 700;
 }
 .notae {
 	margin-top: 2.5rem;
