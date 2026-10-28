@@ -91,8 +91,14 @@ html lang="la"
                     th scope="col" class=("sep" if index_generis.zero?) = "#{genus}."
             tbody
               - tabula.casus.each do |casus|
+                - next if layout == :desktop && numerus == :pluralis && [:vocativus, :ablativus].include?(casus)
                 tr class="#{casus}"
-                  th scope="row" = casus.capitalize
+                  - if layout == :desktop && numerus == :pluralis && casus == :nominativus
+                    th scope="row" Nominativus / Vocativus
+                  - elsif layout == :desktop && numerus == :pluralis && casus == :dativus
+                    th scope="row" Dativus / Ablativus
+                  - else
+                    th scope="row" = casus.capitalize
                   - tabula.declinationes.each_with_index do |declinatio, index|
                     - separatio = "sep"
                     - desinentiae = tabula.desinentiae(casus, numerus, declinatio)

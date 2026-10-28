@@ -138,7 +138,7 @@ class DeclinationesTest < Minitest::Test
     html = render
 
     assert_equal 2, html.scan('<table').size
-    assert_equal 16, html.scan('<tr').size
+    assert_equal 14, html.scan('<tr').size
     assert_includes html, '<caption>Singularis</caption>'
     assert_includes html, '<caption>Pluralis</caption>'
     assert_match %r{>\s*I\s*</th>}, html
@@ -153,7 +153,8 @@ class DeclinationesTest < Minitest::Test
     assert_match %r{<th class="sep" scope="col">\s*m\.\s*</th>}, html
     assert_equal 10, html.scan(%r{<th class="sep" scope="col">\s*m\.\s*</th>}).size # every group, five per table
     refute_match %r{<th class="sep" scope="col">\s*f\.\s*</th>}, html # separator only between groups
-    assert_match %r{<th scope="row">\s*Nominativus\s*</th>}, html
+    assert_match %r{<th scope="row">\s*Nominativus / Vocativus\s*</th>}, html
+    assert_match %r{<th scope="row">\s*Dativus / Ablativus\s*</th>}, html
     assert_match %r{<th class="sep" colspan="3" scope="colgroup">\s*I\s*</th>}, html # line before the first group too
     assert_includes html, '<html lang="la">'
   end
