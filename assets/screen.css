@@ -145,6 +145,19 @@ tbody tr:hover {
 	background: #f2dfa8;
 	box-shadow: inset 0 0 0 1px var(--gold);
 }
+.desinentia-tip {
+	position: absolute;
+	display: none;
+	z-index: 10;
+	pointer-events: none;
+	padding: 0.25rem 0.5rem;
+	background: var(--ink);
+	color: var(--parchment);
+	font-size: 0.85rem;
+	border-radius: 2px;
+	white-space: nowrap;
+	box-shadow: 1px 1px 4px rgba(42, 33, 24, 0.25);
+}
 .sep {
 	border-left: 2px solid var(--separator);
 }

@@ -27,6 +27,9 @@
 		background: transparent;
 		box-shadow: none;
 	}
+	.desinentia-tip {
+		display: none !important;
+	}
 	body {
 		max-width: none;
 		margin: 0;
