@@ -121,14 +121,17 @@ class Declinationes
   # estável, o que o Ruby não garante.
   NOTAE = deep_freeze([
     { declinatio: 5, genus: :m, casus: nil, numero: 1,
-      text: "<em>diēs</em>, <em>merīdiēs</em> são masculinos (apenas <em>rēs</em> " \
-            "tem plural comum)." },
+      text: "<em>diēs</em> e <em>rēs</em> têm paradigmas completos no plural. " \
+            "<em>diēs</em> é geralmente masculino no singular (também pode ser feminino) " \
+            "e sempre masculino no plural; <em>merīdiēs</em> é masculino." },
     { declinatio: 2, genus: :m, casus: :vocativus, numero: 1,
       text: "voc. sg. — os nomes em -er/-ir não recebem -e: <em>puer</em> → <em>puer</em>, " \
             "<em>vir</em> → <em>vir</em>, <em>ager</em> → <em>ager</em>." },
     { declinatio: 2, genus: :m, casus: :vocativus, numero: 2,
-      text: "voc. sg. — os nomes em -ius fazem -ī: <em>fīlius</em> → <em>fīlī</em> " \
-            "(não *<em>fīlie</em>)." },
+      text: "voc. sg. — os nomes próprios latinos em -ius, além de <em>fīlius</em> " \
+            "e <em>genius</em>, fazem -ī: <em>fīlius</em> → <em>fīlī</em> " \
+            "(não *<em>fīlie</em>). A regra não vale para todos os nomes em -ius; " \
+            "nomes gregos em -īus fazem -īe." },
     { declinatio: 2, genus: :m, casus: :genitivus, numero: 1,
       text: "gen. sg. — os nomes em -ius/-ium têm formas contraídas em -ī, usuais antes " \
             "da época de Augusto: <em>fīlius</em> → <em>fīlī</em>, <em>ingenium</em> → " \

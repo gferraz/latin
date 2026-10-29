@@ -84,6 +84,26 @@ class DeclinationesTest < Minitest::Test
     assert_equal Declinationes::NOTAE.size, @tabula.notae.size
   end
 
+  def test_fifth_declension_note_covers_plural_paradigms_and_dies_gender
+    nota = @tabula.notae.find { |text| text.start_with?('Decl. V —') }
+
+    assert_includes nota, '<em>diēs</em> e <em>rēs</em> têm paradigmas completos no plural'
+    assert_includes nota, 'geralmente masculino no singular (também pode ser feminino)'
+    assert_includes nota, 'sempre masculino no plural'
+    assert_includes nota, '<em>merīdiēs</em> é masculino'
+    refute_includes nota, 'apenas <em>rēs</em>'
+  end
+
+  def test_ius_vocative_note_limits_the_rule_and_mentions_greek_exceptions
+    nota = @tabula.notae.find { |text| text.include?('nomes próprios latinos em -ius') }
+
+    refute_nil nota
+    assert_includes nota, '<em>fīlius</em>'
+    assert_includes nota, '<em>genius</em>'
+    assert_includes nota, 'A regra não vale para todos os nomes em -ius'
+    assert_includes nota, 'nomes gregos em -īus fazem -īe'
+  end
+
   # The table deliberately omits the third-declension i-stem forms. Each
   # omission must be documented in the notes, or the table silently misleads.
   def test_notae_document_i_stem_gaps
