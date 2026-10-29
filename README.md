@@ -145,6 +145,11 @@ Hovering an ending cell highlights every cell that shares an ending with it. Eac
 ending cell carries a `data-desinentiae` attribute listing its endings, and a
 small script toggles the `desinentia-match` class on the matches. Cells that offer
 alternatives (such as `-ibus / -ubus`) match on any of their endings.
+Matching ignores macrons and counts each cell once. The detail panel lists the
+represented cases, numbers, declensions, and genders while preserving the exact
+spellings. It also opens on keyboard focus or tap; Escape closes it.
+A Portuguese legend explains bold endings, shared gender cells, macrons, and
+why an ending alone does not determine a noun's analysis. The legend also prints.
 
 Because the fonts come from Google Fonts, an offline viewer falls back to the
 local serif stack. `assets/print.css` carries the `@media print` block, which

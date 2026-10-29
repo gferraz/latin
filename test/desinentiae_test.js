@@ -15,10 +15,11 @@ test('macron variants count once per cell and produce one tooltip entry', () => 
         remove: (name) => classes.delete(name),
       },
       handlers: {},
+      setAttribute(name, value) { this[name] = value; },
       addEventListener(name, handler) { this.handlers[name] = handler; },
     };
   });
-  const tip = { style: {} };
+  const tip = { style: {}, addEventListener() {} };
   const document = {
     querySelectorAll(selector) {
       if (selector === 'td[data-desinentiae]') return cells;
@@ -47,4 +48,17 @@ test('macron variants count once per cell and produce one tooltip entry', () => 
     cells.map((cell) => cell.classes.has('desinentia-match')),
     [false, false, false, false, true],
   );
+
+  cells[0].dataset.analysis = 'genitivus · singularis · decl. V · f.';
+  cells[1].dataset.analysis = 'dativus · singularis · decl. V · f.';
+  cells[0].handlers.focus();
+  assert.equal(cells[0]['aria-describedby'], 'desinentia-tip');
+  assert.equal(tip.textContent,
+    '-ei: 4x\n-ēī / -eī / -ei — genitivus · singularis · decl. V · f.\n-ei — dativus · singularis · decl. V · f.');
+  cells[0].handlers.keydown({ key: 'Escape' });
+  assert.equal(tip.style.display, 'none');
+  cells[1].handlers.click();
+  assert.ok(tip.textContent.includes('genitivus'));
+  cells[1].handlers.blur();
+  assert.equal(tip.style.display, 'none');
 });

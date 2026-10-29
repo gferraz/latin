@@ -20,6 +20,7 @@ html lang="la"
     - format_endings = ->(_tabula, desinentiae) { desinentiae.map { |desinentia| render_counts[desinentia] == 1 ? "<strong>-#{desinentia}</strong>" : "-#{desinentia}" }.join(" / ") }
     - data_desinentiae = ->(desinentiae) { desinentiae.join(" ") }
     - roman = ->(n) { tabula.numerus_romanus(n) }
+    - analysis = ->(casus, numerus, declinatio, genera) { cases = layout == :desktop && numerus == :pluralis ? { nominativus: 'nominativus / vocativus', dativus: 'dativus / ablativus' }.fetch(casus, casus.to_s) : casus.to_s; "#{cases} · #{numerus} · decl. #{roman.call(declinatio)} · #{genera}" }
     header.frontispiece
       - %w[vine-left vine-right].each do |side|
         svg.vine class=side viewBox="0 0 110 145" aria-hidden="true" focusable="false"
@@ -57,20 +58,20 @@ html lang="la"
                     - if desinentiae.empty?
                       td colspan=3
                     - elsif desinentiae[:mf] && desinentiae[:mf] == desinentiae[:n]
-                      td colspan=3 data-desinentiae=data_desinentiae.call(desinentiae[:mf])
+                      td colspan=3 data-desinentiae=data_desinentiae.call(desinentiae[:mf]) data-analysis=analysis.call(casus, numerus, declinatio, 'm. / f. / n.') tabindex="0"
                         == format_endings.call(tabula, desinentiae[:mf])
                     - else
                       - if desinentiae[:mf]
-                        td colspan=2 data-desinentiae=data_desinentiae.call(desinentiae[:mf])
+                        td colspan=2 data-desinentiae=data_desinentiae.call(desinentiae[:mf]) data-analysis=analysis.call(casus, numerus, declinatio, 'm. / f.') tabindex="0"
                           == format_endings.call(tabula, desinentiae[:mf])
                       - elsif desinentiae[:f]
                         td
-                        td data-desinentiae=data_desinentiae.call(desinentiae[:f])
+                        td data-desinentiae=data_desinentiae.call(desinentiae[:f]) data-analysis=analysis.call(casus, numerus, declinatio, 'f.') tabindex="0"
                           == format_endings.call(tabula, desinentiae[:f])
                       - else
                         td colspan=2
                       - if desinentiae[:n]
-                        td data-desinentiae=data_desinentiae.call(desinentiae[:n])
+                        td data-desinentiae=data_desinentiae.call(desinentiae[:n]) data-analysis=analysis.call(casus, numerus, declinatio, 'n.') tabindex="0"
                           == format_endings.call(tabula, desinentiae[:n])
                       - else
                         td
@@ -107,20 +108,20 @@ html lang="la"
                       - next
                     - if desinentiae[:mf]
                       - if desinentiae[:mf] == desinentiae[:n]
-                        td colspan=3 class=separatio data-desinentiae=data_desinentiae.call(desinentiae[:mf])
+                        td colspan=3 class=separatio data-desinentiae=data_desinentiae.call(desinentiae[:mf]) data-analysis=analysis.call(casus, numerus, declinatio, 'm. / f. / n.') tabindex="0"
                           == format_endings.call(tabula, desinentiae[:mf])
                         - next
                       - else
-                        td colspan=2 class=separatio data-desinentiae=data_desinentiae.call(desinentiae[:mf])
+                        td colspan=2 class=separatio data-desinentiae=data_desinentiae.call(desinentiae[:mf]) data-analysis=analysis.call(casus, numerus, declinatio, 'm. / f.') tabindex="0"
                           == format_endings.call(tabula, desinentiae[:mf])
                     - elsif desinentiae[:f]
                       td class=separatio
-                      td data-desinentiae=data_desinentiae.call(desinentiae[:f])
+                      td data-desinentiae=data_desinentiae.call(desinentiae[:f]) data-analysis=analysis.call(casus, numerus, declinatio, 'f.') tabindex="0"
                         == format_endings.call(tabula, desinentiae[:f])
                     - else
                       td colspan=2 class=separatio
                     - if desinentiae[:n]
-                      td data-desinentiae=data_desinentiae.call(desinentiae[:n])
+                      td data-desinentiae=data_desinentiae.call(desinentiae[:n]) data-analysis=analysis.call(casus, numerus, declinatio, 'n.') tabindex="0"
                         == format_endings.call(tabula, desinentiae[:n])
                     - else
                       td
@@ -133,6 +134,17 @@ html lang="la"
             ul
               - notae.each do |nota|
                 li == nota
+    section.legenda lang="pt-BR" aria-labelledby="legenda-titulo"
+      h2 id="legenda-titulo" Como ler a tabela
+      p
+        strong Genitivo em vermelho:
+        |  As desinências do genitivo singular distinguem as cinco declinações: I -ae; II -ī; III -is; IV -ūs; V -ēī / -eī. Use essa forma para identificar a declinação do substantivo.
+      p
+        strong Negrito:
+        |  Desinências únicas (com os mesmos mácrons e breves).
+     
+
+      p.interaction-hint Passe o cursor, toque ou use Tab nas terminações para consultar as possibilidades representadas na tabela. A contagem considera cada célula uma vez.
     - if mode == :linked
       script src="#{asset_prefix}/desinentiae.js"
     - else

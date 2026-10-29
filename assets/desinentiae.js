@@ -32,6 +32,9 @@
 
 	const tip = document.createElement("div");
 	tip.className = TIP_CLASS;
+	tip.id = 'desinentia-tip';
+	tip.lang = 'pt-BR';
+	tip.role = 'tooltip';
 	document.body.appendChild(tip);
 
 	function clear() {
@@ -41,12 +44,7 @@
 		tip.style.display = "none";
 	}
 
-	function positionTip(event) {
-		tip.style.left = `${event.pageX + 12}px`;
-		tip.style.top = `${event.pageY + 12}px`;
-	}
-
-	function highlight(target, event) {
+	function highlight(target) {
 		clear();
 		const reference = desinentiae(target);
 		if (!reference.size) return;
@@ -60,24 +58,35 @@
 		const parts = [];
 		for (const ending of reference) {
 			parts.push(`-${ending}: ${counts[ending] || 0}x`);
+			document.querySelectorAll(CELL_SELECTOR).forEach((cell) => {
+				if (!desinentiae(cell).has(ending) || !cell.dataset.analysis) return;
+				const forms = cell.dataset.desinentiae.split(/\s+/)
+					.filter((form) => normalize(form) === ending)
+					.map((form) => `-${form}`).join(' / ');
+				parts.push(`${forms} — ${cell.dataset.analysis}`);
+			});
 		}
-		tip.textContent = parts.join(" • ");
+		tip.textContent = parts.join("\n");
 		tip.style.display = "block";
-		positionTip(event);
 	}
 
 	document.querySelectorAll(CELL_SELECTOR).forEach((cell) => {
+		cell.setAttribute('aria-describedby', tip.id);
 		cell.addEventListener("mouseenter", (event) => {
 			highlight(cell, event);
 		});
-		cell.addEventListener("mousemove", (event) => {
-			if (tip.style.display === "block") {
-				positionTip(event);
-			}
+		cell.addEventListener('focus', () => highlight(cell));
+		cell.addEventListener('click', () => highlight(cell));
+		cell.addEventListener('blur', clear);
+		cell.addEventListener('keydown', (event) => {
+			if (event.key === 'Escape') clear();
 		});
 	});
 
 	document.querySelectorAll("table").forEach((table) => {
-		table.addEventListener("mouseleave", clear);
+		table.addEventListener("mouseleave", (event) => {
+			if (event.relatedTarget !== tip) clear();
+		});
 	});
+	tip.addEventListener('mouseleave', clear);
 })();

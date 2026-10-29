@@ -156,17 +156,42 @@
       	box-shadow: inset 0 0 0 1px var(--gold);
       }
       .desinentia-tip {
-      	position: absolute;
+      	position: fixed;
+      	left: 1rem;
+      	bottom: 1rem;
+      	width: min(38rem, calc(100vw - 2rem));
+      	max-height: 45vh;
+      	overflow-y: auto;
       	display: none;
       	z-index: 10;
-      	pointer-events: none;
+      	pointer-events: auto;
       	padding: 0.25rem 0.5rem;
       	background: var(--ink);
       	color: var(--parchment);
       	font-size: 0.85rem;
       	border-radius: 2px;
-      	white-space: nowrap;
+      	white-space: pre-line;
       	box-shadow: 1px 1px 4px rgba(42, 33, 24, 0.25);
+      }
+      .legenda {
+      	margin: 1.5rem 0;
+      	padding: 1rem 1.2rem;
+      	border: 1px solid var(--rule);
+      	font-size: 0.9rem;
+      }
+      .legenda h2 {
+      	margin: 0 0 0.5rem;
+      	color: var(--accent);
+      	font-size: 1.15rem;
+      	font-weight: 400;
+      	font-variant: small-caps;
+      }
+      .legenda ul { margin: 0; padding-left: 1.2rem; }
+      .legenda li { margin: 0.3rem 0; }
+      .legenda p { margin: 0.6rem 0 0; }
+      td[data-desinentiae]:focus-visible {
+      	outline: 2px solid var(--accent);
+      	outline-offset: -2px;
       }
       .sep {
       	border-left: 2px solid var(--separator);
@@ -339,6 +364,14 @@
       	.versio {
       		display: none;
       	}
+      	.interaction-hint { display: none; }
+      	.legenda {
+      		margin: 3mm 0;
+      		padding: 2mm 3mm;
+      		font-size: 8.5pt;
+      		break-inside: avoid;
+      	}
+      	.legenda h2 { font-size: 11pt; }
       	caption,
       	.paradigma caption {
       		padding-bottom: 2mm;
@@ -431,7 +464,7 @@
             <th scope="row">
               Nominativus
             </th>
-            <td colspan="2" data-desinentiae="a">
+            <td colspan="2" data-analysis="nominativus · singularis · decl. I · m. / f." data-desinentiae="a" tabindex="0">
               -a
             </td>
             <td></td>
@@ -440,7 +473,7 @@
             <th scope="row">
               Vocativus
             </th>
-            <td colspan="2" data-desinentiae="a">
+            <td colspan="2" data-analysis="vocativus · singularis · decl. I · m. / f." data-desinentiae="a" tabindex="0">
               -a
             </td>
             <td></td>
@@ -449,7 +482,7 @@
             <th scope="row">
               Accusativus
             </th>
-            <td colspan="2" data-desinentiae="am">
+            <td colspan="2" data-analysis="accusativus · singularis · decl. I · m. / f." data-desinentiae="am" tabindex="0">
               <strong>-am</strong>
             </td>
             <td></td>
@@ -458,7 +491,7 @@
             <th scope="row">
               Genitivus
             </th>
-            <td colspan="2" data-desinentiae="ae">
+            <td colspan="2" data-analysis="genitivus · singularis · decl. I · m. / f." data-desinentiae="ae" tabindex="0">
               -ae
             </td>
             <td></td>
@@ -467,7 +500,7 @@
             <th scope="row">
               Dativus
             </th>
-            <td colspan="2" data-desinentiae="ae">
+            <td colspan="2" data-analysis="dativus · singularis · decl. I · m. / f." data-desinentiae="ae" tabindex="0">
               -ae
             </td>
             <td></td>
@@ -476,7 +509,7 @@
             <th scope="row">
               Ablativus
             </th>
-            <td colspan="2" data-desinentiae="ā">
+            <td colspan="2" data-analysis="ablativus · singularis · decl. I · m. / f." data-desinentiae="ā" tabindex="0">
               <strong>-ā</strong>
             </td>
             <td></td>
@@ -506,7 +539,7 @@
             <th scope="row">
               Nominativus
             </th>
-            <td colspan="2" data-desinentiae="ae">
+            <td colspan="2" data-analysis="nominativus · pluralis · decl. I · m. / f." data-desinentiae="ae" tabindex="0">
               -ae
             </td>
             <td></td>
@@ -515,7 +548,7 @@
             <th scope="row">
               Vocativus
             </th>
-            <td colspan="2" data-desinentiae="ae">
+            <td colspan="2" data-analysis="vocativus · pluralis · decl. I · m. / f." data-desinentiae="ae" tabindex="0">
               -ae
             </td>
             <td></td>
@@ -524,7 +557,7 @@
             <th scope="row">
               Accusativus
             </th>
-            <td colspan="2" data-desinentiae="ās">
+            <td colspan="2" data-analysis="accusativus · pluralis · decl. I · m. / f." data-desinentiae="ās" tabindex="0">
               <strong>-ās</strong>
             </td>
             <td></td>
@@ -533,7 +566,7 @@
             <th scope="row">
               Genitivus
             </th>
-            <td colspan="2" data-desinentiae="ārum">
+            <td colspan="2" data-analysis="genitivus · pluralis · decl. I · m. / f." data-desinentiae="ārum" tabindex="0">
               <strong>-ārum</strong>
             </td>
             <td></td>
@@ -542,7 +575,7 @@
             <th scope="row">
               Dativus
             </th>
-            <td colspan="2" data-desinentiae="īs">
+            <td colspan="2" data-analysis="dativus · pluralis · decl. I · m. / f." data-desinentiae="īs" tabindex="0">
               -īs
             </td>
             <td></td>
@@ -551,7 +584,7 @@
             <th scope="row">
               Ablativus
             </th>
-            <td colspan="2" data-desinentiae="īs">
+            <td colspan="2" data-analysis="ablativus · pluralis · decl. I · m. / f." data-desinentiae="īs" tabindex="0">
               -īs
             </td>
             <td></td>
@@ -586,10 +619,10 @@
             <th scope="row">
               Nominativus
             </th>
-            <td colspan="2" data-desinentiae="us">
+            <td colspan="2" data-analysis="nominativus · singularis · decl. II · m. / f." data-desinentiae="us" tabindex="0">
               -us
             </td>
-            <td data-desinentiae="um">
+            <td data-analysis="nominativus · singularis · decl. II · n." data-desinentiae="um" tabindex="0">
               -um
             </td>
           </tr>
@@ -597,10 +630,10 @@
             <th scope="row">
               Vocativus
             </th>
-            <td colspan="2" data-desinentiae="e ī">
+            <td colspan="2" data-analysis="vocativus · singularis · decl. II · m. / f." data-desinentiae="e ī" tabindex="0">
               -e / -ī
             </td>
-            <td data-desinentiae="um">
+            <td data-analysis="vocativus · singularis · decl. II · n." data-desinentiae="um" tabindex="0">
               -um
             </td>
           </tr>
@@ -608,7 +641,7 @@
             <th scope="row">
               Accusativus
             </th>
-            <td colspan="3" data-desinentiae="um">
+            <td colspan="3" data-analysis="accusativus · singularis · decl. II · m. / f. / n." data-desinentiae="um" tabindex="0">
               -um
             </td>
           </tr>
@@ -616,7 +649,7 @@
             <th scope="row">
               Genitivus
             </th>
-            <td colspan="3" data-desinentiae="ī">
+            <td colspan="3" data-analysis="genitivus · singularis · decl. II · m. / f. / n." data-desinentiae="ī" tabindex="0">
               -ī
             </td>
           </tr>
@@ -624,7 +657,7 @@
             <th scope="row">
               Dativus
             </th>
-            <td colspan="3" data-desinentiae="ō">
+            <td colspan="3" data-analysis="dativus · singularis · decl. II · m. / f. / n." data-desinentiae="ō" tabindex="0">
               -ō
             </td>
           </tr>
@@ -632,7 +665,7 @@
             <th scope="row">
               Ablativus
             </th>
-            <td colspan="3" data-desinentiae="ō">
+            <td colspan="3" data-analysis="ablativus · singularis · decl. II · m. / f. / n." data-desinentiae="ō" tabindex="0">
               -ō
             </td>
           </tr>
@@ -661,10 +694,10 @@
             <th scope="row">
               Nominativus
             </th>
-            <td colspan="2" data-desinentiae="ī">
+            <td colspan="2" data-analysis="nominativus · pluralis · decl. II · m. / f." data-desinentiae="ī" tabindex="0">
               -ī
             </td>
-            <td data-desinentiae="a">
+            <td data-analysis="nominativus · pluralis · decl. II · n." data-desinentiae="a" tabindex="0">
               -a
             </td>
           </tr>
@@ -672,10 +705,10 @@
             <th scope="row">
               Vocativus
             </th>
-            <td colspan="2" data-desinentiae="ī">
+            <td colspan="2" data-analysis="vocativus · pluralis · decl. II · m. / f." data-desinentiae="ī" tabindex="0">
               -ī
             </td>
-            <td data-desinentiae="a">
+            <td data-analysis="vocativus · pluralis · decl. II · n." data-desinentiae="a" tabindex="0">
               -a
             </td>
           </tr>
@@ -683,10 +716,10 @@
             <th scope="row">
               Accusativus
             </th>
-            <td colspan="2" data-desinentiae="ōs">
+            <td colspan="2" data-analysis="accusativus · pluralis · decl. II · m. / f." data-desinentiae="ōs" tabindex="0">
               <strong>-ōs</strong>
             </td>
-            <td data-desinentiae="a">
+            <td data-analysis="accusativus · pluralis · decl. II · n." data-desinentiae="a" tabindex="0">
               -a
             </td>
           </tr>
@@ -694,7 +727,7 @@
             <th scope="row">
               Genitivus
             </th>
-            <td colspan="3" data-desinentiae="ōrum">
+            <td colspan="3" data-analysis="genitivus · pluralis · decl. II · m. / f. / n." data-desinentiae="ōrum" tabindex="0">
               <strong>-ōrum</strong>
             </td>
           </tr>
@@ -702,7 +735,7 @@
             <th scope="row">
               Dativus
             </th>
-            <td colspan="3" data-desinentiae="īs">
+            <td colspan="3" data-analysis="dativus · pluralis · decl. II · m. / f. / n." data-desinentiae="īs" tabindex="0">
               -īs
             </td>
           </tr>
@@ -710,7 +743,7 @@
             <th scope="row">
               Ablativus
             </th>
-            <td colspan="3" data-desinentiae="īs">
+            <td colspan="3" data-analysis="ablativus · pluralis · decl. II · m. / f. / n." data-desinentiae="īs" tabindex="0">
               -īs
             </td>
           </tr>
@@ -756,7 +789,7 @@
             <th scope="row">
               Accusativus
             </th>
-            <td colspan="2" data-desinentiae="em">
+            <td colspan="2" data-analysis="accusativus · singularis · decl. III · m. / f." data-desinentiae="em" tabindex="0">
               -em
             </td>
             <td></td>
@@ -765,7 +798,7 @@
             <th scope="row">
               Genitivus
             </th>
-            <td colspan="3" data-desinentiae="is">
+            <td colspan="3" data-analysis="genitivus · singularis · decl. III · m. / f. / n." data-desinentiae="is" tabindex="0">
               <strong>-is</strong>
             </td>
           </tr>
@@ -773,7 +806,7 @@
             <th scope="row">
               Dativus
             </th>
-            <td colspan="3" data-desinentiae="ī">
+            <td colspan="3" data-analysis="dativus · singularis · decl. III · m. / f. / n." data-desinentiae="ī" tabindex="0">
               -ī
             </td>
           </tr>
@@ -781,7 +814,7 @@
             <th scope="row">
               Ablativus
             </th>
-            <td colspan="3" data-desinentiae="e ī">
+            <td colspan="3" data-analysis="ablativus · singularis · decl. III · m. / f. / n." data-desinentiae="e ī" tabindex="0">
               -e / -ī
             </td>
           </tr>
@@ -810,10 +843,10 @@
             <th scope="row">
               Nominativus
             </th>
-            <td colspan="2" data-desinentiae="ēs">
+            <td colspan="2" data-analysis="nominativus · pluralis · decl. III · m. / f." data-desinentiae="ēs" tabindex="0">
               -ēs
             </td>
-            <td data-desinentiae="a">
+            <td data-analysis="nominativus · pluralis · decl. III · n." data-desinentiae="a" tabindex="0">
               -a
             </td>
           </tr>
@@ -821,10 +854,10 @@
             <th scope="row">
               Vocativus
             </th>
-            <td colspan="2" data-desinentiae="ēs">
+            <td colspan="2" data-analysis="vocativus · pluralis · decl. III · m. / f." data-desinentiae="ēs" tabindex="0">
               -ēs
             </td>
-            <td data-desinentiae="a">
+            <td data-analysis="vocativus · pluralis · decl. III · n." data-desinentiae="a" tabindex="0">
               -a
             </td>
           </tr>
@@ -832,10 +865,10 @@
             <th scope="row">
               Accusativus
             </th>
-            <td colspan="2" data-desinentiae="ēs īs">
+            <td colspan="2" data-analysis="accusativus · pluralis · decl. III · m. / f." data-desinentiae="ēs īs" tabindex="0">
               -ēs / -īs
             </td>
-            <td data-desinentiae="a">
+            <td data-analysis="accusativus · pluralis · decl. III · n." data-desinentiae="a" tabindex="0">
               -a
             </td>
           </tr>
@@ -843,7 +876,7 @@
             <th scope="row">
               Genitivus
             </th>
-            <td colspan="3" data-desinentiae="um">
+            <td colspan="3" data-analysis="genitivus · pluralis · decl. III · m. / f. / n." data-desinentiae="um" tabindex="0">
               -um
             </td>
           </tr>
@@ -851,7 +884,7 @@
             <th scope="row">
               Dativus
             </th>
-            <td colspan="3" data-desinentiae="ibus">
+            <td colspan="3" data-analysis="dativus · pluralis · decl. III · m. / f. / n." data-desinentiae="ibus" tabindex="0">
               -ibus
             </td>
           </tr>
@@ -859,7 +892,7 @@
             <th scope="row">
               Ablativus
             </th>
-            <td colspan="3" data-desinentiae="ibus">
+            <td colspan="3" data-analysis="ablativus · pluralis · decl. III · m. / f. / n." data-desinentiae="ibus" tabindex="0">
               -ibus
             </td>
           </tr>
@@ -893,10 +926,10 @@
             <th scope="row">
               Nominativus
             </th>
-            <td colspan="2" data-desinentiae="us">
+            <td colspan="2" data-analysis="nominativus · singularis · decl. IV · m. / f." data-desinentiae="us" tabindex="0">
               -us
             </td>
-            <td data-desinentiae="ū">
+            <td data-analysis="nominativus · singularis · decl. IV · n." data-desinentiae="ū" tabindex="0">
               -ū
             </td>
           </tr>
@@ -904,10 +937,10 @@
             <th scope="row">
               Vocativus
             </th>
-            <td colspan="2" data-desinentiae="us">
+            <td colspan="2" data-analysis="vocativus · singularis · decl. IV · m. / f." data-desinentiae="us" tabindex="0">
               -us
             </td>
-            <td data-desinentiae="ū">
+            <td data-analysis="vocativus · singularis · decl. IV · n." data-desinentiae="ū" tabindex="0">
               -ū
             </td>
           </tr>
@@ -915,10 +948,10 @@
             <th scope="row">
               Accusativus
             </th>
-            <td colspan="2" data-desinentiae="um">
+            <td colspan="2" data-analysis="accusativus · singularis · decl. IV · m. / f." data-desinentiae="um" tabindex="0">
               -um
             </td>
-            <td data-desinentiae="ū">
+            <td data-analysis="accusativus · singularis · decl. IV · n." data-desinentiae="ū" tabindex="0">
               -ū
             </td>
           </tr>
@@ -926,7 +959,7 @@
             <th scope="row">
               Genitivus
             </th>
-            <td colspan="3" data-desinentiae="ūs">
+            <td colspan="3" data-analysis="genitivus · singularis · decl. IV · m. / f. / n." data-desinentiae="ūs" tabindex="0">
               -ūs
             </td>
           </tr>
@@ -934,10 +967,10 @@
             <th scope="row">
               Dativus
             </th>
-            <td colspan="2" data-desinentiae="uī">
+            <td colspan="2" data-analysis="dativus · singularis · decl. IV · m. / f." data-desinentiae="uī" tabindex="0">
               <strong>-uī</strong>
             </td>
-            <td data-desinentiae="ū">
+            <td data-analysis="dativus · singularis · decl. IV · n." data-desinentiae="ū" tabindex="0">
               -ū
             </td>
           </tr>
@@ -945,7 +978,7 @@
             <th scope="row">
               Ablativus
             </th>
-            <td colspan="3" data-desinentiae="ū">
+            <td colspan="3" data-analysis="ablativus · singularis · decl. IV · m. / f. / n." data-desinentiae="ū" tabindex="0">
               -ū
             </td>
           </tr>
@@ -974,10 +1007,10 @@
             <th scope="row">
               Nominativus
             </th>
-            <td colspan="2" data-desinentiae="ūs">
+            <td colspan="2" data-analysis="nominativus · pluralis · decl. IV · m. / f." data-desinentiae="ūs" tabindex="0">
               -ūs
             </td>
-            <td data-desinentiae="ua">
+            <td data-analysis="nominativus · pluralis · decl. IV · n." data-desinentiae="ua" tabindex="0">
               -ua
             </td>
           </tr>
@@ -985,10 +1018,10 @@
             <th scope="row">
               Vocativus
             </th>
-            <td colspan="2" data-desinentiae="ūs">
+            <td colspan="2" data-analysis="vocativus · pluralis · decl. IV · m. / f." data-desinentiae="ūs" tabindex="0">
               -ūs
             </td>
-            <td data-desinentiae="ua">
+            <td data-analysis="vocativus · pluralis · decl. IV · n." data-desinentiae="ua" tabindex="0">
               -ua
             </td>
           </tr>
@@ -996,10 +1029,10 @@
             <th scope="row">
               Accusativus
             </th>
-            <td colspan="2" data-desinentiae="ūs">
+            <td colspan="2" data-analysis="accusativus · pluralis · decl. IV · m. / f." data-desinentiae="ūs" tabindex="0">
               -ūs
             </td>
-            <td data-desinentiae="ua">
+            <td data-analysis="accusativus · pluralis · decl. IV · n." data-desinentiae="ua" tabindex="0">
               -ua
             </td>
           </tr>
@@ -1007,7 +1040,7 @@
             <th scope="row">
               Genitivus
             </th>
-            <td colspan="3" data-desinentiae="uum">
+            <td colspan="3" data-analysis="genitivus · pluralis · decl. IV · m. / f. / n." data-desinentiae="uum" tabindex="0">
               <strong>-uum</strong>
             </td>
           </tr>
@@ -1015,7 +1048,7 @@
             <th scope="row">
               Dativus
             </th>
-            <td colspan="3" data-desinentiae="ibus ubus">
+            <td colspan="3" data-analysis="dativus · pluralis · decl. IV · m. / f. / n." data-desinentiae="ibus ubus" tabindex="0">
               -ibus / -ubus
             </td>
           </tr>
@@ -1023,7 +1056,7 @@
             <th scope="row">
               Ablativus
             </th>
-            <td colspan="3" data-desinentiae="ibus ubus">
+            <td colspan="3" data-analysis="ablativus · pluralis · decl. IV · m. / f. / n." data-desinentiae="ibus ubus" tabindex="0">
               -ibus / -ubus
             </td>
           </tr>
@@ -1058,7 +1091,7 @@
               Nominativus
             </th>
             <td></td>
-            <td data-desinentiae="ēs">
+            <td data-analysis="nominativus · singularis · decl. V · f." data-desinentiae="ēs" tabindex="0">
               -ēs
             </td>
             <td></td>
@@ -1068,7 +1101,7 @@
               Vocativus
             </th>
             <td></td>
-            <td data-desinentiae="ēs">
+            <td data-analysis="vocativus · singularis · decl. V · f." data-desinentiae="ēs" tabindex="0">
               -ēs
             </td>
             <td></td>
@@ -1078,7 +1111,7 @@
               Accusativus
             </th>
             <td></td>
-            <td data-desinentiae="em">
+            <td data-analysis="accusativus · singularis · decl. V · f." data-desinentiae="em" tabindex="0">
               -em
             </td>
             <td></td>
@@ -1088,7 +1121,7 @@
               Genitivus
             </th>
             <td></td>
-            <td data-desinentiae="ēī eī">
+            <td data-analysis="genitivus · singularis · decl. V · f." data-desinentiae="ēī eī" tabindex="0">
               -ēī / -eī
             </td>
             <td></td>
@@ -1098,7 +1131,7 @@
               Dativus
             </th>
             <td></td>
-            <td data-desinentiae="ēī eī">
+            <td data-analysis="dativus · singularis · decl. V · f." data-desinentiae="ēī eī" tabindex="0">
               -ēī / -eī
             </td>
             <td></td>
@@ -1108,7 +1141,7 @@
               Ablativus
             </th>
             <td></td>
-            <td data-desinentiae="ē">
+            <td data-analysis="ablativus · singularis · decl. V · f." data-desinentiae="ē" tabindex="0">
               <strong>-ē</strong>
             </td>
             <td></td>
@@ -1139,7 +1172,7 @@
               Nominativus
             </th>
             <td></td>
-            <td data-desinentiae="ēs">
+            <td data-analysis="nominativus · pluralis · decl. V · f." data-desinentiae="ēs" tabindex="0">
               -ēs
             </td>
             <td></td>
@@ -1149,7 +1182,7 @@
               Vocativus
             </th>
             <td></td>
-            <td data-desinentiae="ēs">
+            <td data-analysis="vocativus · pluralis · decl. V · f." data-desinentiae="ēs" tabindex="0">
               -ēs
             </td>
             <td></td>
@@ -1159,7 +1192,7 @@
               Accusativus
             </th>
             <td></td>
-            <td data-desinentiae="ēs">
+            <td data-analysis="accusativus · pluralis · decl. V · f." data-desinentiae="ēs" tabindex="0">
               -ēs
             </td>
             <td></td>
@@ -1169,7 +1202,7 @@
               Genitivus
             </th>
             <td></td>
-            <td data-desinentiae="ērum">
+            <td data-analysis="genitivus · pluralis · decl. V · f." data-desinentiae="ērum" tabindex="0">
               <strong>-ērum</strong>
             </td>
             <td></td>
@@ -1179,7 +1212,7 @@
               Dativus
             </th>
             <td></td>
-            <td data-desinentiae="ēbus">
+            <td data-analysis="dativus · pluralis · decl. V · f." data-desinentiae="ēbus" tabindex="0">
               -ēbus
             </td>
             <td></td>
@@ -1189,7 +1222,7 @@
               Ablativus
             </th>
             <td></td>
-            <td data-desinentiae="ēbus">
+            <td data-analysis="ablativus · pluralis · decl. V · f." data-desinentiae="ēbus" tabindex="0">
               -ēbus
             </td>
             <td></td>
@@ -1260,6 +1293,23 @@
         </ul>
       </section>
     </div>
+    <section aria-labelledby="legenda-titulo" class="legenda" lang="pt-BR">
+      <h2 id="legenda-titulo">
+        Como ler a tabela
+      </h2>
+      <p>
+        <strong>Genitivo em vermelho:</strong> As desinências do genitivo singular distinguem as cinco declinações: I -ae; II -ī; III -is; IV -ūs; V -ēī / -eī. Use essa forma para identificar a declinação do substantivo.
+      </p>
+      <p>
+        <strong>Negrito:</strong> Desinências únicas (com os mesmos mácrons e breves),
+      </p>
+      <p class="interaction-hint">
+        Passe o cursor, toque ou use Tab nas terminações para consultar as possibilidades representadas na tabela. A contagem considera cada célula uma vez.
+      </p>
+      <p class="autoria">
+        Autor da tabela: professor Rafael Falcón. <a href="https://rafaelfalcon.com.br/curso-de-latim-online/">Curso de Latim Online</a>
+      </p>
+    </section>
     <script>
       // Highlight every cell that shares an ending with the hovered one and show
       // how many times each ending appears in the table.
@@ -1295,6 +1345,9 @@
       
       	const tip = document.createElement("div");
       	tip.className = TIP_CLASS;
+      	tip.id = 'desinentia-tip';
+      	tip.lang = 'pt-BR';
+      	tip.role = 'tooltip';
       	document.body.appendChild(tip);
       
       	function clear() {
@@ -1304,12 +1357,7 @@
       		tip.style.display = "none";
       	}
       
-      	function positionTip(event) {
-      		tip.style.left = `${event.pageX + 12}px`;
-      		tip.style.top = `${event.pageY + 12}px`;
-      	}
-      
-      	function highlight(target, event) {
+      	function highlight(target) {
       		clear();
       		const reference = desinentiae(target);
       		if (!reference.size) return;
@@ -1323,26 +1371,37 @@
       		const parts = [];
       		for (const ending of reference) {
       			parts.push(`-${ending}: ${counts[ending] || 0}x`);
+      			document.querySelectorAll(CELL_SELECTOR).forEach((cell) => {
+      				if (!desinentiae(cell).has(ending) || !cell.dataset.analysis) return;
+      				const forms = cell.dataset.desinentiae.split(/\s+/)
+      					.filter((form) => normalize(form) === ending)
+      					.map((form) => `-${form}`).join(' / ');
+      				parts.push(`${forms} — ${cell.dataset.analysis}`);
+      			});
       		}
-      		tip.textContent = parts.join(" • ");
+      		tip.textContent = parts.join("\n");
       		tip.style.display = "block";
-      		positionTip(event);
       	}
       
       	document.querySelectorAll(CELL_SELECTOR).forEach((cell) => {
+      		cell.setAttribute('aria-describedby', tip.id);
       		cell.addEventListener("mouseenter", (event) => {
       			highlight(cell, event);
       		});
-      		cell.addEventListener("mousemove", (event) => {
-      			if (tip.style.display === "block") {
-      				positionTip(event);
-      			}
+      		cell.addEventListener('focus', () => highlight(cell));
+      		cell.addEventListener('click', () => highlight(cell));
+      		cell.addEventListener('blur', clear);
+      		cell.addEventListener('keydown', (event) => {
+      			if (event.key === 'Escape') clear();
       		});
       	});
       
       	document.querySelectorAll("table").forEach((table) => {
-      		table.addEventListener("mouseleave", clear);
+      		table.addEventListener("mouseleave", (event) => {
+      			if (event.relatedTarget !== tip) clear();
+      		});
       	});
+      	tip.addEventListener('mouseleave', clear);
       })();
     </script>
   </body>

@@ -55,6 +55,14 @@
 	.versio {
 		display: none;
 	}
+	.interaction-hint { display: none; }
+	.legenda {
+		margin: 3mm 0;
+		padding: 2mm 3mm;
+		font-size: 8.5pt;
+		break-inside: avoid;
+	}
+	.legenda h2 { font-size: 11pt; }
 	caption,
 	.paradigma caption {
 		padding-bottom: 2mm;

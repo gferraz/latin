@@ -353,6 +353,25 @@ class DeclinationesTest < Minitest::Test
     assert_raises(ArgumentError) { render_page(layout: :bogus) }
   end
 
+  def test_learning_legend_and_analyses_in_both_layouts
+    %i[desktop mobile].each do |layout|
+      html = page(mode: :inlined, layout: layout)
+      assert_includes html, 'Como ler a tabela'
+      assert_includes html, 'Genitivo em vermelho:'
+      assert_includes html, 'genitivo singular distinguem as cinco declinações'
+      assert_includes html, 'I -ae; II -ī; III -is; IV -ūs; V -ēī / -eī'
+      assert_includes html, 'data-analysis="genitivus · singularis · decl. II · m. / f. / n."'
+      assert_includes html, 'data-analysis="genitivus · singularis · decl. V · f."'
+      cells = html.scan(/<td\b[^>]*data-desinentiae[^>]*>/)
+      refute_empty cells
+      assert cells.all? { |cell| cell.include?('data-analysis=') && cell.include?('tabindex="0"') }
+      if layout == :desktop
+        assert_includes html, 'data-analysis="nominativus / vocativus · pluralis · decl. I · m. / f."'
+        assert_includes html, 'data-analysis="dativus / ablativus · pluralis · decl. II · m. / f. / n."'
+      end
+    end
+  end
+
   def test_render_command_produces_a_portable_preview_from_another_directory
     script = File.expand_path('../render.rb', __dir__)
     html, errors, status = Open3.capture3(RbConfig.ruby, script, chdir: Dir.tmpdir)
