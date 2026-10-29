@@ -180,6 +180,13 @@ class Declinationes
     end.freeze
   end
 
+  def notae_per_declinationem
+    @notae_per_declinationem ||= self.class.deep_freeze(
+      sort_notae.group_by { |nota| nota[:declinatio] }
+        .transform_values { |notae| notae.map { |nota| nota[:text] } }
+    )
+  end
+
   def columnae
     DECLINATIONES.size * GENERA.size
   end

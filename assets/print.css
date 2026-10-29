@@ -83,11 +83,18 @@
 		padding: 2mm 3mm 0;
 		border-top: 3px double var(--gold);
 		font-size: 9pt;
-		break-inside: avoid;
 	}
 	.notae h2 {
 		margin-bottom: 1.5mm;
 		font-size: 11pt;
+	}
+	.notae h3 {
+		margin: 2mm 0 1mm;
+		font-size: 10pt;
+		break-after: avoid;
+	}
+	.notae-declinatio {
+		break-inside: avoid;
 	}
 	.notae li::marker {
 		color: var(--accent);

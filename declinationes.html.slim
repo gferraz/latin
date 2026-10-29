@@ -124,12 +124,15 @@ html lang="la"
                         == format_endings.call(tabula, desinentiae[:n])
                     - else
                       td
-    - unless tabula.notae.empty?
+    - unless tabula.notae_per_declinationem.empty?
       .notae
         h2 Notae
-        ol
-          - tabula.notae.each do |nota|
-            li == nota
+        - tabula.notae_per_declinationem.each do |declinatio, notae|
+          section.notae-declinatio
+            h3 = "Declinatio #{roman.call(declinatio)}"
+            ul
+              - notae.each do |nota|
+                li == nota
     - if mode == :linked
       script src="#{asset_prefix}/desinentiae.js"
     - else

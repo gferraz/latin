@@ -84,6 +84,27 @@ class DeclinationesTest < Minitest::Test
     assert_equal Declinationes::NOTAE.size, @tabula.notae.size
   end
 
+  def test_notes_are_grouped_by_declension_in_both_layouts
+    groups = @tabula.notae_per_declinationem
+    assert_equal [2, 3, 4, 5], groups.keys
+    assert_equal [4, 4, 1, 1], groups.values.map(&:size)
+    assert groups.frozen?
+    assert groups.values.all?(&:frozen?)
+    assert groups.values.flatten.all?(&:frozen?)
+    assert_equal @tabula.notae,
+                 groups.flat_map { |declinatio, notes| notes.map { |note| "Decl. #{@tabula.numerus_romanus(declinatio)} — #{note}" } }
+
+    %i[desktop mobile].each do |layout|
+      html = page(mode: :inlined, layout: layout)
+      notes = html[html.index('<div class="notae">')..]
+      assert_equal %w[II III IV V], notes.scan(%r{<h3>\s*Declinatio (\w+)\s*</h3>}).flatten
+      assert_equal 4, notes.scan('<section class="notae-declinatio">').size
+      assert_equal 10, notes.scan('<li>').size
+      refute_includes notes, '<ol>'
+      refute_match %r{<li>\s*Decl\.}, notes
+    end
+  end
+
   def test_fifth_declension_note_covers_plural_paradigms_and_dies_gender
     nota = @tabula.notae.find { |text| text.start_with?('Decl. V —') }
 
@@ -138,7 +159,7 @@ class DeclinationesTest < Minitest::Test
     assert_includes notas, '<em>puer</em>',  'puer not italicised'
     assert_includes notas, '<em>domus</em>', 'domus not italicised'
     refute_match %r{<em>-\w+</em>}, notas, 'endings should not be italicised'
-    assert_match %r{<li>\s*Decl\. II — .*?<em>puer</em>.*?</li>}m, render
+    assert_match %r{<li>\s*voc\. sg\. — .*?<em>puer</em>.*?</li>}m, render
   end
 
   def test_notae_sorted
@@ -184,7 +205,7 @@ class DeclinationesTest < Minitest::Test
     assert_match %r{>\s*IV\s*</th>}, html
     assert_match %r{>\s*V\s*</th>}, html
     assert_includes html, '<div class="notae">'
-    assert_includes html, '<ol>'
+    assert_includes html, '<ul>'
     assert_includes html, 'tbody td {'
     assert_match %r{<td class="sep" colspan="3"[^>]*>\s*-ī\s*</td>}, html
     assert_match %r{<td class="sep" colspan="2"[^>]*>\s*-e / -ī\s*</td>}, html
