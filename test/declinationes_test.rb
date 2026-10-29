@@ -31,6 +31,36 @@ class DeclinationesTest < Minitest::Test
     assert_equal({}, @tabula.desinentiae(:vocativus, :singularis, 3))
   end
 
+  def test_empty_cell_meanings_distinguish_variable_forms_references_and_genders
+    assert_equal :variabilis, @tabula.indicium_cellae(:nominativus, :singularis, 3, :m)
+    assert_equal :nominativus, @tabula.indicium_cellae(:vocativus, :singularis, 3, :m)
+    assert_equal :nominativus, @tabula.indicium_cellae(:accusativus, :singularis, 3, :n)
+    assert_equal :non_applicatur, @tabula.indicium_cellae(:nominativus, :singularis, 1, :n)
+    assert_equal :non_applicatur, @tabula.indicium_cellae(:genitivus, :pluralis, 5, :n)
+    assert_equal :non_representata, @tabula.indicium_cellae(:genitivus, :singularis, 2, :m)
+    assert_raises(ArgumentError) { @tabula.indicium_cellae(:bogus, :singularis, 3, :m) }
+    assert_raises(ArgumentError) { @tabula.indicium_cellae(:nominativus, :singularis, 3, :bogus) }
+  end
+
+  def test_both_layouts_label_irregular_forms_and_leave_fifth_declension_exceptions_to_notes
+    %i[desktop mobile].each do |layout|
+      html = page(mode: :inlined, layout: layout)
+      cells = html.scan(/<td\b[^>]*>.*?<\/td>/m)
+      refute_empty cells
+      empty_cells = cells.select { |cell| cell.match?(%r{<td\b[^>]*>\s*</td>}) }
+      assert_equal(layout == :desktop ? 10 : 12, empty_cells.size)
+      markers = cells.select { |cell| cell.include?('class="cell-marker"') }
+      refute_empty markers
+      assert markers.all? { |cell| !cell.include?('data-desinentiae=') }
+      ['variável', '= nom.', '—'].each do |label|
+        assert markers.any? { |cell| cell.include?(">#{label}</span>") }, "missing #{label} in #{layout}"
+      end
+      refute_includes html, '= f.'
+      assert_includes html, '<em>merīdiēs</em>'
+      assert_match %r{data-analysis="accusativus · singularis · decl\. III · m\. / f\."[^>]*>\s*-em}, html
+    end
+  end
+
   def test_every_combination_returns_a_hash_never_nil
     @tabula.casus.each do |casus|
       @tabula.numeri.each do |numerus|

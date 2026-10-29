@@ -143,7 +143,8 @@ class Declinationes
             "na poesia: <em>deum</em> por <em>deōrum</em>, <em>virum</em> por " \
             "<em>virōrum</em>; -ium não é a regra dos nomes em -ius/-ium." },
     { declinatio: 3, genus: nil, casus: nil, numero: 1,
-      text: "nom./voc./acc. sg. apresentam desinências variáveis; daí as células vazias." },
+      text: "nom. sg. tem formas variáveis conforme o substantivo; o voc. sg. e o " \
+            "acc. sg. neutro são iguais ao nominativo do mesmo substantivo." },
     { declinatio: 3, genus: nil, casus: :genitivus, numero: 1,
       text: "gen. pl. — os temas em -i fazem -ium, além de -um: <em>cīvium</em> " \
             "(<em>cīvis</em>), <em>marīum</em> (<em>mare</em>); a tabela mostra apenas -um." },
@@ -189,6 +190,22 @@ class Declinationes
 
   def columnae
     DECLINATIONES.size * GENERA.size
+  end
+
+  # Meaning of cells without a listed ending in the general paradigm.
+  def indicium_cellae(casus, numerus, declinatio, genus)
+    validate!(casus, CASUS, 'case')
+    validate!(numerus, NUMERI, 'number')
+    validate!(declinatio, DECLINATIONES, 'declension')
+    validate!(genus, GENERA, 'gender')
+
+    if declinatio == 3 && numerus == :singularis
+      return :variabilis if casus == :nominativus
+      return :nominativus if casus == :vocativus || (casus == :accusativus && genus == :n)
+    end
+    return :non_applicatur if [1, 5].include?(declinatio) && genus == :n
+
+    :non_representata
   end
 
   def desinentiae(casus, numerus, declinatio)

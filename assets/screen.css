@@ -186,6 +186,11 @@ td[data-desinentiae]:focus-visible {
 .sep {
 	border-left: 2px solid var(--separator);
 }
+.cell-marker {
+	font-size: 0.85em;
+	font-style: italic;
+	white-space: nowrap;
+}
 tbody td {
 	border-left: 1px solid var(--rule);
 	padding-left: 1em;
