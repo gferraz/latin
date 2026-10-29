@@ -130,11 +130,15 @@ class Declinationes
       text: "voc. sg. — os nomes em -ius fazem -ī: <em>fīlius</em> → <em>fīlī</em> " \
             "(não *<em>fīlie</em>)." },
     { declinatio: 2, genus: :m, casus: :genitivus, numero: 1,
-      text: "gen. sg. — os nomes em -ius fazem -ī, não -iī: <em>fīlius</em> → <em>fīlī</em>, " \
-            "<em>genius</em> → <em>genī</em>; a tabela mostra apenas -ī." },
+      text: "gen. sg. — os nomes em -ius/-ium têm formas contraídas em -ī, usuais antes " \
+            "da época de Augusto: <em>fīlius</em> → <em>fīlī</em>, <em>ingenium</em> → " \
+            "<em>ingenī</em>. As formas em -iī também ocorrem, sobretudo a partir dessa época " \
+            "(<em>fīliī</em>, <em>ingeniī</em>); a tabela mostra a desinência -ī." },
     { declinatio: 2, genus: :m, casus: :genitivus, numero: 2,
-      text: "gen. pl. — os nomes em -ius/-ium fazem -ium, não -iōrum: <em>fīlius</em> → " \
-            "<em>fīlium</em>, <em>Dēlius</em> → <em>Dēlium</em>; a tabela mostra apenas -ōrum." },
+      text: "gen. pl. — a desinência regular é -ōrum: <em>fīlius</em> → <em>fīliōrum</em>, " \
+            "<em>ingenium</em> → <em>ingeniōrum</em>. Alguns nomes admitem -um, sobretudo " \
+            "na poesia: <em>deum</em> por <em>deōrum</em>, <em>virum</em> por " \
+            "<em>virōrum</em>; -ium não é a regra dos nomes em -ius/-ium." },
     { declinatio: 3, genus: nil, casus: nil, numero: 1,
       text: "nom./voc./acc. sg. apresentam desinências variáveis; daí as células vazias." },
     { declinatio: 3, genus: nil, casus: :genitivus, numero: 1,

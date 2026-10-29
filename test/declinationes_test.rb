@@ -81,13 +81,19 @@ class DeclinationesTest < Minitest::Test
     assert_includes notas, '-im',  'acc. sg. i-stem (-im) not documented'
   end
 
-  # The second and fourth declensions have their own gaps: -ius nouns make
-  # gen. sg. -ī and gen. pl. -ium, and domus mixes the 4th and 2nd declensions.
+  # Distinguish historical singular contraction from exceptional plural forms.
   def test_notae_document_second_and_fourth_declension_gaps
     notas = @tabula.notae.join(' ')
 
-    assert_includes notas, 'genī',    'gen. sg. -ius (-ī, not -iī) not documented'
-    assert_includes notas, 'fīlium',  'gen. pl. -ius/-ium (-ium) not documented'
+    singular = @tabula.notae.find { |nota| nota.start_with?('Decl. II — gen. sg.') }
+    plural = @tabula.notae.find { |nota| nota.start_with?('Decl. II — gen. pl.') }
+    assert_includes singular, '<em>fīlī</em>'
+    assert_includes singular, '<em>fīliī</em>'
+    assert_includes singular, 'época de Augusto'
+    assert_includes plural, '<em>fīliōrum</em>'
+    assert_includes plural, '<em>ingeniōrum</em>'
+    assert_includes plural, '<em>deum</em>'
+    refute_includes plural, '<em>fīlium</em>'
     assert_includes notas, 'domōrum', 'domus mixed declension not documented'
   end
 
