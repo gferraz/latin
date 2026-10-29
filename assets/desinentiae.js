@@ -6,23 +6,19 @@
 	const MATCH_CLASS = "desinentia-match";
 	const TIP_CLASS = "desinentia-tip";
 
-	function normalizar(desinencia) {
+	function normalize(desinencia) {
 		return desinencia.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 	}
 
 	function desinentiae(cell) {
 		return new Set(
-			(cell.dataset.desinentiae || "").split(/\s+/).filter(Boolean),
+			(cell.dataset.desinentiae || "").split(/\s+/).filter(Boolean).map(normalize),
 		);
-	}
-
-	function chave(desinencia) {
-		return normalizar(desinencia);
 	}
 
 	function sharesEnding(a, b) {
 		for (const ending of a) {
-			if (b.has(chave(ending))) return true;
+			if (b.has(ending)) return true;
 		}
 		return false;
 	}
@@ -30,8 +26,7 @@
 	const counts = {};
 	document.querySelectorAll(CELL_SELECTOR).forEach((cell) => {
 		for (const ending of desinentiae(cell)) {
-			const c = chave(ending);
-			counts[c] = (counts[c] || 0) + 1;
+			counts[ending] = (counts[ending] || 0) + 1;
 		}
 	});
 
@@ -64,8 +59,7 @@
 
 		const parts = [];
 		for (const ending of reference) {
-			const c = chave(ending);
-			parts.push(`-${normalizar(ending)}: ${counts[c] || 0}x`);
+			parts.push(`-${ending}: ${counts[ending] || 0}x`);
 		}
 		tip.textContent = parts.join(" • ");
 		tip.style.display = "block";
