@@ -324,8 +324,8 @@ class DeclinationesTest < Minitest::Test
     mobile = page(mode: :inlined, layout: :mobile)
     desktop = page(mode: :inlined)
 
-    assert_includes mobile, '.paradigma h2 {'
-    refute_includes desktop, '.paradigma h2 {'
+    assert_includes mobile, 'max-width: 34rem;'
+    refute_includes desktop, 'max-width: 34rem;'
   end
 
   def test_linked_mobile_page_points_at_its_stylesheet

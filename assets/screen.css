@@ -165,7 +165,7 @@ tbody td {
 	border-left: 1px solid var(--rule);
 	padding-left: 1em;
 }
-tr.genitivus {
+tbody tr.genitivus {
 	background: #f6ebe2;
 }
 tr.genitivus th,

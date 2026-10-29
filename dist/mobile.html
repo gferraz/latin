@@ -175,7 +175,7 @@
       	border-left: 1px solid var(--rule);
       	padding-left: 1em;
       }
-      tr.genitivus {
+      tbody tr.genitivus {
       	background: #f6ebe2;
       }
       tr.genitivus th,
@@ -284,28 +284,30 @@
       }
       @media print {
       	@page {
+      		size: A4 landscape;
       		margin: 12mm;
       	}
-      	.vine {
+      	/* Preserve the shared parchment palette instead of the browser's ink-saving
+      	   substitutions. The print dialog can still override background printing. */
+      	body {
+      		-webkit-print-color-adjust: exact;
+      		print-color-adjust: exact;
+      	}
+      	.vine,
+      	.mobile .vine {
       		display: block;
       		width: 22mm;
       		height: 28mm;
       	}
-      	.frontispiece {
+      	.frontispiece,
+      	.mobile .frontispiece {
       		padding: 2mm 25mm 3mm;
       		break-after: avoid;
       	}
-      	h1 {
+      	h1,
+      	.mobile h1 {
       		font-size: 23pt;
       		letter-spacing: 0.08em;
-      	}
-      	h1::after {
-      		width: 38mm;
-      		border-bottom: 3px double var(--gold);
-      	}
-      	.initial {
-      		background: transparent;
-      		text-shadow: none;
       	}
       	.desinentia-match {
       		background: transparent;
@@ -314,16 +316,17 @@
       	.desinentia-tip {
       		display: none !important;
       	}
-      	body {
+      	body,
+      	body.mobile {
       		max-width: none;
       		margin: 0;
       		padding: 5mm 6mm;
-      		border: 3px double var(--gold);
-      		background: #fff;
+      		background: var(--parchment);
       		font-size: 10pt;
-      		line-height: 1.3;
+      		line-height: 1.45;
       	}
-      	table {
+      	table,
+      	.paradigma table {
       		width: 100%;
       		margin: 4mm auto;
       		font-size: 9pt;
@@ -337,17 +340,10 @@
       	.versio {
       		display: none;
       	}
-      	caption {
+      	caption,
+      	.paradigma caption {
       		padding-bottom: 2mm;
-      		color: var(--accent);
       		font-size: 13pt;
-      	}
-      	caption::before,
-      	caption::after {
-      		content: "✦";
-      		margin: 0 3mm;
-      		color: var(--gold);
-      		font-size: 9pt;
       	}
       	th,
       	td {
@@ -364,13 +360,13 @@
       	}
       	.notae {
       		margin-top: 4mm;
-      		padding: 2mm 3mm 0;
-      		border-top: 3px double var(--gold);
+      		padding-top: 3mm;
       		font-size: 9pt;
       	}
       	.notae h2 {
       		margin-bottom: 1.5mm;
-      		font-size: 11pt;
+      		font-size: 13pt;
+      		break-after: avoid;
       	}
       	.notae h3 {
       		margin: 2mm 0 1mm;
@@ -380,13 +376,20 @@
       	.notae-declinatio {
       		break-inside: avoid;
       	}
-      	.notae li::marker {
-      		color: var(--accent);
+      	.paradigma h2 {
+      		margin: 5mm 0 2mm;
+      		break-after: avoid;
       	}
-      	tbody tr:nth-child(even),
-      	tbody tr:hover,
-      	tr.genitivus {
+      	/* A pointer left over a row must not change the printed colors. */
+      	tbody tr:hover {
       		background: transparent;
+      	}
+      	tbody tr:nth-child(even) {
+      		background: var(--zebra);
+      	}
+      	tbody tr.genitivus,
+      	tbody tr.genitivus:hover {
+      		background: #f6ebe2;
       	}
       }
     </style>
