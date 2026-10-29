@@ -49,6 +49,16 @@ class DeclinationesTest < Minitest::Test
     assert_raises(ArgumentError) { @tabula.desinentiae(:bogus, :bogus, :bogus) }
   end
 
+  def test_declension_validation_uses_the_same_equality_as_hash_lookup
+    [2.0, Rational(2, 1), '2'].each do |declinatio|
+      error = assert_raises(ArgumentError) do
+        @tabula.desinentiae(:genitivus, :singularis, declinatio)
+      end
+      assert_includes error.message, 'unknown declension:'
+    end
+    assert_equal({ mf: %w[ī], n: %w[ī] }, @tabula.desinentiae(:genitivus, :singularis, 2))
+  end
+
   def test_desinentiae_are_deeply_frozen
     assert Declinationes::DESINENTIAE.frozen?
     assert Declinationes::DESINENTIAE[:nominativus].frozen?

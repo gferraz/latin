@@ -231,7 +231,7 @@ class Declinationes
   end
 
   def validate!(value, allowed, label)
-    return if allowed.include?(value)
+    return if allowed.any? { |candidate| candidate.eql?(value) }
     raise ArgumentError, "unknown #{label}: #{value.inspect} (valid: #{allowed.inspect})"
   end
 end
