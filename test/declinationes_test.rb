@@ -285,8 +285,8 @@ class DeclinationesTest < Minitest::Test
       assert viewport, 'page should declare a viewport'
       assert_includes viewport, 'content="width=device-width, initial-scale=1"'
     end
-    assert_includes desktop, '<a href="mobile.html">Versão para celular</a>'
-    assert_includes mobile, '<a href="declinationes.html">Versão completa</a>'
+    assert_includes desktop, '<a href="mobile.html">Forma mobilis</a>'
+    assert_includes mobile, '<a href="declinationes.html">Forma plena</a>'
   end
 
   def test_unknown_layout_raises
