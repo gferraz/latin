@@ -22,7 +22,7 @@ Run commands from the repository root. Use Ruby with support for endless method 
 
 - `gem install slim minitest` installs the required gems. The repository currently has no Gemfile or dependency lockfile.
 - `bin/build` regenerates both `build/declinationes.html` (linked) and `dist/declinationes.html` (inlined). It is a thin shell wrapper around `build.rb`, and works from any directory; `ruby build.rb` is equivalent.
-- `ruby render.rb > /tmp/latin-preview.html` generates a linked preview to inspect in a browser.
+- `ruby render.rb > /tmp/latin-preview.html` generates an inlined preview to inspect in a browser; CSS and JavaScript work regardless of where it is saved.
 - `ruby test/declinationes_test.rb` runs the complete current test suite.
 - `ruby -c latin.rb`, `ruby -c page.rb`, `ruby -c render.rb`, and `ruby -c build.rb` check Ruby syntax.
 

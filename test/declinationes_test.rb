@@ -1,5 +1,8 @@
 require 'minitest/autorun'
 require 'slim'
+require 'open3'
+require 'rbconfig'
+require 'tmpdir'
 
 require_relative '../latin'
 require_relative '../page'
@@ -297,6 +300,15 @@ class DeclinationesTest < Minitest::Test
 
   def test_unknown_layout_raises
     assert_raises(ArgumentError) { render_page(layout: :bogus) }
+  end
+
+  def test_render_command_produces_a_portable_preview_from_another_directory
+    script = File.expand_path('../render.rb', __dir__)
+    html, errors, status = Open3.capture3(RbConfig.ruby, script, chdir: Dir.tmpdir)
+
+    assert status.success?, errors
+    assert_equal render_page(mode: :inlined), html
+    refute_match %r{(?:href|src)="(?:\.?\.?/)*assets/}, html
   end
 
   private

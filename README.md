@@ -30,7 +30,7 @@ That produces two files from the same template:
 For a one-off preview to stdout:
 
 ```sh
-ruby render.rb > /tmp/p.html   # links to assets/, same as build/
+ruby render.rb > /tmp/p.html   # embeds CSS and JS; can be saved anywhere
 ```
 
 Both scripts work from any working directory.
