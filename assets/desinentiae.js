@@ -1,10 +1,14 @@
 // Highlight every cell that shares an ending with the hovered one and show
-// how many times each ending appears in the table.
+// how many times each ending appears in the table. Detail lines are ordered by
+// case, then declension, then number.
 // Ignore macrons (āēīōū) when comparing endings.
 (() => {
 	const CELL_SELECTOR = "td[data-desinentiae]";
 	const MATCH_CLASS = "desinentia-match";
 	const TIP_CLASS = "desinentia-tip";
+	const CASUS_ORDER = ["nominativus", "vocativus", "accusativus", "genitivus", "dativus", "ablativus"];
+	const DECLINATIO_ORDER = ["I", "II", "III", "IV", "V"];
+	const NUMERUS_ORDER = ["singularis", "pluralis"];
 
 	function normalize(desinencia) {
 		return desinencia.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -21,6 +25,28 @@
 			if (b.has(ending)) return true;
 		}
 		return false;
+	}
+
+	function analysisOf(cell) {
+		const [casus = "", numerus = "", declinatio = ""] = (cell.dataset.analysis || "").split(" · ");
+		return {
+			casus: casus.split(" / ")[0],
+			numerus,
+			declinatio: declinatio.replace("decl. ", ""),
+		};
+	}
+
+	function rank(values, value) {
+		const index = values.indexOf(value);
+		return index === -1 ? values.length : index;
+	}
+
+	function compareCells(a, b) {
+		const left = analysisOf(a);
+		const right = analysisOf(b);
+		return rank(CASUS_ORDER, left.casus) - rank(CASUS_ORDER, right.casus)
+			|| rank(DECLINATIO_ORDER, left.declinatio) - rank(DECLINATIO_ORDER, right.declinatio)
+			|| rank(NUMERUS_ORDER, left.numerus) - rank(NUMERUS_ORDER, right.numerus);
 	}
 
 	const counts = {};
@@ -58,13 +84,15 @@
 		const parts = [];
 		for (const ending of reference) {
 			parts.push(`-${ending}: ${counts[ending] || 0}x`);
-			document.querySelectorAll(CELL_SELECTOR).forEach((cell) => {
-				if (!desinentiae(cell).has(ending) || !cell.dataset.analysis) return;
-				const forms = cell.dataset.desinentiae.split(/\s+/)
-					.filter((form) => normalize(form) === ending)
-					.map((form) => `-${form}`).join(' / ');
-				parts.push(`${forms} — ${cell.dataset.analysis}`);
-			});
+		}
+		const cells = Array.from(document.querySelectorAll(CELL_SELECTOR))
+			.filter((cell) => cell.dataset.analysis && sharesEnding(reference, desinentiae(cell)))
+			.sort(compareCells);
+		for (const cell of cells) {
+			const forms = cell.dataset.desinentiae.split(/\s+/)
+				.filter((form) => reference.has(normalize(form)))
+				.map((form) => `-${form}`).join(' / ');
+			parts.push(`${forms} — ${cell.dataset.analysis}`);
 		}
 		tip.textContent = parts.join("\n");
 		tip.style.display = "block";

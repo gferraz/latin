@@ -211,9 +211,6 @@ tbody td {
 	border-left: 1px solid var(--rule);
 	padding-left: 1em;
 }
-tbody tr.genitivus {
-	background: #f6ebe2;
-}
 tr.genitivus th,
 tr.genitivus td {
 	color: var(--accent);

@@ -20,7 +20,7 @@ html lang="la"
     - format_endings = ->(_tabula, desinentiae) { desinentiae.map { |desinentia| render_counts[desinentia] == 1 ? "<strong>-#{desinentia}</strong>" : "-#{desinentia}" }.join(" / ") }
     - data_desinentiae = ->(desinentiae) { desinentiae.join(" ") }
     - roman = ->(n) { tabula.numerus_romanus(n) }
-    - indicia = { variabilis: ['variável', 'A forma varia conforme o substantivo.'], nominativus: ['= nom.', 'Forma igual à do nominativo do mesmo substantivo e número.'], non_applicatur: ['—', 'Este gênero não ocorre no paradigma regular desta declinação.'], non_representata: ['…', 'Forma não representada nesta tabela.'] }
+    - indicia = { variabilis: ['variável', 'A forma varia conforme o substantivo.'], nominativus: ['= nom.', 'Forma igual à do nominativo do mesmo substantivo e número.'], non_applicatur: [nil, 'Este gênero não ocorre no paradigma regular desta declinação.'], non_representata: ['…', 'Forma não representada nesta tabela.'] }
     - analysis = ->(casus, numerus, declinatio, genera) { cases = layout == :desktop && numerus == :pluralis ? { nominativus: 'nominativus / vocativus', dativus: 'dativus / ablativus' }.fetch(casus, casus.to_s) : casus.to_s; "#{cases} · #{numerus} · decl. #{roman.call(declinatio)} · #{genera}" }
     header.frontispiece
       - %w[vine-left vine-right].each do |side|
@@ -59,7 +59,8 @@ html lang="la"
                     - if desinentiae.empty?
                       td colspan=3
                         - label, explanation = indicia.fetch(tabula.indicium_cellae(casus, numerus, declinatio, :m))
-                        span.cell-marker lang="pt-BR" title=explanation aria-label=explanation = label
+                        - if label
+                          span.cell-marker lang="pt-BR" title=explanation aria-label=explanation = label
                     - elsif desinentiae[:mf] && desinentiae[:mf] == desinentiae[:n]
                       td colspan=3 data-desinentiae=data_desinentiae.call(desinentiae[:mf]) data-analysis=analysis.call(casus, numerus, declinatio, 'm. / f. / n.') tabindex="0"
                         == format_endings.call(tabula, desinentiae[:mf])
@@ -80,7 +81,8 @@ html lang="la"
                       - else
                         td
                           - label, explanation = indicia.fetch(tabula.indicium_cellae(casus, numerus, declinatio, :n))
-                          span.cell-marker lang="pt-BR" title=explanation aria-label=explanation = label
+                          - if label
+                            span.cell-marker lang="pt-BR" title=explanation aria-label=explanation = label
     - else
       - tabula.numeri.each do |numerus|
         .tabela
@@ -112,7 +114,8 @@ html lang="la"
                     - if desinentiae.empty?
                       td colspan=3 class=separatio
                         - label, explanation = indicia.fetch(tabula.indicium_cellae(casus, numerus, declinatio, :m))
-                        span.cell-marker lang="pt-BR" title=explanation aria-label=explanation = label
+                        - if label
+                          span.cell-marker lang="pt-BR" title=explanation aria-label=explanation = label
                       - next
                     - if desinentiae[:mf]
                       - if desinentiae[:mf] == desinentiae[:n]
@@ -135,7 +138,8 @@ html lang="la"
                     - else
                       td
                         - label, explanation = indicia.fetch(tabula.indicium_cellae(casus, numerus, declinatio, :n))
-                        span.cell-marker lang="pt-BR" title=explanation aria-label=explanation = label
+                        - if label
+                          span.cell-marker lang="pt-BR" title=explanation aria-label=explanation = label
     - unless tabula.notae_per_declinationem.empty?
       .notae
         h2 Notae
@@ -149,7 +153,7 @@ html lang="la"
       h2 id="legenda-titulo" Como ler a tabela
       p
         strong Células sem desinência:
-        |  variável = depende do substantivo; = nom. = mesma forma do nominativo; — = gênero ausente no paradigma regular.
+        |  variável = depende do substantivo; = nom. = mesma forma do nominativo; célula em branco = gênero ausente no paradigma regular.
       p
         strong Genitivo em vermelho:
         |  As desinências do genitivo singular distinguem as cinco declinações: I -ae; II -ī; III -is; IV -ūs; V -ēī / -eī. Use essa forma para identificar a declinação do substantivo.

@@ -110,8 +110,4 @@
 	tbody tr:nth-child(even) {
 		background: var(--zebra);
 	}
-	tbody tr.genitivus,
-	tbody tr.genitivus:hover {
-		background: #f6ebe2;
-	}
 }

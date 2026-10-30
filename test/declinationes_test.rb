@@ -48,13 +48,15 @@ class DeclinationesTest < Minitest::Test
       cells = html.scan(/<td\b[^>]*>.*?<\/td>/m)
       refute_empty cells
       empty_cells = cells.select { |cell| cell.match?(%r{<td\b[^>]*>\s*</td>}) }
-      assert_equal(layout == :desktop ? 10 : 12, empty_cells.size)
+      assert_equal(layout == :desktop ? 30 : 36, empty_cells.size)
       markers = cells.select { |cell| cell.include?('class="cell-marker"') }
       refute_empty markers
       assert markers.all? { |cell| !cell.include?('data-desinentiae=') }
-      ['variável', '= nom.', '—'].each do |label|
+      refute markers.any? { |cell| cell.include?('>—</span>') }, "missing genders must be blank in #{layout}"
+      ['variável', '= nom.'].each do |label|
         assert markers.any? { |cell| cell.include?(">#{label}</span>") }, "missing #{label} in #{layout}"
       end
+      assert_includes html, 'célula em branco = gênero ausente no paradigma regular.'
       refute_includes html, '= f.'
       assert_includes html, '<em>merīdiēs</em>'
       assert_match %r{data-analysis="accusativus · singularis · decl\. III · m\. / f\."[^>]*>\s*-em}, html
