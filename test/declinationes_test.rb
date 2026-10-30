@@ -377,8 +377,12 @@ class DeclinationesTest < Minitest::Test
       assert viewport, 'page should declare a viewport'
       assert_includes viewport, 'content="width=device-width, initial-scale=1"'
     end
-    assert_includes desktop, '<a href="mobile.html">Forma mobilis</a>'
-    assert_includes mobile, '<a href="declinationes.html">Forma plena</a>'
+    assert_match %r{<a[^>]*href="mobile.html"[^>]*>Forma mobilis</a>}, desktop
+    assert_match %r{<a[^>]*href="declinationes.html"[^>]*>Forma plena</a>}, mobile
+    assert_match %r{<span[^>]*aria-current="page"[^>]*>Forma plena</span>}, desktop
+    assert_match %r{<span[^>]*aria-current="page"[^>]*>Forma mobilis</span>}, mobile
+    assert_equal 1, desktop.scan(/<span[^>]*aria-current="page"/).size
+    assert_equal 1, mobile.scan(/<span[^>]*aria-current="page"/).size
   end
 
   def test_unknown_layout_raises

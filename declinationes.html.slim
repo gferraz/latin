@@ -34,11 +34,13 @@ html lang="la"
       h1
         span.initial D
         | ēclīnātiōnēs Latīnae
-    p.versio
-      - if layout == :mobile
-        a href="declinationes.html" Forma plena
+    nav.versio aria-label="Forma da página"
+      - if layout == :desktop
+        span.versio-opcao aria-current="page" Forma plena
+        a.versio-opcao href="mobile.html" Forma mobilis
       - else
-        a href="mobile.html" Forma mobilis
+        a.versio-opcao href="declinationes.html" Forma plena
+        span.versio-opcao aria-current="page" Forma mobilis
     - if layout == :mobile
       - tabula.declinationes.each do |declinatio|
         section.paradigma

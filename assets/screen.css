@@ -258,18 +258,34 @@ thead tr:nth-child(2) th:not(:first-child) {
 	font-style: italic;
 }
 .versio {
-	margin-top: 0;
-	margin-bottom: 2rem;
-	text-align: center;
+	display: flex;
+	width: fit-content;
+	margin: 0 auto 2rem;
+	border: 1px solid var(--gold);
+	background: linear-gradient(180deg, #f7efe0 0%, #eee2c5 100%);
+	box-shadow: 1px 1px 0 rgba(138, 43, 30, 0.15);
 }
-.versio a {
+.versio-opcao {
 	display: inline-block;
 	padding: 0.4rem 1rem;
 	color: var(--accent);
 	text-decoration: none;
 	font-variant: small-caps;
 	letter-spacing: 0.08em;
-	border: 1px solid var(--gold);
-	background: linear-gradient(180deg, #f7efe0 0%, #eee2c5 100%);
-	box-shadow: 1px 1px 0 rgba(138, 43, 30, 0.15);
+}
+.versio-opcao + .versio-opcao {
+	border-left: 1px solid var(--gold);
+}
+.versio-opcao[aria-current="page"] {
+	background: #e7d7b4;
+	box-shadow: inset 0 1px 3px rgba(42, 33, 24, 0.22);
+	font-weight: 700;
+}
+.versio-opcao:not([aria-current="page"]):hover,
+.versio-opcao:not([aria-current="page"]):focus-visible {
+	background: #f3e8d0;
+}
+.versio-opcao:focus-visible {
+	outline: 2px solid var(--accent);
+	outline-offset: 2px;
 }
