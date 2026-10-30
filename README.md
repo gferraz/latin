@@ -1,6 +1,10 @@
 # Latin declension tables
 
-[View the tables on GitHub Pages](https://gferraz.github.io/latin/).
+<p align="center">
+  <a href="https://gferraz.github.io/latin/">
+    <img src="https://img.shields.io/badge/View_the_tables-GitHub_Pages-8a2b1e?style=for-the-badge&labelColor=2a2118" alt="View the tables on GitHub Pages">
+  </a>
+</p>
 
 Renders a static HTML table of Latin noun declensions — all five declensions,
 six cases, three genders, singular and plural — from a single Ruby data model.

@@ -33,12 +33,16 @@ jobs:
       - name: Build
         run: ruby build.rb
 
-      # Pages serves index.html at the site root; the tracked artifact keeps
-      # its descriptive name, so the copy happens only for deployment.
+      # Pages serves index.html at the site root; the tracked artifacts keep
+      # their descriptive names, so the copies happen only for deployment.
+      # Both layouts must ship: the desktop page links to mobile.html, and the
+      # mobile page links back to declinationes.html.
       - name: Prepare site
         run: |
           mkdir -p _site
           cp dist/declinationes.html _site/index.html
+          cp dist/declinationes.html _site/declinationes.html
+          cp dist/mobile.html _site/mobile.html
 
       - uses: actions/upload-pages-artifact@v3
         with:
