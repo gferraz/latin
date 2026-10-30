@@ -149,7 +149,7 @@ tbody tr:hover {
 	position: fixed;
 	left: 1rem;
 	bottom: 1rem;
-	width: min(19rem, calc(100vw - 2rem));
+	width: min(23rem, calc(100vw - 2rem));
 	max-height: 45vh;
 	overflow-y: auto;
 	display: none;
