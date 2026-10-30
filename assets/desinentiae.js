@@ -111,6 +111,11 @@
 		});
 	});
 
+	const printButton = document.querySelector(".versio-print");
+	if (printButton) {
+		printButton.addEventListener("click", () => window.print());
+	}
+
 	document.querySelectorAll("table").forEach((table) => {
 		table.addEventListener("mouseleave", (event) => {
 			if (event.relatedTarget !== tip) clear();

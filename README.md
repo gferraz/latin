@@ -162,7 +162,8 @@ not determine a noun's analysis. The legend also prints.
 Because the fonts come from Google Fonts, an offline viewer falls back to the
 local serif stack. `assets/print.css` carries the `@media print` block, which
 sets up the landscape page, hides the background tints, and keeps the tables
-from breaking across pages.
+from breaking across pages. Each page also carries a form switch for the two
+layouts and a print option that opens the browser's print dialog.
 
 ## Conventions
 

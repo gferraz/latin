@@ -266,12 +266,17 @@ thead tr:nth-child(2) th:not(:first-child) {
 	box-shadow: 1px 1px 0 rgba(138, 43, 30, 0.15);
 }
 .versio-opcao {
+	appearance: none;
 	display: inline-block;
 	padding: 0.4rem 1rem;
+	border: 0;
+	background: transparent;
 	color: var(--accent);
-	text-decoration: none;
+	cursor: pointer;
+	font: inherit;
 	font-variant: small-caps;
 	letter-spacing: 0.08em;
+	text-decoration: none;
 }
 .versio-opcao + .versio-opcao {
 	border-left: 1px solid var(--gold);
@@ -279,6 +284,7 @@ thead tr:nth-child(2) th:not(:first-child) {
 .versio-opcao[aria-current="page"] {
 	background: #e7d7b4;
 	box-shadow: inset 0 1px 3px rgba(42, 33, 24, 0.22);
+	cursor: default;
 	font-weight: 700;
 }
 .versio-opcao:not([aria-current="page"]):hover,
@@ -288,4 +294,17 @@ thead tr:nth-child(2) th:not(:first-child) {
 .versio-opcao:focus-visible {
 	outline: 2px solid var(--accent);
 	outline-offset: 2px;
+}
+@media (max-width: 32rem) {
+	.versio {
+		flex-direction: column;
+		width: min(100%, 18rem);
+	}
+	.versio-opcao {
+		text-align: center;
+	}
+	.versio-opcao + .versio-opcao {
+		border-left: 0;
+		border-top: 1px solid var(--gold);
+	}
 }

@@ -276,12 +276,17 @@
       	box-shadow: 1px 1px 0 rgba(138, 43, 30, 0.15);
       }
       .versio-opcao {
+      	appearance: none;
       	display: inline-block;
       	padding: 0.4rem 1rem;
+      	border: 0;
+      	background: transparent;
       	color: var(--accent);
-      	text-decoration: none;
+      	cursor: pointer;
+      	font: inherit;
       	font-variant: small-caps;
       	letter-spacing: 0.08em;
+      	text-decoration: none;
       }
       .versio-opcao + .versio-opcao {
       	border-left: 1px solid var(--gold);
@@ -289,6 +294,7 @@
       .versio-opcao[aria-current="page"] {
       	background: #e7d7b4;
       	box-shadow: inset 0 1px 3px rgba(42, 33, 24, 0.22);
+      	cursor: default;
       	font-weight: 700;
       }
       .versio-opcao:not([aria-current="page"]):hover,
@@ -298,6 +304,19 @@
       .versio-opcao:focus-visible {
       	outline: 2px solid var(--accent);
       	outline-offset: 2px;
+      }
+      @media (max-width: 32rem) {
+      	.versio {
+      		flex-direction: column;
+      		width: min(100%, 18rem);
+      	}
+      	.versio-opcao {
+      		text-align: center;
+      	}
+      	.versio-opcao + .versio-opcao {
+      		border-left: 0;
+      		border-top: 1px solid var(--gold);
+      	}
       }
       @media print {
       	@page {
@@ -422,9 +441,9 @@
         <span class="initial">D</span>ēclīnātiōnēs Latīnae
       </h1>
     </header>
-    <nav aria-label="Forma da página" class="versio">
-      <span aria-current="page" class="versio-opcao">Forma plena</span><a class="versio-opcao" href="mobile.html">Forma mobilis</a>
-    </nav>
+    <div aria-label="Forma da página" class="versio" role="group">
+      <span aria-current="page" class="versio-opcao">Forma plena</span><a class="versio-opcao" href="mobile.html">Forma mobilis</a><button class="versio-opcao versio-print" type="button">Forma imprimenda</button>
+    </div>
     <div class="tabela">
       <table>
         <caption>Singularis</caption>
@@ -1064,6 +1083,11 @@
       			if (event.key === 'Escape') clear();
       		});
       	});
+      
+      	const printButton = document.querySelector(".versio-print");
+      	if (printButton) {
+      		printButton.addEventListener("click", () => window.print());
+      	}
       
       	document.querySelectorAll("table").forEach((table) => {
       		table.addEventListener("mouseleave", (event) => {

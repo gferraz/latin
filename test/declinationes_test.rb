@@ -383,6 +383,10 @@ class DeclinationesTest < Minitest::Test
     assert_match %r{<span[^>]*aria-current="page"[^>]*>Forma mobilis</span>}, mobile
     assert_equal 1, desktop.scan(/<span[^>]*aria-current="page"/).size
     assert_equal 1, mobile.scan(/<span[^>]*aria-current="page"/).size
+    [desktop, mobile].each do |html|
+      assert_match %r{<button[^>]*class="[^"]*versio-print[^"]*"[^>]*>Forma imprimenda</button>}, html
+      assert_includes html, 'window.print()'
+    end
   end
 
   def test_unknown_layout_raises
