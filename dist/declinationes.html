@@ -165,13 +165,29 @@
       	display: none;
       	z-index: 10;
       	pointer-events: auto;
-      	padding: 0.25rem 0.5rem;
-      	background: var(--ink);
-      	color: var(--parchment);
+      	padding: 0.6rem 0.8rem;
+      	background: linear-gradient(180deg, #fdfaf4 0%, #f4ecdd 100%);
+      	color: var(--ink);
+      	font-family: "Cardo", Georgia, "Times New Roman", serif;
       	font-size: 0.85rem;
+      	line-height: 1.4;
+      	border: 1px solid var(--gold);
+      	border-left: 3px solid var(--accent);
       	border-radius: 2px;
       	white-space: pre-line;
-      	box-shadow: 1px 1px 4px rgba(42, 33, 24, 0.25);
+      	box-shadow: 2px 2px 0 rgba(138, 43, 30, 0.12), 4px 5px 14px rgba(42, 33, 24, 0.18);
+      }
+      .desinentia-tip::before {
+      	content: "Desinentiae";
+      	display: block;
+      	margin: 0 0 0.35rem;
+      	padding-bottom: 0.25rem;
+      	border-bottom: 1px solid var(--rule);
+      	color: var(--accent);
+      	font-size: 1rem;
+      	font-variant: small-caps;
+      	letter-spacing: 0.14em;
+      	line-height: 1.2;
       }
       .legenda {
       	margin: 1.5rem 0;
